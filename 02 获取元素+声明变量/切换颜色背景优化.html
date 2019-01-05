@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="keywords" content="声明变量,2019010520:00">
+    <meta name="description" content="作业切换背景颜色,20190104看视频,20190105晚上练习">
+    <title>切换背景颜色优化</title>
+    <style>
+        body{
+            margin: 0;
+        }
+        ul{
+            margin: 0;
+            padding: 0;
+            list-style: none;
+        }
+        .container{
+            width: 520px;
+            margin: 150px auto 0;
+        }
+        #con{
+            float: left;
+            width: 250px;
+            height: 250px;
+            color: #fff;
+            font-size: 18px;
+            font-weight: bold;
+            line-height: 250px;
+            text-align: center;
+            border: 5px solid #ccf;
+        }
+        .lists{
+            float: right;
+            background-color: #fff;
+        }
+        .container::after{
+            content: '';
+            display: block;
+            clear: both;
+        }
+        li{
+            width: 180px;
+            height: 80px;
+            line-height: 80px;
+            text-align: center;
+            margin: 5px 0;
+        }
+        #list1{
+            background-color: #fcf;
+        }
+        #list2{
+            background-color: skyblue;
+        }
+        #list3{
+            background-color: #cfc;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div id="con"></div>
+        <ul class="lists">
+            <li id="list1">少女粉</li>
+            <li id="list2">天空蓝</li>
+            <li id="list3">原谅绿</li>
+        </ul>
+    </div>
+    <script>
+        // 疑问: 变量没有声明为什么不会报错?
+        
+        list1.onclick = function(){
+            con.innerHTML = '嘿呀,少女粉!';
+            con.style.backgroundColor = '#fcf';
+            con.style.border = '5px dotted #eee';
+        }
+
+        list2.onclick = function(){
+            con.innerHTML = '是天空蓝哦~';
+            con.style.backgroundColor = 'skyblue';
+            con.style.border = '5px dashed #eee';
+        }
+
+        list3.onclick = function(){
+            con.innerHTML = '那就原谅绿吧?';
+            con.style.backgroundColor = '#cfc';
+            con.style.border = '5px double #eee';
+        }
+
+        con.onmouseover = function(){
+            con.innerHTML = '啊啊啊,真的要烦死了!!!';
+            con.style.backgroundColor = '#ccf';
+            con.style.border = '5px solid #ccf';
+        }
+    </script>
+</body>
+</html>

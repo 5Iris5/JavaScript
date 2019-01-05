@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="keywords" content="获取元素,2019010520:00">
+    <meta name="description" content="作业切换背景颜色,20190104看视频,20190105晚上练习">
+    <title>切换背景颜色</title>
+    <style>
+        body{
+            margin: 0;
+        }
+        ul{
+            margin: 0;
+            padding: 0;
+            list-style: none;
+        }
+        .container{
+            width: 520px;
+            margin: 150px auto 0;
+        }
+        #con{
+            float: left;
+            width: 250px;
+            height: 250px;
+            color: #fff;
+            font-size: 18px;
+            font-weight: bold;
+            line-height: 250px;
+            text-align: center;
+            border: 5px solid #ccf;
+        }
+        .lists{
+            float: right;
+            background-color: #fff;
+        }
+        .container::after{
+            content: '';
+            display: block;
+            clear: both;
+        }
+        li{
+            width: 180px;
+            height: 80px;
+            line-height: 80px;
+            text-align: center;
+            margin: 5px 0;
+        }
+        #list1{
+            background-color: #fcf;
+        }
+        #list2{
+            background-color: skyblue;
+        }
+        #list3{
+            background-color: #cfc;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div id="con"></div>
+        <ul class="lists">
+            <li id="list1">少女粉</li>
+            <li id="list2">天空蓝</li>
+            <li id="list3">原谅绿</li>
+        </ul>
+    </div>
+    <script>
+        // 疑问: 为什么class名设置函数不成功? 
+        //      -> getElementByClassName/document.getElementsByClassName('list-item')
+
+        document.getElementById('list1').onclick = function(){
+            document.getElementById('con').innerHTML = '嘿呀,少女粉!';
+            document.getElementById('con').style.backgroundColor = '#fcf';
+            document.getElementById('con').style.border = '5px solid #fcf';
+        }
+        document.getElementById('list2').onclick = function(){
+            document.getElementById('con').innerHTML = '是天空蓝哦~';
+            document.getElementById('con').style.backgroundColor = 'skyblue';
+            document.getElementById('con').style.border = '5px solid skyblue';
+        }
+        document.getElementById('list3').onclick = function(){
+            document.getElementById('con').innerHTML = '那就原谅绿吧?';
+            document.getElementById('con').style.backgroundColor = '#cfc';
+            document.getElementById('con').style.border = '5px solid #cfc';
+        }
+
+        document.getElementById('con').onmouseover = function(){
+            document.getElementById('con').innerHTML = '哎呀呀,真的好烦啊!!!';
+            document.getElementById('con').style.backgroundColor = '#ccf';
+            document.getElementById('con').style.border = '5px solid #ccf';
+        }
+    </script>
+</body>
+</html>
