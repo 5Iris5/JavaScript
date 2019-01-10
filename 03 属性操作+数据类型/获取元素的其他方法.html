@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>获取元素的其他方式</title>
+    <meta name="keywords" content="除ID选择器外获取元素的其他方法,2019011021:40">
+    <meta name="description" content="通过类名,标签,css选择器,唯一的页面标签获取元素节点">
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+            list-style: none;
+        }
+        #container{
+            width: 600px;
+            height: 500px;
+            margin: 150px auto;
+            border: 1px solid #98b4d8;
+        }
+        .tab{
+            float: left;
+            width: 200px;
+            height: 80px;
+            color: #fff;
+            font-size: 20px;
+            font-family: "楷体","楷体_GB2312";
+            text-align: center;
+            line-height: 80px;
+            background-color: rgba(166, 190, 224, 0.418);
+        }
+        .pannel{
+            width: 600px;
+            height: 500px;
+            /* background: url(../images/1.jpg) no-repeat center/100% 100%; */
+        }
+    </style>
+</head>
+<body>
+    <div id="container">
+        <ul class="tabs">
+            <li class="tab" name="qiqi">阳光</li>
+            <li class="tab" name="qiqi">积极</li>
+            <li class="tab" name="qiqi">正面</li>
+        </ul>
+        <div class="pannel"></div>
+    </div>
+    <script>
+        /*
+            1.通过 id名 获取元素节点 -> document.getElementById('container')
+
+            2.通过 class名 获取元素节点 -> document.getElementsByClassName('tab')
+                -> 获取的是一个集合(只有一个元素是这个类名 也是获取一个集合) 类数组(像数组但是不具备数组的方法)
+                -> 事件是绑定在具体元素节点身上的 而不是集合身上 所以通过[下标]选取对应元素节点
+                -> document.getElementsByClassName('tab')[0];
+
+            3.通过 标签 获取元素节点 -> document.getElementsByTagName('li') 获取的是一个集合 同上
+
+            4. 通过 name属性 获取元素节点 -> document.getElementsByName('qiqi') 获取的是一个集合 同上
+
+            5.通过 CSS选择器 获取元素节点
+                1) -> document.querySelectorAll('.tab') 获取集合 同上
+                2) -> document.querySelector('.tab') 获取集合中第一个满足条件的元素 具体元素节点
+
+            6.通过 唯一的标签 获取元素节点
+                比如: 
+                    1) html -> document.documentElement
+                    2) title -> document.title
+                    3) head -> document.head
+                    4) body -> document.body
+
+            注意: 只有具体元素节点才有事件!!!
+        */
+        let container = document.getElementById('container');
+        console.log(container);
+
+        let tabs = document.getElementsByClassName('tabs');
+        console.log(tabs);
+        
+        let li = document.getElementsByTagName('li');
+        console.log(li);
+        console.log(li[2]);
+
+        let qiqi = document.getElementsByName('qiqi');
+        console.log(qiqi);
+        console.log(qiqi[1]);
+
+        let Otab = document.querySelectorAll('.tab');
+        console.log(Otab);
+
+        let tab = document.querySelector('.tab');
+        console.log(tab);
+
+        //  let pannel = document.getElementsByClassName('pannel')[0];
+        //  console.log(pannel);
+
+        li.onmouseover = function(){
+            alert('只有具体元素节点才能绑定事件'); // 无效
+        }
+        li[0].onmouseover = function(){
+            let pannel = document.getElementsByClassName('pannel')[0];
+            pannel.style.background = 'url(../images/1.jpg) no-repeat center/100% 100%'; // 生效了
+        }
+
+
+        // console.log(document.documentElement);
+        // console.log(document.title);
+        // console.log(document.head);
+        // console.log(document.body);
+
+    
+    </script>
+</body>
+</html>

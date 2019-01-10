@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>属性的操作</title>
+    <meta name="keywords" content="属性的操作,2019011110:30">
+    <meta name="description" content="通过控制元素节点对元素属性进行操作"">
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+            list-style: none;
+        }
+        #container{
+            width: 600px;
+            height: 500px;
+            margin: 150px auto;
+            border: 1px solid #98b4d8;
+        }
+        .tab{
+            float: left;
+            width: 200px;
+            height: 80px;
+            color: #fff;
+            font-size: 20px;
+            font-family: "楷体","楷体_GB2312";
+            text-align: center;
+            line-height: 80px;
+            background: linear-gradient(#64c0eb 0%, #98b4d8 50%, #bff3f9 100%);
+        }
+    </style>
+</head>
+<body>
+    <div id="container">
+        <ul class="tabs">
+            <li class="tab" name="qiqi">阳光</li>
+            <li class="tab" name="qiqi">积极</li>
+            <li class="tab" name="qiqi">正面</li>
+        </ul>
+        <div class="pannnel"></div>
+    </div>
+    <script>
+        /*
+            
+        */
+        let container = document.getElementById('container');
+        let tabs = document.getElementsByClassName('tabs');    
+        let li = document.getElementsByTagName('li');
+        let Otab = document.querySelectorAll('.tab');
+        let tab = document.querySelector('.tab');
+
+
+    
+    </script>
+</body>
+</html>

@@ -66,8 +66,16 @@
         </ul>
     </div>
     <script>
-        // 疑问: 变量没有声明为什么不会报错?
-        
+        /*
+            疑问: 变量没有声明为什么不会报错? 
+                1)不声明直接赋值 会自动将它变成全局变量!!!
+                2)id可以直接使用不声明也不会报错 因为它具有唯一性 (但是不符合规范 不利于维护)
+        */
+        let list1 = document.getElementById('list1');
+        let list2 = document.getElementById('list2');
+        let list3 = document.getElementById('list3');
+        let con = document.getElementById('con');
+
         list1.onclick = function(){
             con.innerHTML = '嘿呀,少女粉!';
             con.style.backgroundColor = '#fcf';

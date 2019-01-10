@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>声明变量</title>
+    <meta name="keywords" content="声明变量接02节知识点,2019011020:30">
+    <meta name="description" content="">
+</head>
+<body>
+    <script>
+        console.log(a); // 先使用后声明 -> undefined  不声明直接使用 -> 报错
+        var a = 1; 
+
+        function name(){
+            // 不声明直接赋值 -> 自动变成全局变量(不管是在函数外面,还是里面(执行后),都可以被调用)
+            //                                  -> 自动挂载到window对象的属性里 let/const不会!!!
+            b = 2;  
+        } // 函数没有被调用是不会执行的!
+        name(); // 函数名() -> 执行当前函数名里面的代码 
+        console.log(b); //2 -> console.log(window.b)
+
+    </script>
+</body>
+</html>

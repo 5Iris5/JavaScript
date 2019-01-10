@@ -66,8 +66,12 @@
         </ul>
     </div>
     <script>
-        // 疑问: 为什么class名设置函数不成功? 
-        //      -> getElementByClassName/document.getElementsByClassName('list-item')
+        /*
+         疑问: 为什么class名设置函数不成功?  只有具体元素节点才会有(onclick)事件
+            通过类名获取元素节点 ->  document.getElementsByClassName('list-item') 不兼容ie8及以下
+            返回的是一个集合(就算页面只有一个该类名的元素 那也是一个集合) 类数组(像数组但是没有数组里面的方法) 
+            如果要选中其中一个 那么需要通过序号[下标]选中
+        */     
 
         document.getElementById('list1').onclick = function(){
             document.getElementById('con').innerHTML = '嘿呀,少女粉!';
