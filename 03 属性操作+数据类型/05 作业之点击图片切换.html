@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="keywords" content="第三章,作业一点击图片切换,2019011723:00">
+    <meta name="description" content="">
+    <title>点击图片切换</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+            list-style: none;
+        }
+        #box{
+            width: 500px;
+            height: 320px;
+            margin: 200px auto;
+            background: url(../images/1.jpg) no-repeat center/100% 100%;
+        }
+    </style>
+</head>
+<body>
+    <div id="box"></div>
+    <script>
+        let Obox = document.getElementById('box');
+        console.log(Obox);
+        Obox.onclick = function(){
+            Obox.style.backgroundImage = "url(../images/2.jpg)";
+        }
+    </script>
+</body>
+</html>

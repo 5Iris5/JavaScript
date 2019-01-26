@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>数据类型</title>
+    <meta name="keywords" content="JS中的数据类型,2019011721:30">
+    <meta name="description" content=""">
+</head>
+<body>
+    <script>
+        /*
+            es5 6种数据类型 5种 基础值类型 1种是 复杂数据类型
+            es6 新增一种 基础值类型 
+            so 一共7种 6种基础值类型 1种复杂数据类型
+
+            1.数值型 number 小数 => 浮点数
+                + 左右 只有一边是字符串 那么 + 就是字符串拼接符
+                浮点数之间的运算 或者超大值的运算 => 丢失精准度
+                    let a = 0.1   // undefined
+                    let b = 0.2   // undefined
+                    let c = a + b   // undefined
+                    console.log(c)   // 0.30000000000000004
+
+            typeof 运算符 => 间接地 返回这个数据的数据类型 但是 有bug 
+                1) null  -> object
+                2)function -> function
+
+            2.字符串 string "123"
+
+            3.undefined => 未赋值变量 未初始化值 函数默认返回值 可以用它来做判断
+
+            4.null => 无 空对象 未赋值的属性
+
+            5.布尔值 boolean true/false 两个状态 => 逻辑判断 所有的数据类型 都可以转为true 或者 false
+
+            6.object 对象
+                对象 实例对象
+                {name: "七七酱",age: 22}
+
+                数组 序号取值
+                [1,3,5,{name: "七七酱"}]
+
+                内置对象 Math Date
+
+                函数 function
+        */
+    </script>
+</body>
+</html>
