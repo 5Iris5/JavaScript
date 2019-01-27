@@ -2,8 +2,8 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="keywords" content="第三章,作业一聊天窗口,2019012611:50">
-    <meta name="description" content="">
+    <meta name="keywords" content="第三章,作业一聊天窗口,2019012711:50完成">
+    <meta name="description" content="我的妈呀卡卡卡卡卡了好久~要被自己蠢哭了">
     <title>聊天窗口</title>
     <style>
         *{
@@ -11,10 +11,16 @@
             padding: 0;
             list-style: none;
             outline: none;
+            resize: none;
         }
-        #container{
+        .clear::after{
+            content: '';
+            display: block;
+            clear: both;
+        }
+        #screen{
             width: 500px;
-            height: 420px;
+            height: 380px;
             margin: 80px auto 0;
             border: 3px solid #fcf;
             border-radius: 7px;
@@ -22,7 +28,9 @@
         #dialog{
             display: block;
             width: 450px;
-            height: 320px;
+            height: 280px;
+            font-size: 16px;
+            color: #ccc;
             margin: 25px auto 10px;
             border: 1px solid #fcf;
             border-radius: 5px;
@@ -53,33 +61,30 @@
             font-size: 14px;
             color: #ccc;
             border: 2px solid #fcf;
-        }
-        .role::after{
-            content: '';
-            display: block;
-            clear: both;
-        }
+        }    
         .list-item{
             width: 450px;
             margin: 10px auto;
-            /* border: 1px solid #fcf; */
+            border-bottom: 1px solid #fcf;
             border-radius: 5px;
         }
         .list-item .icon{
             margin: 5px 0;
         }
         .list-item p{
-            /* width: 360px; */
-            margin-left: 80px;
+            width: 360px;
+            float: left;
+            margin-left: 30px;
+            padding-bottom: 5px;
             font-size: 16px;
             color: #ccc;
         }
     </style>
 </head>
 <body>
-    <div id="container">
+    <div id="screen">
         <textarea id="dialog"></textarea>
-        <div class="role">
+        <div class="role clear">
             <div class="icon">
                 <img src="../images/icon.jpg" alt="聊天头像">
             </div>
@@ -87,17 +92,39 @@
         </div>
     </div>
     <div class="pannel">
-        <ul class="lists">
-            <li class="list-item">
+        <ul id="lists">
+            <!-- <li class="list-item clear">
                 <div class="icon">
                     <img src="../images/icon.jpg" alt="聊天头像">
                 </div>
-                <p>呀呀呀呀呀呀原因原因呀呀呀一月又一月嘤嘤嘤嘤嘤嘤原因原因原因原因呀呀呀呀呀呀原因原因呀呀呀一月又一月嘤嘤嘤嘤嘤嘤原因原因原因原因</p>
-            </li>
+                <p>呀呀呀呀呀呀</p>
+            </li> -->
         </ul>
     </div>
     <script>
-        
+        let Odialog = document.getElementById('dialog'); // console.log(Odialog);
+        let Oicon = document.getElementsByClassName('icon')[0]; // console.log(Oicon);
+        let Oimg = document.querySelector('.icon img'); // console.log(Oimg);
+        let Obtn = document.getElementsByClassName('btn')[0]; // console.log(Obtn);  
+        let Olists = document.getElementById('lists'); // console.log(Olists);
+
+        // 鼠标点击事件  -> 点击按钮的时候,触发函数体里面的内容
+        Obtn.onclick = function(){
+            html = null; 
+            // console.log(html);
+            dialog = Odialog.value; 
+            // console.log(dialog); 获取文本框里面的文本信息
+            html = '<li class="list-item clear">' +
+                        '<div class="icon">' +
+                            '<img src="../images/icon.jpg" alt="聊天头像">' +
+                        '</div>' +
+                        '<p>' + dialog + '</p>' +
+                    '</li>';
+            // console.log(html); 字符串拼接
+            Olists.innerHTML += html; // 等同于 Olists.innerHTML = Olists.innerHTML + html
+            // console.log(Olists); 把拼接好的字符串塞到对应位置
+            Odialog.value = ''; // 文本框输入的文本清空
+        } 
     </script>
 </body>
 </html>
