@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>声明变量</title>
+    <meta name="keywords" content="声明变量接02节知识点,2019011020:30">
+    <meta name="description" content="">
+    <style>
+        body,ul{
+            margin: 0;
+            padding: 0;
+            list-style: none;
+        }
+        #lists{
+            width: 150px;
+            margin: 100px auto;
+            background-color: #fcf;
+        }
+        .list-item{
+            color: #cfc;
+            height: 30px;
+            line-height: 30px;
+            border-bottom: 1px solid #fff;
+            text-indent: 1em;
+        }
+    </style>
+</head>
+<body>
+    <ul id="lists">
+        <li class="list-item">1</li>
+        <li class="list-item">2</li>
+        <li class="list-item">3</li>
+        <li class="list-item">4</li>
+    </ul>
+    <script>
+        /*
+            多种选择元素的方法
+                id
+                class
+                TagName
+                Name
+                querySelector
+                querySelectorAll
+            以上方法又分为 动态获取 与 静态获取
+        */
+
+        /* 
+            静态获取 id querySelector querySelectorAll 
+            在静态获取的三个方法里面,只要你一开始已经获取过了,那么后面将不会进行改变(不会重新检索看是否更新)!!!
+            listItem -> 4个   静态获取只会获取一次,后续使用以第一次为准,不会刷新重新获取了.
+        */
+
+     /*
+        let Olists = document.getElementById('lists');
+        // console.log(Olists); 
+        let listItem = document.querySelectorAll('#lists .list-item'); // 等同于 let listItem = Olists.querySelectorAll('#lists .list-item'); 
+        // console.log(listItem) -> 集合
+        console.log(listItem.length); // 4
+        Olists.innerHTML += "<li class=\"list-item\">5</li>"; // 等同于 Olists.innerHTML = Olists.innerHTML + '<li class="list-item">5</li>';
+        console.log(listItem.length); // 4
+    */
+
+        /*
+            动态获取 class tagName Name   -> 每一次使用都会重新获取!!!
+        */
+
+        let Olists = document.getElementById('lists');
+        let listItem = document.getElementsByClassName('list-item');
+        // console.log(listItem); -> 集合
+        console.log(listItem.length); // 4
+        // console.log(Olists.innerHTML)
+        Olists.innerHTML += '<li class="list-item">七七酱呀~</li>';
+        console.log(listItem.length); // 5
+    </script>
+</body>
+</html>
