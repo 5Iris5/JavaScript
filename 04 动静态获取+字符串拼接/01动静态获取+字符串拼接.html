@@ -2,9 +2,9 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>声明变量</title>
-    <meta name="keywords" content="声明变量接02节知识点,2019011020:30">
-    <meta name="description" content="">
+    <title>动态获取/静态获取</title>
+    <meta name="keywords" content="04节知识点,2019012720:30">
+    <meta name="description" content="动态获取+静态获取+字符串拼接">
     <style>
         body,ul{
             margin: 0;
@@ -64,6 +64,7 @@
             动态获取 class tagName Name   -> 每一次使用都会重新获取!!!
         */
 
+    /*
         let Olists = document.getElementById('lists');
         let listItem = document.getElementsByClassName('list-item');
         // console.log(listItem); -> 集合
@@ -71,6 +72,31 @@
         // console.log(Olists.innerHTML)
         Olists.innerHTML += '<li class="list-item">七七酱呀~</li>';
         console.log(listItem.length); // 5
+    */
+
+        /*
+            动态获取 -> 静态获取 固定到一个特定元素时,形如 document.getElementsByClassName('list-item')[0];
+        */
+    
+    /*
+        let Olists = document.getElementById('lists');
+        let listItem = document.getElementsByClassName('list-item')[0];
+        // console.log(listItem); -> 具体元素节点
+        // console.log(listItem); -> <li class="list-item">1</li>
+        Olists.innerHTML += '<li class="list-item">七七酱呀~</li>';
+        // console.log(listItem); -> <li class="list-item">1</li>
+    */
+
+        let Olists = document.getElementById('lists');
+        // console.log(Olists); -> 具体元素节点
+        let listItem = document.getElementsByClassName('list-item');
+        // console.log(listItem); -> 集合
+        // Olists.innerHTML += '<li class="list-item">七七酱</li>'; -> 点击事件生效了!
+        listItem[0].onclick = function(){
+            alert('BE HAPPY');
+        }
+        Olists.innerHTML += '<li class="list-item">七七酱</li>'; //点击事件失效了!
+        /* 操作innerHTML时, 如果对象的innerHTML上有标签,那么重新覆盖后,将不再是之前的标签了 -> 之前绑定的事件会不复存在 */
     </script>
 </body>
 </html>
