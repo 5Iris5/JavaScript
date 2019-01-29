@@ -11,45 +11,92 @@
             padding: 0;
             list-style: none;
         }
-        #container{
-            width: 600px;
-            height: 500px;
+        #wrap{
+            width: 100px;
+            height: 100px;
             margin: 150px auto;
             border: 1px solid #98b4d8;
-        }
-        .tab{
-            float: left;
-            width: 200px;
-            height: 80px;
-            color: #fff;
-            font-size: 20px;
-            font-family: "楷体","楷体_GB2312";
-            text-align: center;
-            line-height: 80px;
-            background: linear-gradient(#64c0eb 0%, #98b4d8 50%, #bff3f9 100%);
+            /*background-image: url(../images/icon.jpg);*/
         }
     </style>
 </head>
 <body>
-    <div id="container">
-        <ul class="tabs">
-            <li class="tab" name="qiqi">阳光</li>
-            <li class="tab" name="qiqi">积极</li>
-            <li class="tab" name="qiqi">正面</li>
-        </ul>
-        <div class="pannnel"></div>
-    </div>
+    <div id="wrap" class="container" style="color: #fcf">七七酱</div>
+    <img src="../images/icon.jpg" alt="出错啦">
     <script>
         /*
-           console.dir(container); 查看 所有的属性
+           console.dir(wrap); 查看 所有的属性 
+
+           + 拼接字符串
 
            . 不能放数字 和 字符串 -> 先识别 是否是属性
-           []内 先识别是否是变量
+           []内 -> 先识别是否是变量
+        */
+
+    /*
+        let a = 'backgroundColor';
+        let wrap = document.getElementById('wrap');
+        // 鼠标划过事件
+        wrap.onmouseover = function(){
+            // console.log(wrap.style);
+            wrap.style.a = '#98b4d8'; // -> 无效 . 不能放数字 和 字符串 -> 先识别 是否是属性
+            wrap.style.backgroundColor = '#98b4d8'; // 生效了,backgroundColor是属性 (注意只能用驼峰格式)
+        }
+
+        // 鼠标离开事件
+        wrap.onmouseleave = function(){
+            // 生效了,[]内 -> 先识别是否是变量 
+            wrap.style[a] = '#cfc'; // 等同于 wrap.style['backgroundColor'] = '#cfc';
+        }
+
            
            有一些属性 默认有值
            部分属性 未赋值前 默认为null(空) 
-           访问没有的属性 -> undefined
-        */
+           访问没有的属性 -> undefined     
+        
+        
+        wrap.innerHTML += 'fighting呀~'; // 等同于 wrap.innerHTML = wrap.innerHTML + 'fighting呀~';
+        console.log(wrap.innerHTML);
+    */
+
+        let a = 1;
+        let b = 2;
+        a += b; // -> 1+1=2 等同于 a = a + b; 现在的我 = 原来的我 + b;
+        console.log(a);
+
+        let wrap = document.getElementById('wrap').innerHTML; // 等号右边会最简化 -> '七七酱'
+        console.log(wrap);
+
+        wrap = 'fighting呀~'; // 获取到的不是操作权,只是里面的值而已!
+        console.log(wrap); // -> 输出 fighting呀~ 但是wrap里面的内容没发生变化 -> 还是七七酱! why?
+
+        wrap += '七七酱'; // 同理
+        console.log(wrap); // -> 输出 fighting呀~七七酱 但是wrap里面的内容没发生变化 -> 还是七七酱! why?
+
+    // 原因: 获取到的不是操作权,只是里面的值而已!
+
+        let Owrap = document.getElementById('wrap');
+        // console.log(Owrap);
+        Owrap.innerHTML = '123456';
+        console.log(Owrap.innerHTML); // 这样就获取到了操作权,而不仅仅是读取权了
+
+    // 获取类名的方式 特殊情况 -> 1) src 返回 绝对路径; 2) color 十六进制颜色值 返回 rgb值, 英文单词颜色值 照常返回
+        console.log(Owrap.className); // container
+
+        let Oimg = document.getElementsByTagName('img')[0]; // 注意在集合中选中具体元素节点!
+        console.log(Oimg.src); // file:///C:/Users/Administrator/Desktop/JavaScript/images/icon.jpg
+
+        console.log(Owrap.style.color); // rgb(255, 204, 255)
+
+    /* 
+        如何将原先的类名取代掉? -> 直接赋值 =
+        Owrap.className = 'qiqi';
+        console.log(Owrap.className); // qiqi
+    */
+
+    // 如何在原先类名的基础上新增一个类名 -> +=
+        Owrap.className += ' qiqi';
+        console.log(Owrap.className);
     </script>
 </body>
 </html>
