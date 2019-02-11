@@ -2,21 +2,105 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>动态获取/静态获取</title>
-    <meta name="keywords" content="04节知识点之布尔值,2019013010:00">
-    <meta name="description" content="数据类型补充+布尔值">
+    <title>布尔值</title>
+    <meta name="keywords" content="04节知识点之布尔值,2019021123:00">
+    <meta name="description" content="数据类型补充++字符串拼接+布尔值">
     <style>
         body{
             margin: 0;
         }
         .wrap{
-            width: 100px;
-            height: 100px;
-            background-color: #fcf;
+            width: 200px;
+            height: 200px;
             margin: 100px auto;
+            border: 2px solid #afc;
         }
     </style>
 </head>
 <body>
-    <div class="wrap">七七呀</div>
+    <div class="wrap">亲爱的</div>
+    <script>
+        /*
+            数据类型
+                1)简单型
+                    number
+                        NaN -> not a number 坏掉的数值 可以用来进行判断
+                        infinity -> 正负无穷
+
+                    string
+                        转义字符\ -> 能让有意义的字符变得没意义 让没意义的字符变得有特殊作用
+                        换行符\n -> innerHTML属性时，控制台会显示换行，页面显示空格效果
+                        制表符\t -> 空格
+                        es5 -> 字符串拼接
+                            "+变量+" '+变量+' -> 不可以换行
+                            string内部使用引号 要么转义 要么内外使用不同引号
+                            
+                        es6 -> 模板字符串拼接 -> `字符串`
+                            `内容${变量}`
+
+                    boolean -> 判断
+                        在一定的环境下，所有的数据类型都可以转换为布尔值 true/false
+                            if(条件){ true进入
+                                console.log('此条路为真');
+                            }else{ false进入
+                                console.log('此条路为假');
+                            }
+                        转为false的几个特殊情况：
+                            false -> false
+                            0/-0 -> false
+                            NaN -> false
+                            ""空字符串 -> false
+                            undefined -> false
+                            null -> false
+                        除此之外，其他全部转换为true！
+                        ！ -> 取反运算符 (先将条件进行布尔值判断，其次利用!取反)
+
+                    undefined
+
+                    null
+
+                    symbol
+
+                2)复杂型
+                    object
+        */
+        let Owrap = document.getElementsByClassName('wrap')[0];
+        console.log(Owrap);
+        // Owrap.innerHTML = '你好\t你好\n你好';
+        let value = '自制力呀，please!';
+        Owrap.innerHTML = '<p style="color:pink;">' + value + '</p>'; // -> 内外不同引号
+        // Owrap.innerHTML = "<p style=\"color:pink;\">" + value + "</p>"; // -> 内外相同引号时需要借助转义字符\
+        // Owrap.innerHTML = `<p style="color:skyblue;">${value}</p>`; // -> 模板字符串拼接 可换行
+        console.log(Owrap.innerHTML);
+
+
+        let index = true; // 使用if~else语句时，通常会使用一个开关效果
+        /*
+        Owrap.onclick = function(){
+            if(index){
+                Owrap.style.backgroundColor = '#afc';
+                console.log(index); // -> true
+                index = false;
+                console.log(index); // -> false
+            }else{
+                Owrap.style.border = '2px solid skyblue';
+                Owrap.style.backgroundColor = 'skyblue';
+                console.log(index); // -> false
+                index = true; 
+                console.log(index); // -> true
+            }
+        }
+        */
+        // 利用取反运算符简化一下
+        Owrap.onclick = function(){
+            if(index){
+                Owrap.style.backgroundColor = '#afc';
+            }else{
+                Owrap.style.border = 'none'; // 负margin合并
+                Owrap.style.backgroundColor = 'skyblue';
+            }
+            index = !index; // 自上而下的渲染方式
+            console.log(index); 
+        }
+    </script>
 </body>

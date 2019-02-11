@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="keywords" content="第三章,作业一点击图片切换,2019011723:00">
-    <meta name="description" content="">
+    <meta name="description" content="解题关键：对if语句的运用">
     <title>点击图片切换</title>
     <style>
         *{
@@ -15,7 +15,7 @@
             width: 500px;
             height: 320px;
             margin: 200px auto;
-            background: url(../images/1.jpg) no-repeat center/100% 100%;
+            background: url(../images/3.jpg) no-repeat center/100% 100%;
         }
     </style>
 </head>
@@ -24,8 +24,19 @@
     <script>
         let Obox = document.getElementById('box');
         console.log(Obox);
+        index = true;
+        // console.log(index);
         Obox.onclick = function(){
-            Obox.style.backgroundImage = "url(../images/2.jpg)";
+            if(index){ // true进入
+                Obox.style.backgroundImage = "url(../images/2.jpg)";
+                console.log(index);
+                // index = false; // index = !index 取反
+            }else{ //false进入
+                Obox.style.backgroundImage = "url(../images/1.jpg)";
+                console.log(index);
+                // index = true; // index = !index
+            }
+            index = !index;
         }
     </script>
 </body>
