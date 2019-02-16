@@ -88,7 +88,7 @@
             <div class="icon">
                 <img src="../images/icon.jpg" alt="聊天头像">
             </div>
-            <div class="btn">发送</div>
+            <div class="btn">发送</div>  <!--最好用button标签-->
         </div>
     </div>
     <div class="pannel">
@@ -102,11 +102,11 @@
         </ul>
     </div>
     <script>
-        let Odialog = document.getElementById('dialog'); // console.log(Odialog);
-        let Oicon = document.getElementsByClassName('icon')[0]; // console.log(Oicon);
-        let Oimg = document.querySelector('.icon img'); // console.log(Oimg);
-        let Obtn = document.getElementsByClassName('btn')[0]; // console.log(Obtn);  
-        let Olists = document.getElementById('lists'); // console.log(Olists);
+        let Odialog = document.getElementById('dialog'); // console.log(Odialog); 获取文本框 -> 需要操作文本框内容
+        // let Oicon = document.getElementsByClassName('icon')[0]; // console.log(Oicon);
+        // let Oimg = document.querySelector('.icon img'); // console.log(Oimg);
+        let Obtn = document.getElementsByClassName('btn')[0]; // console.log(Obtn); 获取按钮 -> 需要注册点击事件
+        let Olists = document.getElementById('lists'); // console.log(Olists); 获取列表栏  -> 需要往里面塞列表项
 
         // 鼠标点击事件  -> 点击按钮的时候,触发函数体里面的内容
         Obtn.onclick = function(){

@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>下拉列表</title>
+    <meta name="keywords" content="第五章节作业,2019021422:24">
+    <meta name="description" content="下拉列表制作考察单层for循环内置三目运算符的使用">
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+            list-style: none;
+        }
+        .container{
+            width: 200px;
+            margin: 100px auto;
+        }
+        .list-item{
+            width: 100%;   
+            text-indent: 4px;
+        }
+        .list-item .tab{
+            height: 30px;
+            line-height: 30px;
+            color: #fff;
+            background-color: rgb(68, 152, 231);
+        }
+        .list-item p{
+            color: #000;
+            background-color: rgb(172, 119, 159);
+        }
+        .list-item .pannel{
+            display: none;
+        }
+        .list-item .active{
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <ul class="lists">
+            <li class="list-item">
+                <div class="tab">家人</div>
+                <div class="pannel">
+                    <p>爸爸</p>
+                    <p>妈妈</p>
+                    <p>妹妹</p>
+                </div>
+            </li>
+            <li class="list-item">
+                <div class="tab">朋友</div>
+                <div class="pannel">
+                    <p>小A</p>
+                    <p>小B</p>
+                    <p>小C</p>
+                </div>
+            </li>
+            <li class="list-item">
+                <div class="tab">同事</div>
+                <div class="pannel">
+                    <p>老王</p>
+                    <p>老罗</p>
+                    <p>老李</p>
+                </div>
+            </li>
+        </ul>
+    </div>
+    <script>
+        /*
+            下拉菜单逻辑：
+                1.确定需要操作的元素节点
+                2.给li注册一个点击事件
+                3.点击该元素时，该元素下方的pannel面板区域展示出来，其他li元素下方的面板区域隐藏
+                
+            遇到的问题：
+                1.通过for循环给所有li注册完点击事件后，怎么触发面板区域？通过索引选取啊！！！！你个蠢蛋！（索引取值前记得给索引一个初始值）
+                2.怎么将当前没有点击的元素下方的面板区域隐藏？卡死！
+        */ 
+        let Oli = document.getElementsByClassName('list-item');  // console.log(listItem) -> 集合
+        let Opannel = document.getElementsByClassName('pannel');  // console.log(Opannel) -> 集合   
+        // lIt[0].onclick = function(){
+        //     alert('小仙女');
+        // }
+
+        let len = Oli.length; // console.log(len); -> 3
+        let index = 0;
+        for(var i=0; i<len; i++){
+            Oli[i].onclick= function(){
+                // console.log(index);
+                Opannel[index].className += ' active'; // 在对应的面板区域添加active类名
+                index++;
+            }
+        }
+    </script>
+</body>
+</html>

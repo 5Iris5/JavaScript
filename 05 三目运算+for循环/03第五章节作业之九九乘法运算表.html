@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>九九乘法表</title>
+    <meta name="keywords" content="第五章节作业,2019021617:25">
+    <meta name="description" content="九九乘法表,双层嵌套for循环的使用,解题关键判断变量i,变量j的关系">
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+            list-style: none;
+        }
+        .lists{
+            margin-bottom: 20px;
+        }
+        .item{
+            float: left;
+            width: 70px;
+            height: 30px;
+            line-height: 30px;
+            text-align: center;
+            border: 2px solid #fcf;
+            margin: 10px 0 0 10px;
+        }
+        .clearfix::after{
+            content: '';
+            display: block;
+            clear: both;
+        }
+    </style>
+</head>
+<body>
+    <div id="box">
+        <ul class="lists clearfix">
+            <!-- <li class="item"></li> -->
+        </ul>
+        <ul class="lists clearfix">
+            <!-- <li class="item"></li> -->
+        </ul>
+    </div>
+    <script>
+        /* 逻辑层面如下
+        for(var i=1; i<10; i++){
+            for(var j=1; j<10; j++){
+                if(i>j){ // 判断为真进入
+                    continue; // 跳出本次循环！
+                }else{ // 判断为假进入
+                    let a = i * j;
+                    // console.log(a);
+                    let str = `${i}*${j}=${a}`;
+                    console.log(str);
+                }
+            }  
+        }
+        */
+
+        /*
+            问题： 不知道怎么将js渲染到页面上 -> 静态布局怎么做？ 
+            思路： 
+                1.每进行一次循环，打印一次 -> += 运算符 与 = 运算符的区别
+                2.外面每循环一次（里面整体循环一次），换一行排列！ -> 虽然写出来了，但是感觉不可行，性能太差！
+        */
+        let Obox = document.getElementById('box'); // console.log(Obox);
+        let Olists = document.getElementsByClassName('lists'); // console.log(Olists);
+        for(var i=1; i<10; i++){
+            for(var j=1; j<10; j++){
+                if(i<j){
+                    // 嵌套for循环里面整体循环一次，换行排列！
+                    Olists[0].innerHTML += `<div  class="clearfix"></div>`;
+                    // continue;
+                }else{
+                    let a = i * j;
+                    let b = `${i}*${j}=${a}`;  // console.log(b);        
+                    let str = `<li class="item">${b}</li>`;  // 字符串拼接
+                    Olists[0].innerHTML += str;
+                }         
+            }
+        }
+        for(var i=1; i<10; i++){
+            for(var j=1; j<10; j++){
+                if(i>j){
+                    // 嵌套for循环里面整体循环一次，换行排列！
+                    Olists[1].innerHTML += `<div  class="clearfix"></div>`;
+                    // continue;
+                }else{
+                    let a = i * j;
+                    let b = `${i}*${j}=${a}`;  // console.log(b);        
+                    let str = `<li class="item">${b}</li>`;  // 字符串拼接
+                    Olists[1].innerHTML += str;
+                }         
+            }
+        }
+    </script>
+</body>
+</html>
