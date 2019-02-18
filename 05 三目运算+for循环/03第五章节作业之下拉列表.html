@@ -15,32 +15,32 @@
             width: 200px;
             margin: 100px auto;
         }
-        .list-item{
+        li{
             width: 100%;   
             text-indent: 4px;
         }
-        .list-item .tab{
+        li .tab{
             height: 30px;
             line-height: 30px;
             color: #fff;
             background-color: rgb(68, 152, 231);
         }
-        .list-item p{
+        li p{
             color: #000;
             background-color: rgb(172, 119, 159);
         }
-        .list-item .pannel{
+        li .pannel{
             display: none;
         }
-        .list-item .active{
+        li .active{
             display: block;
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <ul class="lists">
-            <li class="list-item">
+        <ul>
+            <li>
                 <div class="tab">家人</div>
                 <div class="pannel">
                     <p>爸爸</p>
@@ -48,7 +48,7 @@
                     <p>妹妹</p>
                 </div>
             </li>
-            <li class="list-item">
+            <li>
                 <div class="tab">朋友</div>
                 <div class="pannel">
                     <p>小A</p>
@@ -56,7 +56,7 @@
                     <p>小C</p>
                 </div>
             </li>
-            <li class="list-item">
+            <li>
                 <div class="tab">同事</div>
                 <div class="pannel">
                     <p>老王</p>
@@ -75,21 +75,24 @@
                 
             遇到的问题：
                 1.通过for循环给所有li注册完点击事件后，怎么触发面板区域？通过索引选取啊！！！！你个蠢蛋！（索引取值前记得给索引一个初始值）
-                2.怎么将当前没有点击的元素下方的面板区域隐藏？卡死！
+                2.怎么将当前没有点击的元素下方的面板区域隐藏？卡死！里面使用一个双层for循环重置清空所有类名后，再给点击元素添加active类名
         */ 
-        let Oli = document.getElementsByClassName('list-item');  // console.log(listItem) -> 集合
-        let Opannel = document.getElementsByClassName('pannel');  // console.log(Opannel) -> 集合   
+        let Oli = document.querySelectorAll('li');  // console.log(Oli) -> 集合
+        let Opannel = document.querySelectorAll('li .pannel');  // console.log(Opannel) -> 集合   
         // lIt[0].onclick = function(){
         //     alert('小仙女');
         // }
 
         let len = Oli.length; // console.log(len); -> 3
-        let index = 0;
-        for(var i=0; i<len; i++){
+        for(let i=0; i<len; i++){
             Oli[i].onclick= function(){
-                // console.log(index);
-                Opannel[index].className += ' active'; // 在对应的面板区域添加active类名
-                index++;
+               // 清空所有元素身上的active类名 -> 关键步骤！！！
+               for(let j=0; j<len; j++){
+                   Opannel[j].className = 'pannel';
+                   console.log(j);
+               }
+               // 清空完毕之后，重新赋一个active的类名给当前点击的元素
+               Opannel[i].className = 'pannel active';
             }
         }
     </script>

@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>九九乘法表</title>
+    <meta name="keywords" content="第五章节作业,2019021821:30">
+    <meta name="description" content="九九乘法表,双层嵌套for循环的使用,解题关键判断变量i,变量j的关系(千万不要把简单问题想复杂)">
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+            list-style: none;
+        }
+        .lists{
+            margin-bottom: 20px;
+        }
+        span{
+            display: inline-block;
+            width: 70px;
+            height: 30px;
+            line-height: 30px;
+            text-align: center;
+            border: 1px solid;
+            margin: 10px 0 0 10px; 
+        }
+    </style>
+<head>
+<body>
+    <ul class="lists">
+        <!-- <li class="item">
+            <span>1*1=1</span>
+        </li>
+        <li class="item">
+            <span></span>
+            <span></span>
+        </li>
+        <li class="item">
+            <span></span>
+            <span></span>
+            <span></span>
+        </li> -->
+    </ul>
+    <ul class="lists"></ul>
+    <script> 
+        let Olists = document.getElementsByClassName('lists');
+        // console.log(Olists);
+        for(let i=1; i<10; i++){
+            for(let j=1; j<=i; j++){
+                let str = `${i}*${j}=${i*j}`;
+                // console.log(str);
+                Olists[0].innerHTML += `<span>${str}</span>`; // 渲染到页面
+            }
+
+            /*
+                里面j循环一圈，换一行排列
+                方法一：j循环一圈后，在末尾加一个换行标签</br>
+            */
+            Olists[0].innerHTML = Olists[0].innerHTML + `</br>`;
+            
+            /*
+                方法二：j循环一圈后，再循环一圈得出的整体标签外围用<li>标签嵌套 
+                未解决：不会嵌套！！！
+            */
+            // Olists.innerHTML += `<li class="item"></li>`
+        }
+        for(let i=1; i<=9; i++){
+            for(let j=i; j<=9; j++){
+                let str= `${i}*${j}=${i*j}`;
+                console.log(str);
+                Olists[1].innerHTML += `<span>${str}</span>`;
+            }
+            Olists[1].innerHTML += `</br>`;
+        }
+    </script>
+</body>
