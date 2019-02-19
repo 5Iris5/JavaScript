@@ -3,18 +3,126 @@
 <head>
     <meta charset="UTF-8">
     <title>下拉列表</title>
-    <meta name="keywords" content="第五章节作业,2019021422:24">
-    <meta name="description" content="下拉列表制作考察单层for循环内置三目运算符的使用">
+    <meta name="keywords" content="第五章节作业,2019022000:53完结，耗时两小时">
+    <meta name="description" content="真的会被自己的智商虐哭了~一定要多练啊你以后的懂没练习的时候真的是你以为...">
     <style>
         *{
             margin: 0;
             padding: 0;
             list-style: none;
         }
+        #lists{
+            width: 200px;
+            margin: 100px auto;
+        }
+        li{
+            height: 30px;
+            overflow: hidden;
+        }
+        .show{
+            height: 120px;
+        }
+        p{
+            height: 30px;
+            line-height: 30px;
+            background-color: #ccf;  
+        }
+        li p:nth-child(1){
+            color: #fff;
+            background-color: #fcf;
+        }
+        .show{
+            height: 120px;
+        }
     </style>
 </head>
 <body>
+    <ul id="lists">
+        <li>
+            <p class="tit">0组</p>
+            <p>0组小可爱</p>
+            <p>0组小可爱</p>
+            <p>0组小可爱</p>
+        </li>
+        <li>
+            <p class="tit">1组</p>
+            <p>1组小可爱</p>
+            <p>1组小可爱</p>
+            <p>1组小可爱</p>
+        </li>
+        <li>
+            <p class="tit">2组</p>
+            <p>2组小可爱</p>
+            <p>2组小可爱</p>
+            <p>2组小可爱</p>
+        </li>
+    </ul>
     <script>
+        /*
+            逻辑：
+                1.确定需要调用的元素  li 类名为tit的p标签 -> 鼠标点击tit时，改变li的高度（给li加一个类名show）
+                2.鼠标点击当前元素，上一个点击元素身上的show类名清空，当前元素身上增加一个show类名
+
+            方法一：
+                思路：利用双层for循环，外面一层循环操控点击事件，里面一层循环筛选->将所有li元素身上的类名清空，然后再给当前点击的元素增加类名
+                缺点：每触发一次点击事件，里面的内置for循环要全部循环一次 -> 性能损耗过大
+
+            方法二：
+                思路： 通过下标存值，点击当前元素的时候，清空上一次点击操作做的事情 -> 给元素加的show类名
+
+            优化（再上述功能后增加一个开关按钮 -> 即点击第一次打开，第二次关闭）：
+                思路： 1.增加一个开关判断状态 -> 布尔值
+                       2.有了开关后，锁定当前元素时，上一步操作的元素(列表打开)回归原状 
+
+        */
+        
+        let OLi = document.querySelectorAll('#lists li');
+        // console.log(OLi);
+        let OTit = document.getElementsByClassName('tit');
+        // console.log(OTit);
+        let len = OTit.length;
+        // console.log(len); -> 3
+    
+        /*for(let i=0; i<len; i++){
+            OTit[i].onclick = function(){
+                // 内层for循环 -> 清空所有li元素身上的类名
+                for(let j=0; j<len; j++){
+                    OLi[j].className = ''; 
+                }
+                // 最后一步 -> 给当前点击的类名为tit的p标签外面对应的li元素增加一个show的类名
+                OLi[i].className = 'show'; 
+            }
+        }*/
+        
+        /*let index = 0; //利用下标存值
+        for(let i=0; i<=len-1; i++){
+            OTit[i].onclick = function(){
+                OLi[index].className = '';  // index -> 0 -> 0 -> 1 上一个步骤清空
+                index = i; // index -> 0 -> 1 -> 2
+                OLi[index].className = 'show'; // index -> 0 -> 1 -> 2 当前步骤增加类名
+                // console.log(OLi[index]);              
+            }
+        }*/
+
+         
+        for(let i=0; i<len; i++){
+            OLi[i].bool = true;  // true代表下拉列表关闭 -> li元素可以被打开状态
+            OTit[i].onclick = function(){
+                if(OLi[i].bool){  // true进入
+                    OLi[i].className = 'show';
+                }else{ // fasle进入 -> 下拉列表打开的时候 -> li元素身上有show类名，不可以被打开了的状态
+                    OLi[i].className = '';
+                }
+                OLi[i].bool = !OLi[i].bool  // 开关切换 有多个元素可选时一定要记得带[下标]保持一致(踩坑点!!!)
+                // 检测 -> 点击当前元素时,关闭上一步操作点击过的下拉元素列表
+                for(let j=0; j<len; j++){
+                    if(j!==i && OLi[j].bool===false){ //不选中当前点击元素并且列表项是打开状态时进入 (if语句里面一个等号跟三个等号的区别->采坑点)
+                        OLi[j].className = '';
+                        OLi[j].bool = true;
+                    }
+                }
+            }
+        }
 
     </script>
 </body>
