@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="keywords" content="201902251030">
+    <meta name="description" content="calm dowm">
+    <title>第八章知识点讲解之函数定义函数声明与函数执行</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+        }
+        .wrap{
+            width: 150px;
+            height: 150px;
+            margin: 200px auto;
+            background-color: skyblue;
+        }
+    </style>
+</head>
+<body>
+    <div class="wrap"></div>
+    <script>
+        /*
+            函数定义：将一系列代码 打包写到 函数代码块内 以便重复使用
+
+            函数声明：-> 可以先使用后声明
+                function声明关键字 -> 有名函数(具名函数)   匿名函数(没有名字的函数)
+                    有名函数：
+                        可以直接通过函数名字调用该函数 -> 如下：qiqi();
+                    匿名函数：
+                        不可以直接通过单独一条语句调用 -> 如：function(){}
+                        为什么？ 因为函数是obj类型(引用型数据),所以就算写法一样，指向也不相同！
+                        怎么用？ 可以存在数组/对象里使用，或者作为事件函数使用 -> 如下：
+                            let arr = [function(){console.log('我是匿名函数,我存放在数组里面');}]
+                            arr[0]();
+                            let obj = {fn: function(){console.log('我是匿名函数,我存放在对象里面');}}
+                            obj.fn();
+                            Owrap.onclick = function(){
+                                console.log('我是匿名函数，挂载在onclick事件身上，变成事件函数了~');
+                            }
+
+            函数表达式：
+                let fn = function(){} -> 有名函数 把函数赋值给变量 变量名等同于函数名
+
+            函数执行阶段：自执行/他执行
+                自执行：
+                    1.函数名+()执行
+                    2.声明阶段执行
+                            注意：有名函数不可以在声明阶段 直接()执行
+                            匿名函数自执行 -> 闭包
+                                IIFE 立即执行 函数表达式
+                                    (function(){
+                                        console.log('我是匿名函数，我想自执行~~~求助闭包呀');
+                                    }())
+
+                                    (function(){
+                                        console.log('我是匿名函数，我想自执行~~~求助闭包呀');
+                                    })()
+
+                                    !function(){}()
+                                    +function(){}()
+                                    -function(){}()
+                                    ~function(){}()
+
+                他执行：
+                    比如：作为事件函数，要被该事件触发才会执行！！！
+        */
+
+        let arr = [function(){console.log('我是匿名函数,我存放在数组里面');}]
+        arr[0]();
+        let obj = {fn: function(){console.log('我是匿名函数,我存放在对象里面');}}
+        obj.fn();
+        
+        let Owrap = document.getElementsByClassName('wrap')[0];
+        Owrap.onclick = function(){
+            console.log('我是匿名函数，挂载在onclick事件身上，变成事件函数了~');
+        };
+
+        (function(){
+            console.log('我是匿名函数，我想自执行~~~求助闭包呀');
+        })()
+
+        ~function(){console.log('IIFE表达式写法其一');}()
+
+        qiqi() // 函数可以先使用后声明
+        function qiqi(){
+            console.log('突然迷茫起来...');
+            console.log('可能是空闲的时间太久了吧...')
+            console.log('归根结底不过是懒惰罢了')
+        }
+        // qiqi();
+        console.log(qiqi())  // -> 执行顺序 1.执行函数内部运算 即 qiqi()  2.返回一个undefined 
+
+        let fn = function(){
+            console.log('七七呀~');
+        }(); // => 自执行有名函数fn,通过 函数名+括号 -> fn() 执行 -> 七七呀~
+        console.log(fn); // 等号右边最简化 -> 返回一个undefined,通过console.log()打印出来 -> undefined
+        fn(); // 报错了！！！-> undefined()肯定保错 -> fn is not a function
+    </script>
+</body>
+</html>

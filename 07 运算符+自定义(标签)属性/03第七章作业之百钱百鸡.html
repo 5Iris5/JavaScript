@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="keywords" content="201902250930">
+    <meta name="description" content="作业如果卡住了,一定不要一直停在这里,学习其实是一个记忆熟悉的过程!">
+    <title>第七章作业之鸡的进化</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+        }
+    </style>
+</head>
+<body>
+    <p>题目：一百文钱买一百只鸡，其中公鸡五文一只，母鸡三文一只，小鸡一文三只，每种鸡必须有，求有哪几种买法？</p>
+    <script>
+        /*
+            假设：公鸡->x 母鸡->y 小鸡->z
+            数量: x+y+z=100
+            价格: 5x+3y+z/3=100
+
+            方法一：三个for循环嵌套
+                缺点->内存消耗过大
+            方法二：定义一个变量 let z = 100-x-y 减少一个for循环
+                缺点->同上
+            方法三：算法优化 一个以k为变量的for循环
+                x+y+z=100
+                15x+9y+z=300
+                后面 - 前面 -> 14x+8y=200 -> 7x+4y=100 -> y=(100-7x)/4 -> y=25-7/4*x
+                            令 x=4k 则 y=25-7k -> k要为正 ->K被限定为1 2 3 
+                            z=100-x-y -> z=25+k 
+        */
+        let body = document.getElementsByTagName('body')[0];
+
+        /*for(let x=1; x<=100; x++){
+            for(let y=1; y<=100; y++){
+                for(let z=1; z<=100; z++){
+                    if(x+y+z===100 && 5*x+3*y+z/3===100){
+                        // console.log(`公鸡${x}只,母鸡${y}只,小鸡${z}只.`);
+                        body.innerHTML += `<p style="color: skyblue; padding: 5px 20px;">公鸡${x}只,母鸡${y}只,小鸡${z}只.</p>`;
+                    }
+                }
+            }
+        }*/
+
+        /*for(let x=1; x<=100; x++){
+            for(let y=1; y<=100; y++){
+                let z = 100-x-y;
+                if(x+y+z===100 && 5*x+3*y+z/3===100){
+                    // console.log(`公鸡${x}只,母鸡${y}只,小鸡${z}只.`);
+                    body.innerHTML += `<p style="color: skyblue; padding: 5px 20px;">公鸡${x}只,母鸡${y}只,小鸡${z}只.</p>`;
+                }
+            }
+        }*/
+
+        for(let k=1; k<=3; k++){
+            let x=4*k;
+            let y=25-7*k;
+            let z=25+k;
+            // console.log(1); 检测运算次数 -> 3
+            if(x===4*k && y===25-7*k && z===25+k){
+                body.innerHTML += `<p style="color: skyblue; padding: 5px 20px;">公鸡${x}只,母鸡${y}只,小鸡${z}只.</p>`;
+            }
+        }
+    </script>
+</body>
+</html>

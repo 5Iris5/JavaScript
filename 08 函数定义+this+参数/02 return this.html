@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="keywords" content="201902251150">
+    <meta name="description" content="calm dowm">
+    <title>第八章知识点讲解之this的使用</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+        }
+        .wrap{
+            width: 150px;
+            height: 150px;
+            margin: 200px auto;
+            background-color: skyblue;
+        }
+    </style>
+</head>
+<body>
+    <div class="wrap"></div>
+    <script>
+        /*
+            return 决定 函数执行后 返回的值 默认情况下是undefined
+
+            this指向 调用函数 的对象
+                1.如果没有调用对象(自执行的情况下) -> 函数内部的this指向 window对象
+        */
+
+        function qiqi(){
+            console.log('你想要的是什么工作?');
+            console.log('辞职时候对下一份工作的基础要求');
+            console.log('有吗?')
+        }
+        let fn = qiqi();
+        console.log(fn); // -> undefined 函数内部默认返回一个undefined
+
+
+    </script>
+</body>
+</html>
