@@ -2,9 +2,9 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="keywords" content="201902251150">
+    <meta name="keywords" content="201902261600">
     <meta name="description" content="calm dowm">
-    <title>第八章知识点讲解之this的使用</title>
+    <title>第八章知识点讲解之函数中的参数作用</title>
     <style>
         *{
             margin: 0;
@@ -20,5 +20,40 @@
 </head>
 <body>
     <div class="wrap"></div>
+    <script>
+        /*
+            参数 -> 形参  实参
+                形参 -> 不需要声明 见名之意
+                实参 -> 是执行函数时 传入的具体数据
+
+            形参/实参 
+                一对一 -> 按照顺序接收
+                实参 多余 形参 -> 多余形参的实参不要
+                形参 多余 实参 -> 接收不到实参的形参 默认为 undefined
+
+            return 标签对象
+        */
+
+        function qiqi(a,b,c){
+            console.log(a*b);
+            console.log(c); // undefined
+            return a + b; // 执行的时候 -> return不会被打印
+        }
+        qiqi(7,8); // 有名函数通过函数名()自执行 注意：执行的时候 -> return不会被打印！！！
+        // console.log(qiqi(7,8));
+
+        function iris(adj){ // 形参接收实参数据
+            console.log(`js真的是太${adj}了，我爱死它了`)
+        }
+        iris('有意思'); // 实参传入数据
+
+        function test(obj){
+            console.log(`只要是${obj.goal},就${obj.result}!`);
+        }
+        test({
+            goal: '我想学的',
+            result: '没有学不好的'
+        });
+    </script>
 </body>
 </html>
