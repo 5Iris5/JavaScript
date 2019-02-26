@@ -80,6 +80,7 @@
         let Owrap = document.getElementsByClassName('wrap')[0];
         Owrap.onclick = function(){
             console.log(this); // -> this 指向 <div class="wrap"></div>
+            this.style.backgroundColor = 'pink'; // this在事件函数里面代表前面被触发的对象Owrap,所以可以在函数内部直接使用this -> 操作this就相当于操作Owrap元素节点
         }
 
         let arr = [function(){console.log(this);},'七七呀'];
