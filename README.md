@@ -8,12 +8,12 @@
     1.[下拉列表](https://5iris5.github.io/JavaScript/05%20%E4%B8%89%E7%9B%AE%E8%BF%90%E7%AE%97%2Bfor%E5%BE%AA%E7%8E%AF/04%E4%B8%8B%E6%8B%89%E5%88%97%E8%A1%A8%E4%BC%98%E5%8C%96.html)</br>
     2.[九九乘法表](https://5iris5.github.io/JavaScript/05%20%E4%B8%89%E7%9B%AE%E8%BF%90%E7%AE%97%2Bfor%E5%BE%AA%E7%8E%AF/04%E4%B9%9D%E4%B9%9D%E4%B9%98%E6%B3%95%E8%A1%A8%E4%BC%98%E5%8C%96.html)</br>
 第六章：</br>
-    1.[轮播之两种模式]()</br>
+    1.[轮播之两种模式](https://5iris5.github.io/JavaScript/06%20for%E5%BE%AA%E7%8E%AF%E8%A1%A5%E5%85%85%2Bdowhile/03%20%E7%AC%AC%E5%85%AD%E7%AB%A0%E4%BD%9C%E4%B8%9A%E4%B9%8B%E8%BD%AE%E6%92%AD%E7%9A%84%E4%B8%A4%E7%A7%8D%E6%A8%A1%E5%BC%8F.html)</br>
 第七章：</br>
     1.[百钱百鸡](https://5iris5.github.io/JavaScript/07%20%E8%BF%90%E7%AE%97%E7%AC%A6%2B%E8%87%AA%E5%AE%9A%E4%B9%89(%E6%A0%87%E7%AD%BE)%E5%B1%9E%E6%80%A7/03%E7%AC%AC%E4%B8%83%E7%AB%A0%E4%BD%9C%E4%B8%9A%E4%B9%8B%E7%99%BE%E9%92%B1%E7%99%BE%E9%B8%A1.html)</br>
     2.[选项卡之三种模式]()</br>
 第八章：</br>
-    1.[聊天界面升级版]()</br>
+    1.[聊天界面升级版](https://5iris5.github.io/JavaScript/08%20%E5%87%BD%E6%95%B0%E5%AE%9A%E4%B9%89%2Bthis%2B%E5%8F%82%E6%95%B0/04%20%E7%AC%AC%E5%85%AB%E7%AB%A0%E4%BD%9C%E4%B8%9A%E4%B9%8B%E8%81%8A%E5%A4%A9%E7%95%8C%E9%9D%A2%E5%8D%87%E7%BA%A7%E7%89%88.html)</br>
 第九章：</br>
     1.购物车商品结算</br>
 第十章：</br>
