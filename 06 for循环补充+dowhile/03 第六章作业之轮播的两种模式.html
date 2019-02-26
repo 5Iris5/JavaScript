@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="keywords" content="201902262222">
+    <meta name="description" content="轮播的两种方式,单次轮播与循环轮播">
+    <title>第六章作业之轮播的两种方式</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+            list-style: none;
+            outline: none;
+        }
+        #box{
+            width: 500px;
+            margin: 100px auto;
+        }
+        .banner{
+            position: relative;
+        }
+        .banner1{
+            width: 100%;        
+        }
+        .pic{
+            display: block;
+            width: 100%;
+            height: 300px;
+            border-radius: 10px; 
+        }
+        .top,.bottom{
+            position: absolute;
+            width: 500px;
+            background-color: rgba(0,0,0,.3);
+            color: #fff;
+            text-align: center;
+            line-height: 30px;
+        }
+        .top{
+            border-radius: 10px 10px 0 0;
+        }
+        .bottom{
+            bottom: 0;
+            border-radius: 0 0 10px 10px;
+        }
+        .pre,.next{
+            position: absolute;
+            top: 50%;
+            margin-top: -20px;
+            width: 25px;
+            height: 40px;
+            text-align: center;
+            line-height: 40px;
+            color: #fff;
+            font-weight: bold;
+            font-size: 20px;
+            background-color: rgba(0,0,0,0.3);
+        }
+        .next{
+            right: 0;
+        }
+        .nor,.int{
+            display: inline-block;
+            width: 80px;
+            height: 35px;
+            text-align: center;
+            line-height: 35px;
+            border: 1px solid #bbb;
+            border-radius: 7px;
+            margin-top: 50px;
+            background-color: #fff;
+        }
+        .nor{
+            margin-left: 150px;
+        }
+        .active{
+            color: pink;
+            border: 1px solid pink;
+        }
+    </style>
+</head>
+<body>
+    <div id="box">
+        <ul class="banner">
+            <li class="banner1">
+                <p class="top">1/5</p>
+                <img src="../images/1.jpg" alt="" class="pic">
+                <p class="bottom">娜扎真好看！</p>
+            </li>
+            <span class="pre"><</span>
+            <span class="next">></span>
+        </ul>  
+        <button class="nor active">正常模式</button>
+        <button class="int">循环模式</button>    
+    </div>
+    <script>
+        /*
+            循环效果：-> 点击向前或者向后的按钮时，切换图片路径与上下的文本
+                1.正常模式(单次)
+                    从第一张图片循环切换到第五张 -> 到第一张或第五张了就不能动了
+                2.循环模式
+                    点击切换按钮时图片可以无限循环 -> 在第一张的时候点击先前的按钮，切换到第五张；在第五张的时候，点击向后按钮，切换到第一张
+            逻辑：
+                1.需要用到的元素节点
+                2.两种路径分情况操作
+        */
+        let Opre = document.getElementsByClassName('pre')[0];
+        let Onext = document.getElementsByClassName('next')[0];
+        let Onor = document.getElementsByClassName('nor')[0];
+        let Oint = document.getElementsByClassName('int')[0];
+        let Opic = document.getElementsByClassName('pic')[0];
+        let Obtn = document.getElementsByTagName('button');
+        let Oarrow = document.getElementsByTagName('span');
+
+
+        // 踩坑：从第二次点击开始，要点击到第二次才会改变状态 -> 设置开关的时候不要带下标[i]
+        for(let i=0; i<2; i++){
+            Obtn.bool = false; // 默认选中正常循环(即int元素上有一个active)
+            Obtn[i].onclick = function(){
+                if(Obtn.bool){
+                    Onor.className = 'nor active';
+                    Oint.className = 'int';
+                }else{
+                    Onor.className = 'nor';
+                    Oint.className = 'int active';
+                }
+                Obtn.bool = !Obtn.bool;
+            }
+        }
+        
+        // 向后走搞定，向前走有问题
+        for(let k=0; k<2; k++){
+            bool = 1;      
+            Oarrow[k].onclick = function(){
+                if(bool === 1){   
+                    bool = 2;         
+                    Opic.src = '../images/2.jpg';         
+                    // console.log(bool)
+                }else if(bool === 2){
+                    bool = 3;
+                    Opic.src = '../images/3.jpg';
+                }else if(bool === 3){
+                    bool = 4;
+                    Opic.src = `../images/4.jpg`;
+                }else if(bool === 4){
+                    bool = 5;
+                    Opic.src = `../images/5.jpg`;
+                }else{
+                    bool = 1;
+                    Opic.src = `../images/1.jpg`;
+                }
+            }
+        }
+        
+    </script>
+</body>
+</html>

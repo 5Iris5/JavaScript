@@ -2,16 +2,131 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="keywords" content="201902261700">
+    <meta name="keywords" content="201902262100">
     <meta name="description" content="头像区域可以切换图片，并且点击发送消息可以发送">
     <title>第八章作业之聊天界面升级版</title>
     <style>
         *{
             margin: 0;
             padding: 0;
+            list-style: none;
+        }
+        .wrap{
+            width: 400px;
+            min-height: 300px;
+            border: 1px solid #ccc;
+            margin: 100px auto;
+        }
+        .tab{
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            height: 60px;
+            background-color: #eee;
+        }
+        .icon{
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+        }
+        .chat{
+            display: flex;
+            opacity: 0;
+        }
+        .chat input{
+            width: 200px;
+            height: 26px;
+        }
+        .chat button{
+            width: 40px;
+            height: 30px;         
+        }
+        .add{
+            width: 40px;
+            height: 40px;
+            text-align: center;
+            line-height: 40px;
+            color: #fff;
+            font-size: 20px;
+            font-weight: bold;
+            background-color: #ddd;
+            border-radius: 50%;
+        }
+        li{
+            display: flex;
+            padding: 10px 0;
+            margin: 0 10px;
+            border-bottom: 1px dashed #ccc;
+        }
+        li img{
+            width: 40px;
+            height: 40px;
+            margin-right: 7px;
+            border: 1px solid #ccc;
+        }
+        li p{
+            color: #bbb
         }
     </style>
 </head>
 <body>
+    <div class="wrap">
+        <div class="tab">
+            <img src="../images/icon.jpg" alt="聊天图像" class="icon">
+            <div class="chat">
+                <input type="text">
+                <button>发表</button>
+            </div>
+            <span class="add">+</span>
+        </div>
+        <ul class="lists">
+            <!-- <li>
+                <img src="../images/icon.jpg" alt="">
+                <p>hello你永远永远永远永远有有有有有有有有有有有有有有有永远永远永远永远有</p>
+            </li> -->
+        </ul>
+    </div>
+<script>
+    /*
+        实现效果：
+            1.默认情况下，输入框隐藏
+            2.鼠标点击+号->输入框展示出来
+            3.鼠标点击图像->两个图像轮流切换
+            4.鼠标点击发表按钮->输入框里面的文本跟头像一起展示到内容板块
+        逻辑：
+            123步没问题(略)，主要解决第4步->字符串拼接渲染，其实也不难(里面涉及到两个变量的使用)        
+    */
+
+    // 需要用到的元素节点
+    let Oadd = document.getElementsByClassName('add')[0];
+    let Oicon = document.getElementsByClassName('icon')[0]; // console.log(Oicon)
+    let Ochat = document.getElementsByClassName('chat')[0];
+    let Obtn = document.getElementsByTagName('button')[0]; // console.log(btn);
+    let Oinput = document.getElementsByTagName('input')[0];
+    let Olists = document.getElementsByClassName('lists')[0];
+    // 鼠标点击+输入框区域展示出来
+    Oadd.onclick = function(){
+        Ochat.style.opacity = '1';
+    }
+    // 鼠标点击头像区域切换图像
+    index = true;
+    Oicon.onclick = function(){
+        if(index){
+            Oicon.src = '../images/boy.jpg';         
+        }else{
+            Oicon.src = '../images/icon.jpg';
+        }
+        index = !index;
+    }
+    // 鼠标点击发表按钮->输入框里面的文本跟头像一起展示到内容板块
+    Obtn.onclick = function(){
+        let str =  `<li>
+                        <img src="${Oicon.src}" alt="">
+                        <p>${Oinput.value}</p>
+                    </li>`;
+        Olists.innerHTML += str;
+        Oinput.value = ''; // console.log(Oinput.value)
+    }
+</script>
 </body>
 </html>
