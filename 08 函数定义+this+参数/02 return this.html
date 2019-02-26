@@ -23,20 +23,86 @@
     <script>
         /*
             return 决定 函数执行后 返回的值 默认情况下是undefined
+            return后面 如果多条数据 返回最后一条
+            return后面的语句 不再执行
 
             this指向 调用函数 的对象
-                1.如果没有调用对象(自执行的情况下) -> 函数内部的this指向 window对象
+                1.如果没有调用对象(自执行的情况下) -> 函数内部的this指向 顶层对象window
+                    形如：
+                        function people(){
+                            console.log(this); // -> this 指向 顶层window对象
+                        }
+                        people(); // Window {postMessage: ƒ, blur: ƒ, focus: ƒ, close: ƒ, parent: Window, …}
+                2. 事件函数里面 this 指向 当前触发事件的对象
+                    形如：
+                        document.onclick = function(){
+                            console.log(this); // -> this 指向 #document
+                        }
+                3. 函数在数组中,this的指向
+                    let arr = [function(){console.log(this);},'七七呀'];
+                    arr[0](); // -> this 指向 数组arr -> (2) [ƒ, "七七呀"]
+                4. 函数在对象中,this的指向
+                    let obj = {
+                        qiqi: {
+                            fn: function(){
+                                console.log(this); // -> this 指向 对象qiqi(因为fn是被qiqi调用的!) -> {fn: ƒ, age: 22}
+                            },
+                            age: 22
+                        }
+                    }
+                    obj.qiqi.fn(); // -> 打印 {fn: ƒ, age: 22} 
+                    console.log(obj); // {qiqi: {…}}
+
+            this的指向 不取决于函数在哪执行，而取决于函数在哪被调用！！！
+                function test(){
+                    iris();
+                }
+                test(); // -> 函数fn自执行 -> 打印 Window {postMessage: ƒ, blur: ƒ, focus: ƒ, close: ƒ, parent: Window, …}
+                function iris(){
+                    console.log(this); // 触发函数iris后 this指向window
+                }              
         */
 
         function qiqi(){
-            console.log('你想要的是什么工作?');
+            console.log('你想要的是什么工作?');   
             console.log('辞职时候对下一份工作的基础要求');
             console.log('有吗?')
+            // return undefined 省略了该步骤
         }
         let fn = qiqi();
         console.log(fn); // -> undefined 函数内部默认返回一个undefined
 
+        function people(){
+            console.log(this); // -> this 指向 顶层window对象
+        }
+        people();
 
+        let Owrap = document.getElementsByClassName('wrap')[0];
+        Owrap.onclick = function(){
+            console.log(this); // -> this 指向 <div class="wrap"></div>
+        }
+
+        let arr = [function(){console.log(this);},'七七呀'];
+        arr[0](); // -> this 指向 数组arr -> (2) [ƒ, "七七呀"]
+
+        let obj = {
+            qiqi: {
+                fn: function(){
+                    console.log(this); // -> this 指向 对象qiqi(因为fn是被qiqi调用的!) -> {fn: ƒ, age: 22}
+                },
+                age: 22
+            }
+        }
+        obj.qiqi.fn(); // -> 打印 {fn: ƒ, age: 22} 
+        console.log(obj); // {qiqi: {…}}
+
+        function test(){
+            iris();
+        }
+        test(); // -> 函数fn自执行 -> 打印 Window {postMessage: ƒ, blur: ƒ, focus: ƒ, close: ƒ, parent: Window, …}
+        function iris(){
+            console.log(this); // 触发函数iris后 this指向window
+        }
     </script>
 </body>
 </html>
