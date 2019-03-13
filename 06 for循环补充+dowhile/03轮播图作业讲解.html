@@ -111,47 +111,17 @@
         <div class="next">></div>
     </div>
     <div class="btn-box">
-        <button class="nor active">正常模式</button> <!--默认是行内块元素-->
-        <button class="int">循环模式</button> 
+        <button class="active">正常模式</button> <!--默认是行内块元素-->
+        <button>循环模式</button> 
     </div>
     <script>
         /*
-            循环效果：-> 点击向前或者向后的按钮时，切换图片路径与上下的文本
-                1.正常模式(单次)
-                    从第一张图片循环切换到第五张 -> 到第一张或第五张了就不能动了
-                2.循环模式
-                    点击切换按钮时图片可以无限循环 -> 在第一张的时候点击先前的按钮，切换到第五张；在第五张的时候，点击向后按钮，切换到第一张
             逻辑：
-                1.需要用到的元素节点
-                2.两种路径分情况操作 通过布尔值区分不同循环模式
+                1.获取需要用到的元素
+                2.两种循环模式用布尔值区分
+                3.标记当前li元素的下标序号，根据下标序号进行判断li元素是否展示
+                4.标记上一步操作的元素下标序号，点击当前元素时清空上一操作
         */
-        /*
-        let Opre = document.getElementsByClassName('pre')[0];
-        let Onext = document.getElementsByClassName('next')[0];
-        let Onor = document.getElementsByClassName('nor')[0];
-        let Oint = document.getElementsByClassName('int')[0];
-        let Opic = document.getElementsByClassName('pic')[0];
-        let Obtn = document.getElementsByTagName('button');
-
-
-        // 踩坑：从第二次点击开始，要点击到第二次才会改变状 态 -> 设置开关的时候不要带下标[i]
-        for(let i=0; i<2; i++){
-            Obtn.bool = false; // 默认选中正常循环(即int元素上有一个active)
-            Obtn[i].onclick = function(){
-                if(Obtn.bool){
-                    Onor.className = 'nor active';
-                    Oint.className = 'int';
-                }else{
-                    Onor.className = 'nor';
-                    Oint.className = 'int active';
-                }
-                Obtn.bool = !Obtn.bool;
-                // 检测 重复点击同一个有active样式的元素，身上样式保持不变!!!
-                
-            }
-        }
-        */
-
         let aLi = document.querySelectorAll("li");
         let aBtn = document.querySelectorAll("button");
         let oTop = document.getElementsByClassName("top")[0];
@@ -177,42 +147,31 @@
             onOff = false;
         }
 
+        function run(){
+            oldLi.classList.remove("show");  // 每次取消上一次的li 
+            aLi[num].classList.add("show");  //  当前li元素加上show类名
+            oldLi = aLi[num];  //  把oLi跟新为当前的li
+            oTop.innerHTML = `${num+1}/5`;
+            oBot.innerHTML = arr[num];
+        }
+
         oNext.onclick = function(){   
             num++;  // -> 1
             if(num > 4){
-                if(onOff){ 正常模式
-                    num = 4;
-                    alert("over");
-                }else{
-                    num = 0;
-                }
+                onOff ? num = 4 : num = 0;
             }
-            oldLi.classList.remove("show");  // 每次取消上一次的li -> 取消num=0的类名
-            aLi[num].classList.add("show");  // -> 1 当前li元素加上show类名
-            oldLi = aLi[num];  // -> 1 把oLi跟新为当前的li
-            oTop.innerHTML = `${num+1}/5`;
-            oBot.innerHTML = arr[num];
+            run();
         }
 
         oPre.onclick = function(){
-            oldLi.classList.remove("show"); 
             num--;
             if(num < 0){
-                if(onOff){
-                    num = 0;
-                }else{
-                    num = 4;
-                }
+                onOff ? num = 0 : num = 4;
             }
-            aLi[num].classList.add("show");
-            oldLi = aLi[num];
-            oTop.innerHTML = `${num+1}/5`;
-            oBot.innerHTML = arr[num];
+            run();
         }
-        // 未解决问题-> 正常情况下 点击到最后一张图片后还可以继续点击 并且图片区域留白无法展示最后一张图片
-        // 解决 -> 点击事件一开始不要清除类名，一开始就清楚会导致最后一个元素无法成功添加类名
 
-        // 未解决 -> 正常模式下点击到第一张图片或最后一张图片 -> 出现末尾图片留白，无法添加上类名
+        // 未解决 -> 正常模式下点击到第一张图片或最后一张图片 -> 出现末尾图片留白，无法添加上类名 -> 用三目运算符问题没重现了...
     </script>
 </body>
 </html>
