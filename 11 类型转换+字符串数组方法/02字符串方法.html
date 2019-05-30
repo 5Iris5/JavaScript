@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="keywords" content="201905291621">
+    <meta name="description" content="">
+    <title>字符串方法</title>
+</head>
+<body>
+    <input type="text" id='box'>
+   <script>
+       /*
+            字符串方法:  只读 -> 不会去修改原字符串
+                        具备 length长度 -> 返回字符个数
+                
+                1. charAt() -> 获取字符串项(参数:索引) -> 不会修改原字符串
+                2. charCodeAt() -> 返回指定位置字符串项(参数:索引)的unicode编码 -> ,不会修改原字符串
+                3. String.fromCharCode() -> (参数: unicode编码)返回对应的字符 
+                4. indexOf() -> 从前往后查询
+                    第一个参数: 通过字符串项 返回当前字符串项的第一个索引 
+                    第二个参数(可选): 从索引为该值的位置开始往后检索
+                    如果找不到该字符串项,返回-1
+                5. lastIndexOf() -> 从后往前查询
+                    第一个参数: 通过字符串项 返回当前字符串项的第一个索引 
+                    第二个参数(可选): 从索引为该值的位置开始往前检索
+                    如果找不到该字符串项,返回-1
+                6. substring() -> 截取字符串 [左闭右开,参数位置可以调换]
+                    第一个参数: 起始索引
+                    第二个参数: 结束索引
+        **      7. slice() -> 与substring()用法一样,但是参数不允许互换
+                8. toLowerCase() -> 全部转换为小写字母
+                9. toUpperCase() -> 小写转换为大写字母
+        ***    10. split() -> 按照一定规则将字符串切割为数组
+                    不传参数: 认为什么都不切
+               11. trim() -> 将字符串前后两端的空格切除!字符串中间的不切 -> 返回一个新字符串,不改变原字符串
+               12. match() -> 搭配正则使用  检索字符串,找到了返回一个数组,找不到返回null
+               13. search() -> 同上,但只返回索引值
+        ***    14. replace() -> 替换功能
+                    第一个参数: 原字符串内容
+                    第二个参数: 替换后的字符串内容
+       */
+
+       let str = '123木头人123';
+       console.log(str.charAt(0)); 
+       console.log(str.charCodeAt(0));
+       console.log(String.fromCharCode(49));
+       console.log(str);  
+
+       let str2 = '0123454321';
+       console.log(str2.indexOf(2,5));
+       console.log(str2.lastIndexOf(3,9));
+
+       console.log(str.substring(2,5))  // 3木头
+       console.log(str.split());    // ["123木头人"]
+       console.log(str.split("")); //  ["1", "2", "3", "木", "头", "人"]
+
+       document.onclick = function(){
+           console.log(box.value.trim());
+       }
+
+       console.log(str2.match(3))
+       console.log(str2.search(3))
+       console.log(str.replace("123","木头人"))  // 木头人木头人123
+    </script> 
+</body>
+</html>

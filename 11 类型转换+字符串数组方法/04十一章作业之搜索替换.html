@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="keywords" content="201905301500">
+    <meta name="description" content="什么时候才能自己独立完成呢?">
+    <title>Document</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+        }
+        #pannel{
+            width: 500px;
+            height: 300px;
+            margin: 50px auto 0;
+            border: 2px solid #ccc;
+            border-radius: 10px;
+        }
+        .input_box{
+            margin: 20px 0 20px 10px;
+        }
+        input{
+            padding: 5px 0 5px 20px;
+        }
+        button{
+            padding: 5px;
+            font-size: 12px;
+        }
+        .desc{
+            margin: 0 10px;
+            font-size: 14px;
+            text-indent: 2em;
+        }
+        .desc p{
+            margin-bottom: 10px;
+        }
+        span{
+            color: #ff0036;
+        }
+    </style>
+</head>
+<body>
+    <div id="pannel">
+        <div class="input_box">
+            <input type="text" placeholder="搜索内容" class="search_box">
+            <button class="search_btn">搜索</button>
+            <input type="text" placeholder="替换内容" class="replace_box">
+            <button class="replace_btn">替换</button>
+        </div>
+        <div class="desc">
+                <p>
+                    张家界，原名“大庸市”，湖南省地级市。辖2个市辖区（永定区、武陵源区）、2个县（慈利县、桑植县）。
+                    位于湖南西北部，澧水中上游，属武陵山区腹地。[1] 张家界因旅游建市，是中国最重要的旅游城市之一，
+                    是湘鄂渝黔革命根据地的发源地和中心区域。
+                </p>
+                <p> 1982年9月，张家界国家森林公园成为中国第一个国家森林公园。</p>
+                <p>
+                    1988年8月，张家界武陵源风景名胜区被列入国家重点风景名胜区；1992年，由张家界国家森林公园等三大景
+                    区构成的武陵源风景名胜区被联合国教科文组织列入《世界自然遗产名录》；2004年2月，被列入全球首批《世界
+                    地质公园》；2007年，被列入中国首批国家5A级旅游景区。[2] 2017年，被授予“国家森林城市”荣誉称号。[3]
+                </p>   
+        </div>
+    </div>
+
+    <script>
+        /*
+            逻辑: 点击按钮 -> 获取对应input框内容 -> 找到文章中有与input框中相等的内容 -> 有则标红或替换,无则不做改变 
+            遇到问题: 
+                1. 没办法提取出所有的目标文字(只将目标文字挖出来了)  -> join拼接
+                2. 将替换后的文本重新渲染到页面后,段落格式变了  -> 不要用textContent获取元素内部内容,要用innerHTML
+        */
+        let aInp = document.getElementsByTagName('input');
+        let aBtn = document.getElementsByTagName('button');
+        let oContent = document.getElementsByClassName('desc')[0];
+        let str = oContent.innerHTML;
+
+        aBtn[0].onclick = function(){
+            if(aInp[0].value == ''){
+                return;
+            }
+            // 遗留问题:  上一次标红的文本会保留 -> 写完后一个功能该问题就不见了,why?
+            oContent.innerHTML =  str.split(aInp[0].value).join(`<span>${aInp[0].value}</span>`);   // 先提取 -> 再拼接
+        }
+
+        aBtn[1].onclick = function(){
+            let _value = str.indexOf(aInp[0].value);  // 不存在 -> 返回-1
+            if( _value !== -1 && aInp[1].value !== ''){
+                oContent.innerHTML = str.split(aInp[0].value).join(`<span>${aInp[1].value}</span>`);
+            }
+        }
+    </script>
+</body>
+</html>

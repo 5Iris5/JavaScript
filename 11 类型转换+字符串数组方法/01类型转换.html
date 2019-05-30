@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="keywords" content="201905291520">
+    <meta name="description" content="">
+    <title>类型转换</title>
+</head>
+<body>
+    <div id="box" style="width: 200.001px"></div>
+    <script>
+        /*
+            类型转换:
+                隐式类型转换 
+                    1.if() ->  true/fasle
+                *** 2.加号+两边,只要有一边是字符串,那么另一边会隐式转换为 字符串型
+                显式类型转换
+                    1. let bool = Boolean("1")
+                    2. let bool2 = true
+                    3. 对象.toString() -> 返回转成功的字符串
+                    4. Number()
+                    5. true/false -> 转换成正常的数组
+
+            *** 过滤掉字符串中不是数字的部分
+                    1. parseInt() -> 传入一个字符串,过滤掉不是数值的一部分
+                        从第一个不是空格的地方开始,到不是数字(小数点不是数字)的地方结束 -> 返回一个整数
+                    2. parseFloat()  -> 传入一个字符串,过滤掉不是数值的一部分 
+                        从第一个不是空格的地方开始,可以保留一个小数点,到不是数字的地方结束 -> 返回一个整数或小数
+
+                0X -> 16进制表达法
+                0b -> 二进制表达法
+                        
+        */
+
+        let bool = Boolean("1")
+        console.log(bool)
+        
+        let arr = [1,2,3]
+        console.log("" + arr)   // "1,2,3"
+        console.log(typeof Number(arr))
+        console.log('5'/1)
+
+        let obj = {name: 'Iris'}
+        console.log(typeof obj.toString())
+
+        let Owidth = box.style.width;
+        console.log(parseInt(Owidth));  // 200
+        console.log(parseFloat(Owidth));  // 200.001
+
+        let str = '123.45.67px'
+        console.log(parseInt(str));  // 123
+        console.log(parseFloat(str));  // 123.45
+    </script>
+</body>
+</html>
