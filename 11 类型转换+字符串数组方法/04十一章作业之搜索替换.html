@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="keywords" content="201905301500">
     <meta name="description" content="什么时候才能自己独立完成呢?">
-    <title>Document</title>
+    <title>文字搜索替换</title>
     <style>
         *{
             margin: 0;
@@ -73,13 +73,13 @@
         let aInp = document.getElementsByTagName('input');
         let aBtn = document.getElementsByTagName('button');
         let oContent = document.getElementsByClassName('desc')[0];
-        let str = oContent.innerHTML;
+        let str = oContent.innerHTML;  // oContent.innerHTML内容初始化
 
         aBtn[0].onclick = function(){
             if(aInp[0].value == ''){
                 return;
             }
-            // 遗留问题:  上一次标红的文本会保留 -> 写完后一个功能该问题就不见了,why?
+            // 遗留问题:  上一次标红的文本会保留 -> 两次操作的oContent.innerHTML并不一样
             oContent.innerHTML =  str.split(aInp[0].value).join(`<span>${aInp[0].value}</span>`);   // 先提取 -> 再拼接
         }
 

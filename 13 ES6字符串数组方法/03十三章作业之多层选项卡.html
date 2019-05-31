@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="keywords" content="201905310900">
+    <meta name="description" content="问题: 下标切换与图片的连接/布局">
+    <title>多层选项卡</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+            list-style: none;
+        }
+        #banner{
+            width: 600px;
+            height: 400px;
+            border: 1px solid #000;
+            margin: 100px auto 0;
+            color: white;
+            text-align: center;
+            line-height: 30px;
+        }
+        .banner-nav{
+            float: left;
+        }
+        .banner-nav li{
+            width: 80px;
+            height: 30px;
+            margin-bottom: 2px;
+            background-color: orange;
+        }
+        .banner-nav li.active{
+            background-color: black;
+        }
+        .banner-con{
+            position: relative;
+            width: 100%;
+            height: 100%;
+        }
+        .tabs{
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            margin-left: -85px;
+        }
+        .tabs span{
+            display: block;
+            float: left;
+            width: 30px;
+            height: 30px;
+            margin-right: 5px;
+            background-color: pink;
+        }
+        .tabs span.active{
+            background-color: black;
+        }
+        .pannel{
+            height: 100%;
+        }
+        .pannel img{
+            position: absolute;
+            top: 0;
+            left: 0;
+            z-index: -1;
+            width: 100%;
+            height: 100%;
+        }
+    </style>
+</head>
+<body>
+    <div id="banner">
+        <ul class="banner-nav">
+            <li class="active">名车</li>
+            <li>美食</li>
+            <li>女孩</li>
+            <li>游戏</li>
+        </ul>
+        <div class="banner-con">
+            <div class="tabs">
+                <span class="active">1</span>
+                <span>2</span>
+                <span>3</span>
+                <span>4</span>
+                <span>5</span>
+            </div>
+            <div class="pannel">
+                <img src="../images/cart1.jpg" alt="">
+                <img src="../images/cart2.jpg" alt="">
+                <img src="../images/cart3.jpg" alt="">
+                <img src="../images/cart4.jpg" alt="">
+                <img src="../images/cart5.jpg" alt="">
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let aLi = document.getElementsByTagName('li');
+        let aSpan = document.getElementsByTagName('span');
+        let aImg = document.getElementsByTagName('img');
+        let num = 0;
+        let oldSpan = aSpan[num];
+        for(let i=0; i<aImg.length; i++){
+            aSpan[i].onclick = function(){
+                oldSpan.classList.remove('active');  // 移除上一次添加上的class类名
+                aSpan[i].classList.add('active');
+                oldSpan = aSpan[i];
+            }
+        }
+    </script>
+</body>
+</html>

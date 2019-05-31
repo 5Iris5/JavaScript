@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="keywords" content="201905301700">
+    <meta name="description" content="">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        /*
+            数组方法补充说明:
+                不改变原数组
+                *** 1. comcat() -> 数组拼接
+                    2. join() -> 数组 转换为 字符串  (按指定的分隔符进行拼接)
+                改变原数组
+                    1. reverse() -> 倒叙(颠倒数组顺序),不接受参数
+                *** 2. sort() 排序  -> 常用于数组里面是数值的时候  (参数为回调函数)
+                        用法:
+                            arrObject.sort(function(a,b){
+                                return __
+                            })
+                            arrObject.sort((a,b)=>_)
+                        1) return的值 >=0 数组顺序不变
+                        2) return的值 <0 倒叙(颠倒数组顺序)功能与reverse一样
+                        3) a-b 数值从小排到大
+                        4) b-a 数值从大排到小
+
+            ES6   
+                不会改变原数组
+                *** 1. forEach -> 遍历数组
+                        用法:
+                            _arr2.forEach(function(val,index,arr){
+                                console.log(val,index,arr)
+                            },_arr2)
+                        1)第一个参数 回调函数
+                            回调函数内部接收三个参数
+                                1. 当前数组项内容
+                                2. 当前数组项索引
+                                3. 原数组
+                        2)第二个参数 改变回调函数的this指向,注意不能是箭头函数
+                    2. map  映射方法 与forEach类似 -> 会遍历数组项,返回一个新数组
+        */
+        let arr = [0,1,2]
+        let arr1 = ['一定','要']
+        let arr2 = ['坚持呀']
+        let _comcat = arr.concat(arr1,arr2);
+        console.log(_comcat);  //  [0, 1, 2, "一定", "要", "坚持呀"]
+        console.log(arr);   // [0, 1, 2]
+        // 快速复制原数组 -> comcat不传参 arr.concat()
+ 
+        let _join = arr.join(''); 
+        console.log(arr);     // [0, 1, 2]
+        console.log(_join);  // '012'
+        let _join2 = arr.join('我');
+        console.log(_join2);  // '0我1我2'
+
+        let _reverse = arr.reverse();
+        console.log(_reverse);  // [2, 1, 0]
+        console.log(arr);  // [2, 1, 0]
+
+        let _arr = [8,5,7,0,3,11,2,9,6]
+        _arr.sort(function(a,b){
+            return b-a;
+        })
+        console.log(_arr); // [11, 9, 8, 7, 6, 5, 3, 2, 0]
+
+        let _arr2 = [0,9,7,3,5,4,6]
+        _arr2.forEach(function(a,b,c){
+            console.log(a,b,c)
+        });
+        _arr2.forEach(function(val){
+            console.log(val)
+        });
+        // 等同于
+        for(let i = 0; i < _arr2.length; i++){
+            console.log(_arr2[i]);
+        }
+
+        let _map = _arr2.map(function(val){
+            return val+1;
+        })
+        console.log(_map);  // [1, 10, 8, 4, 6, 5, 7]
+        console.log(_arr2)  // [0, 9, 7, 3, 5, 4, 6]
+        
+    </script>
+</body>
+</html>

@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="keywords" content="201905310900">
+    <meta name="description" content="问题: 下标切换与图片的连接/布局">
+    <title>价格排序</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+            list-style: none;
+        }
+        #container{
+            width: 800px;
+            height: 500px;
+            margin: 50px auto 0;
+            border: 1px solid #ccc;
+        }
+        .content{
+            height: 380px;
+            margin: 0 20px;
+            padding: 35px 0 25px;
+            border-bottom: 1px solid #ccc; 
+        }
+        .content li{
+            float: left;
+            width: 180px;
+            height: 190px;
+            margin: 0 5px 
+        }
+        li img{
+            display: block;
+            width: 100%;
+            height: 150px;
+        }
+        li p{
+            font-size: 14px;
+            height: 30px;
+            line-height: 30px;
+        }
+        li p.desc{
+            float: left;
+        }
+        li p.price{
+            float: right;
+        }
+        li p.price span{
+            color: #ff0036;
+        }
+        .tabs{
+            float: right;
+            margin: 10px 25px 0 0; 
+        }
+        .tabs button{
+            font-size: 12px;
+            padding: 2px 3px;
+        }
+    </style>
+</head>
+<body>
+    <div id="container">
+        <ul class="content">
+            <li>
+                <img src="../images/cart1.jpg" alt="">
+                <p class="desc">车子系列1</p>
+                <p class="price">$<span>8200</span></p>
+            </li>
+            <li>
+                <img src="../images/cart2.jpg" alt="">
+                <p class="desc">车子系列2</p>
+                <p class="price">$<span>7500</span></p>
+            </li>
+            <li>
+                <img src="../images/cart3.jpg" alt="">
+                <p class="desc">车子系列3</p>
+                <p class="price">$<span>7800</span></p>
+            </li>
+            <li>
+                <img src="../images/cart4.jpg" alt="">
+                <p class="desc">车子系列4</p>
+                <p class="price">$<span>9000</span></p>
+            </li>
+            <li>
+                <img src="../images/cart5.jpg" alt="">   
+                <p class="desc">车子系列5</p>
+                <p class="price">$<span>6600</span></p>
+            </li>
+            <li>
+                <img src="../images/food1.jpg" alt="">   
+                <p class="desc">食物系列1</p>
+                <p class="price">$<span>88.88</span></p>
+            </li>
+            <li>
+                <img src="../images/food2.jpg" alt=""> 
+                <p class="desc">食物系列2</p>
+                <p class="price">$<span>32.00</span></p> 
+            </li>
+            <li>
+                <img src="../images/food3.jpg" alt="">   
+                <p class="desc">食物系列3</p>
+                <p class="price">$<span>126.68</span></p>
+            </li>
+        </ul>
+        <div class="tabs">
+            <button>随机</button>
+            <button>从低到高</button>
+            <button>从高到低</button>
+        </div>
+    </div>
+    <script>
+        // 问题: 价格可以单独排好高低,但是没办法跟内容同时变动  
+        // 解决: 所有需要变动的元素(li里面的所有元素)都要获取,并储存在一个数组里面,方便排序后渲染
+        let aBtn = document.getElementsByTagName('button');
+        let aLi = document.getElementsByTagName('li');
+        let aImg = document.getElementsByTagName('img');
+        let aDesc = document.getElementsByClassName('desc');
+        let aPrice = document.getElementsByClassName('price');
+        let aSpan = document.getElementsByTagName('span');
+        let arr = [];
+        // console.log(aImg[0].src)
+
+        // *** 遍历li内部所有元素 -> 并存储在数组arr里面
+        for(let i=0; i<aLi.length; i++){
+            arr[i] = {
+                img: aImg[i].src,
+                desc:  aDesc[i].innerHTML,
+                price: aPrice[i].innerHTML,
+                span: aSpan[i].innerHTML
+            }
+            // console.log(arr);   
+        }
+
+        // 随机排列
+        aBtn[0].onclick = function(){
+            arr.sort((a,b)=>{
+                return Math.random() - 0.5
+            });
+            console.log(arr);
+            putIn(arr);
+        }
+
+        // 排序(通过价格比较) -> 从低到高
+        aBtn[1].onclick = function(){
+            arr.sort((a,b)=>{
+                return a.span-b.span
+            });
+            console.log(arr);
+            putIn(arr);
+        }
+
+        // 从高到低
+        aBtn[2].onclick = function(){
+            arr.sort((a,b)=>{
+                return b.span-a.span
+            });
+            console.log(arr);
+            putIn();
+        }
+
+        // *** 重新绘制li内部元素
+        function putIn(){
+            let str = '';
+            for(let i=0; i<aLi.length; i++){
+                str = `<img src="${arr[i].img}" alt=""><p class="desc">${arr[i].desc}</p><p class="price">${arr[i].price}</p>`
+                aLi[i].innerHTML = str;
+            }
+        }
+    </script>
+</body>
+</html>
