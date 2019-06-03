@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="keywords" content="201906031500">
+    <meta name="description" content="">
+    <title>ES6字符串方法</title>
+</head>
+
+<body>
+    <script>
+        /*
+        字符串方法
+            返回布尔值
+                1. startWith 是否以某(些)字符开头
+                2. endsWith 是否以某(些)字符结尾
+                3. inCludes 是否包含某(些)字符
+                4. every 一假必假
+                5. some  一真必真
+
+            repeat(): 把原字符串重复,返回一个新字符
+
+            padStart/padEnd: 补全字符串
+                第一个参数: 需要补全的字符串总长度  >则添加 <=则不变
+                第二个参数: 补全的内容
+
+        ES6数组方法:  !!! 不改变原数组
+            1. map()
+            2. forEach()
+            3. filter() 过滤 
+                接收回调函数
+            4. for in 只能获取对象的键名 或 索引
+            5. for of 可以直接取到数组里面的值 但是不能遍历对象,for in可以遍历对象,但不能直接取键值
+
+            6. reduce()  不改变原数组
+                用法: let _reduce3 = arr2.reduce((total,val, index, arr) => total * val, 2)
+                第一个参数 回调函数(接收四个参数)
+                    1) total 迭代累加器
+                    2) val 数组项
+                    3) index 当前数组项的索引值
+                    4) arr 原数组
+                第二个参数  回调函数中第一个参数total的初始值,不给则默认为undefined
+        */
+
+        let str = 'hello Iris just follow your heart'
+        console.log(str.includes('r'));
+        console.log(str.padEnd(60, 'see'))
+
+        let arr = [1, 2, 3, 4, 5, 6]
+        let arr1 = arr.filter(function (val) {
+            if (val > 3) {
+                return true;
+            }
+        })
+        // 等价于 let arr1 = arr.filter(val => val>3)
+        console.log(arr)    // [1, 2, 3, 4, 5, 6]
+        console.log(arr1)  //  [4, 5, 6]
+
+        let obj = {
+            name: 'Iris',
+            sex: 'female'
+        }
+        for (let key in obj) {  // key 代表 对象里面的 键名 或 索引
+            console.log(obj[key]);
+        }
+        for (let key of arr) {
+            console.log(key)
+        }
+
+        console.log(arr.every(val => val > 2))   // false
+        console.log(arr.some(val => val > 3))   // true
+
+        let arr2 = [1, 2, 3]
+        let _reduce = arr2.reduce((total, value, index, arr) =>
+            total + value
+        )
+        console.log(_reduce)  // 6
+
+        /*
+            运算过程 total + value
+                total 初始值 undefined
+                1. a = undefined + 1  // -> 1
+                2. a = a + 2   // -> 3
+                3. a = a + 3  // -> 6
+        */
+
+        let _reduce2 = arr2.reduce((tot, val, index, arr) => tot + val, '')
+        console.log(_reduce2);  // '123'
+        /*
+            运算过程 tot + val
+                tot 初始值 ''
+                1. a = '' + 1  // -> '1'
+                2. a = a + 2   // -> '12'
+                3. a = a + 3  // -> '123'
+        */
+
+        let _reduce3 = arr2.reduce((tot, val, index, arr) => tot * val, 2)
+        console.log(_reduce3);  // 12
+        /*
+            运算过程 tot * val
+                tot 初始值 2
+                1. a = 2 * 1  // -> 2
+                2. a = 2 * 2   // -> 4
+                3. a = 4 * 3  // -> 12
+        */
+
+        // *** 问题: 一串字符串中,不同字符分别重复几次
+        let str2 = '123hellohello456whatareyoudoing'
+        let _split = str2.split('');
+        console.log(_split);
+        let answer = _split.reduce((obj, val) => (obj[val] ? obj[val]++ : obj[val] = 1, obj), {})
+        console.log(answer)
+        /*
+            分解步骤:
+                obj 初始值 {}
+                回调函数(obj[val] ? obj[val]++ : obj[val] = 1, obj)里面两条语句 return 后一条语句
+                a = {}["1"] ? -> {"1": 1}
+                a = a , {}["2"] ? -> {"1": 1,"2": 1}
+                ...
+        */
+    </script>
+</body>
+
+</html>

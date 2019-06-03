@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="keywords" content="201906031600">
+    <meta name="description" content="">
+    <title>ES6数组方法扩展</title>
+</head>
+<body>
+    <script>
+        /*
+            返回布尔值:
+                Array.isArray(arr) 判断是否是数组
+                isNaN(1)  判断是否是NaN
+
+            复制数组的方法:
+                1. let  arr = [1,2,3]
+                   let arr1 = arr.map(val => val)
+                
+                2. let  arr = [1,2,3]
+                   let arr1 = arr.slice()
+
+                3. let  arr = [1,2,3]
+                   let arr1 = arr.splice(0,3)
+
+                4. let  arr = [1,2,3]
+                   let arr1 = [...arr]
+                用处: 主要用于接收参数
+                      可以把字符串边数组
+                      可以把类数组边数组
+
+            indexOf() 返回数组项 第一次出现的索引值 第二个参数 限定索引起始范围 从左往右
+            lastIndexOf() 返回数组项 第一次出现的索引值 第二个参数 限定索引起始范围 从右往左
+
+            find() 找到符合条件的第一个数组项后 立刻返回 其他的就不管了
+                接收一个回调函数
+                    1) 数组项 val
+                    2) 索引 index
+                    3) 原数组 arr
+
+            findIndex() ->  用法同find() 找到符合条件的第一个数组项下标后 立刻返回 其他的就不管了
+
+            数组去重:
+                let arr2 = [1,2,3,4,5,6,6,5,4,3,2,1,7,9,9,8,7,0]
+                for(let i = arr2.length - 1; i >= 0; i--){
+                for(let j = i - 1; j >= 0; j--){
+                    if(arr2[i] == arr2[j]){
+                        arr2.splice(i,1)
+                        }
+                    }
+                }
+                console.log(arr2)  // [1, 2, 3, 4, 5, 6, 7, 9, 8, 0]
+
+        */
+
+        let  arr = [1,2,3,1]
+        let arr1 = [...arr]
+        console.log(arr1)
+        console.log(arr.indexOf(1))  // 0
+        console.log(arr.lastIndexOf(1))  // 3
+
+        console.log(arr.find( val => val > 1))  // 2
+
+        let arr2 = [1,2,3,4,5,6,6,5,4,3,2,1,7,9,9,8,7,0]
+        // 双层嵌套for循环 -> 从数组项后往前判断(前->后删除 后面的数组项会往前挤,导致被漏掉)
+        // for(let i = 0; i < arr2.length; i++){
+        //     for(let j = i+1; j < arr2.length; j++)
+        //     console.log(i,j)
+        // }
+        for(let i = arr2.length - 1; i >= 0; i--){
+            for(let j = i - 1; j >= 0; j--){
+                // console.log(i,j)
+                if(arr2[i] == arr2[j]){
+                    arr2.splice(i,1)
+                }
+            }
+        }
+        console.log(arr2)  // [1, 2, 3, 4, 5, 6, 7, 9, 8, 0]
+
+        console.log(Array.isArray(arr))  // true
+        console.log(isNaN(1))  // false
+    </script>
+</body>
+</html>

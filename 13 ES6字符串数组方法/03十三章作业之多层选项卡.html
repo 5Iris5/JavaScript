@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="keywords" content="201905310900">
+    <meta name="keywords" content="201906031700">
     <meta name="description" content="问题: 下标切换与图片的连接/布局">
     <title>多层选项卡</title>
     <style>
@@ -41,14 +41,14 @@
             position: absolute;
             bottom: 20px;
             left: 50%;
-            margin-left: -85px;
+            transform: translateX(-50%);
         }
         .tabs span{
             display: block;
             float: left;
             width: 30px;
             height: 30px;
-            margin-right: 5px;
+            margin: 0 3px;
             background-color: pink;
         }
         .tabs span.active{
@@ -77,11 +77,11 @@
         </ul>
         <div class="banner-con">
             <div class="tabs">
-                <span class="active">1</span>
+                <!-- <span class="active">1</span>
                 <span>2</span>
                 <span>3</span>
                 <span>4</span>
-                <span>5</span>
+                <span>5</span> -->
             </div>
             <div class="pannel">
                 <img src="../images/cart1.jpg" alt="">
@@ -94,18 +94,34 @@
     </div>
 
     <script>
+        /* 索引数量 == 图片数量 -> 可根据图片数量动态生成 */
+
+        let oTabs = document.getElementsByClassName('tabs')[0];
         let aLi = document.getElementsByTagName('li');
         let aSpan = document.getElementsByTagName('span');
         let aImg = document.getElementsByTagName('img');
-        let num = 0;
-        let oldSpan = aSpan[num];
-        for(let i=0; i<aImg.length; i++){
-            aSpan[i].onclick = function(){
-                oldSpan.classList.remove('active');  // 移除上一次添加上的class类名
-                aSpan[i].classList.add('active');
-                oldSpan = aSpan[i];
+
+        function forOnClick(){
+            // 根据图片数量渲染索引按钮个数
+            let str = '';
+            for(let i=0; i<aImg.length; i++){    
+                str += `<span>${i+1}</span>`;    
+            }
+            oTabs.innerHTML += str;
+
+            // 给索引按钮注册点击事件
+            let num = 0;  // 记录当前点击的下标值
+            aSpan[0].classList.add('active');
+            for(let i=0; i<aImg.length; i++){
+                aSpan[i].onclick = function(){
+                    aSpan[num].classList.remove('active');  // 移除上一次添加上的class类名
+                    num = i;   
+                    console.log(aSpan[num],aSpan[i]);  
+                    aSpan[i].classList.add('active'); // 给当前点击的添加上的class类名                       
+                }
             }
         }
+        forOnClick()
     </script>
 </body>
 </html>
