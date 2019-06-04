@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="keywords" content="201906041630">
+    <meta name="description" content="">
+    <title>结构赋值</title>
+</head>
+<body>
+    <script>
+        /*  
+            es6结构赋值:
+                字符串 数值 值类型数据  -> 比较的是值本身和数据类型
+                    1. 占用空间固定,保存在栈中
+                    2. 保存与复制的是 值的本身
+                    3. typeof 查询数据类型
+
+                [] function(){} 引用类型  -> 比较的是地址
+                    1. 占用空间不固定,保存着堆中
+                    2. 保存与复制的是 指向对象的一个地址/指针
+                    3.  instanceof 查询数据类型 -> 是否在原型链上
+
+                通过构造函数new生成的对象 -> 是引用型
+
+        */
+        let [a,b] = [1,2];
+        console.log(a,b);  // -> 1 2
+
+        function fn(){
+            return [1,2,3]
+        }
+        let[e,f,g] = fn();
+        console.log(f);  // 2
+    </script>
+</body>
+</html>
