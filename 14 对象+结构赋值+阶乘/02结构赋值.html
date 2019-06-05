@@ -4,23 +4,25 @@
     <meta charset="UTF-8">
     <meta name="keywords" content="201906041630">
     <meta name="description" content="">
-    <title>结构赋值</title>
+    <title>结构赋值/值类型与引用类型的区别</title>
 </head>
 <body>
     <script>
         /*  
             es6结构赋值:
-                字符串 数值 值类型数据  -> 比较的是值本身和数据类型
+                1. 字符串 数值 值类型数据  -> 比较的是值本身和数据类型
                     1. 占用空间固定,保存在栈中
                     2. 保存与复制的是 值的本身
                     3. typeof 查询数据类型
 
-                [] function(){} 引用类型  -> 比较的是地址
+                2. [] function(){} 引用类型  -> 比较的是地址
                     1. 占用空间不固定,保存着堆中
                     2. 保存与复制的是 指向对象的一个地址/指针
                     3.  instanceof 查询数据类型 -> 是否在原型链上
 
-                通过构造函数new生成的对象 -> 是引用型
+                *** 通过构造函数new生成的对象 -> 是引用型
+
+                阶乘 !5 => 5*4*3*2*1 
 
         */
         let [a,b] = [1,2];
@@ -31,6 +33,22 @@
         }
         let[e,f,g] = fn();
         console.log(f);  // 2
+
+        // 阶乘
+        function count(num){
+            if(num <= 1){   // 限制条件,防止堆栈溢出
+                return 1
+            }
+            return num * count(num-1)
+        }
+        console.log(count(1))  // 1
+        console.log(count(5))  // 120  -> 5*4*3*2*1
+        /*
+            count(5) 运算过程
+                1. 5 * count(5-1)
+                2. 5 * 4 * count(4-1)
+                ...
+        */
     </script>
 </body>
 </html>

@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="keywords" content="201904261450">
+    <meta name="description" content="">
+    <title>圆周运动</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        #round {
+            position: relative;
+            width: 500px;
+            height: 500px;
+            border: 1px solid #fcf;
+            border-radius: 50%;
+            margin: 100px auto;
+        }
+
+        span {
+            position: absolute;
+            display: block;
+            width: 10px;
+            height: 10px;
+            background-color: #0fc;
+            border-radius: 50%;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="round">
+        <span></span>
+    </div>
+    <script>
+        /* 逻辑: 根据角度变化计算圆的坐标(x,y) */
+        let oSpan = document.getElementsByTagName('span')[0];
+        let r = 250;   // 圆半径
+        let deg = 0;  // 角度
+        function move() {
+            let rad = (Math.PI / 180) * deg; // -> 弧度与角度的替换法   一弧度的角度表示法
+            let leftX = r + Math.sin(rad) * r - 5;
+            let topY = r - Math.cos(rad) * r - 5;
+            // console.log(leftX,topY);
+            oSpan.style.left = leftX + 'px';
+            oSpan.style.top = topY + 'px';
+            deg += 1;   // 角度变化
+            console.log(deg);
+        }
+        setInterval(move, 1000 / 60);
+    </script>
+</body>
+
+</html>

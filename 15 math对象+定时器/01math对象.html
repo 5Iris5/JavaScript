@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="keywords" content="201906041730">
+    <meta name="description" content="Math对象常见方法/颜色随机值生成">
+    <title>math对象</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+        }
+        .box{
+            display: inline-block;
+            width: 150px;
+            height: 30px;
+            border: 1px solid #000;
+            margin: 5px;
+        }
+    </style>
+</head>
+<body>
+    <!-- <span class="box"></span> -->
+    <script>
+        /*
+            Math JavaScript的内置对象 Windows内部的一个属性
+                PI π 常量
+
+            方法:
+                1. abs()  取绝对值 正数不变 负数取正
+                2. sin()  正弦   对/斜
+                3. cos()  余弦   邻/斜
+                4. tan()  正切   对/邻边
+                5. acos() 反余弦值
+                6. asin() 反正弦值
+                *** 参数 => 弧度值
+            
+            弧度制 转化为 角度值: 2π = 360 -> 1角度 = π/180  (一度的弧度表示法)
+
+                7. ceil()  往上取整 整数部分加1,小数部分砍掉
+            *** 8. round() 四舍五入 取整数,不保留小数
+                9. floor() 向下取整 整数部分减1,小数部分砍掉
+                10. max()/min() 取最大(小)值
+                11. pow() 幂运算
+                    第一个参数 底数
+                    第二个参数 幂
+
+            *** 随机数 random 范围[0,1)
+
+            *** number.toFixed()  四舍五入 保留几位小数
+        */ 
+
+        console.log(Math.ceil(1.28));  // 2
+        console.log(Math.round(1.52)); // 2
+        console.log(Math.floor(1.98)); // 1
+        console.log(Math.max(12,7,3)); // 12
+        console.log(Math.min(12,7,3)); // 3
+        console.log(Math.pow(2,3)); // 8
+
+        let number = 1.256;
+        console.log(number.toFixed(2)) // 1.26
+
+
+        // 随机生成颜色
+        let aBody = document.body;
+        let str = '';
+        function colors(num){
+            for(let i=0; i<num; i++){
+                let r = Math.round((Math.random()*255));
+                let g = Math.round((Math.random()*255));
+                let b = Math.round((Math.random()*255));
+                let a = Math.random().toFixed(1);
+                str += `<span class="box" style='background:rgba(${r},${g},${b},${a})'></span>`
+            }
+            aBody.innerHTML = str;
+        }
+       setTimeout(colors,500,20); 
+    </script>
+</body>
+</html>
