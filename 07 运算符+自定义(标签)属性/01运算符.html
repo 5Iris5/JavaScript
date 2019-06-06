@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="keywords" content="201906061536">
+    <meta name="description" content="">
+    <title>运算符</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+        }
+    </style>
+</head>
+<body>
+    <script>
+        /*
+            运算符:
+                1. 算术运算符
+                    1) 加号 + 运算符  -> 字符串拼接
+                    2) 减号 - 运算符  -> 隐式转为 数值型,如果不能转则为NAN
+                    3) 乘号 * 运算符  -> 同上 -
+                    4) 除号 / 运算符  -> 同上 -
+                    5) 取余 % 运算符 -> 取余  大模小取余 小模大取小
+                    6) ** 指数运算符 2**5 => 2(底数)的5(指数)次方
+
+                2. 赋值运算符
+                    1) = -> 先看右边,右边运算到最简,再赋值给左边
+                    2) += -> a = a + b => a += b
+                    3) -= -> a = a - b => a -= b
+                    4) *= -> a = a * b => a *= b
+                    5) /= -> a = a / b => a /= b
+                    6) %= -> a = a % b => a %= b
+                    7) ++
+                        前置++i 先运算后赋值
+                        后置i++ 先赋值后运算
+                    8) --
+                        前置--i 先运算后赋值
+                        后置i-- 先赋值后运算
+
+                3. 比较运算符
+                    1) < <=
+                    2) > >=
+                    3) ==
+                    4) ===
+                    5) !=
+                    6) !==
+                    注意: 引用型数据比较的是地址
+
+                4. 逻辑运算符  -> 将数值隐式转换为 布尔值
+                    1) && 逻辑与  -> 一假必假(false) 全部真(true)    
+                        逻辑与,一遇到false就停下,并返回值为false  遇到true就继续往后判断  如果一直没有遇到false,那么返回最后一个值          
+                    2) || 逻辑或  -> 一真必真(true) 全部假(false)    
+                        逻辑或,一遇到true就停下,并返回值为true  遇到false就继续往后判断   如果一直没有遇到true,那么返回最后一个值      
+                    *** 运算符优先级 -> 先判断逻辑与,后判断逻辑或   
+                    3) ! 取反 -> 快速转换布尔值 取反两次 !!         
+        */
+
+        let a = 1;
+        let b = ++a;
+        console.log(a) // 2
+        console.log(b) // 2
+
+        // let c = 6;
+        // let d = c++;
+        // console.log(c); // 7
+        // console.log(d); // 6
+
+        // 测试
+        let num = 2;
+        console.log( (++num) + (num++) + (++num) ) // 10(错误) 11(正确)
+        /*
+            运算过程(错误的): 3 + 3 + 4
+              1. ++num => 先运算 num = num + 1 后赋值 抛出num=3 
+              2. num++ => 先赋值 抛出num=3 后运算 num = num + 1 
+              3. ++num => 先运算 num = num(3) + 1 后赋值 抛出num=4 
+
+            运算过程(正确的): 3 + 3 + 5
+                修改最后两个步骤
+                    2. num++ => 先赋值 抛出num=3 后运算 num = num + 1 -> num = 4(num更新为4,但是不抛出)
+                    3. ++num => 先运算 num = num(4) + 1 后赋值 抛出num=5
+        */
+
+        let a1 = 2;  // 2 -> true
+        let b1 = 3;
+        a1 = a1 || b1; 
+        console.log(a1) // 2
+
+        let a2 = 0; // 0 -> false
+        let b2 = 3; // 非0的数值 -> true
+        a2 = a2 || b2; 
+        console.log(a2) // 3
+
+        console.log(Boolean(''))  // => false;
+
+        let e = '' && [1,2] || null || function name(){}
+        console.log(e) // ƒ name(){}
+        /*
+            运算过程: 先 与 后 或
+                1. '' && [1,2] => 逻辑与,一遇到false就停下 返回 ''
+                2. '' || null || function name(){} => 逻辑或,一遇到true就停下 返回 function name(){}
+        */
+    </script>
+</body>
+</html>

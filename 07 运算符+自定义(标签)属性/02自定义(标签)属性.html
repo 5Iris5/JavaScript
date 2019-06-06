@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="keywords" content="2019061635">
+    <meta name="description" content="">
+    <title>自定义属性/自定义标签属性</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+        }
+        #wrap{
+            width: 200px;
+            height: 200px;
+            background-color: #ffc;
+        }
+        #wrap.active{
+            background-color: #fcf;
+        }
+    </style>
+</head>
+<body>
+    <div id="wrap" sky='blue'></div>
+    <script>
+        /*
+            一. [合法属性  是对象附属的东西 对象下都有其相对应的属性 js内部 一开始 对象下就有的属性 => 合法
+            不合法属性  人为定义的属性 => 自定义属性(不合法)
+
+            值类型数据 无法挂载属性
+            复杂数据类型 可以挂载属性
+
+            *** .可以直接操作 对象下的 合法属性]
+
+            二. 自定义标签属性
+                1. 形如: 
+                    wrap.Iris = 222;
+                    console.dir(wrap)
+                    -> 可以为 wrap 新增属性  但不是标签内部属性
+                    *** 标签内部 自己写的不合法属性 是不能通过 . 直接访问的
+                        console.log(wrap.sky)  // undefined
+            *** 2. 操作 标签内部属性
+                    1. 设置 自定义标签属性
+                        wrap.setAttribute('qiqi','are u ok?')  // 第一个参数->属性名 第二个参数->属性值
+                    2. 获取 自定义标签属性  该方法也可以获取合法属性
+                        wrap.getAttribute('qiqi')
+                    3. 移除 自定义标签属性  该方法也可以移除合法属性
+                        wrap.removeAttribute('qiqi')
+
+                    注意:   如果是 合法属性 直接 . 操作即可
+                            html5中规定 自定义标签属性 以data-开头
+
+            三. 自定义属性  人为的 给js内对象增加的属性
+                           主要是用来 存储或者标记 我没所需要的信息
+                自定义属性      寄存在js环境下 人为定义的
+                自定义标签属性   在标签内部的 人为定义的
+                操作自定义标签属性 必须通过 DOM 提供的方法(39行) 不能直接 . 操作
+
+            四. *** 更换类名 去修改元素的状态
+                1. className 缺点: 只能增加 不能删除
+                2. classList
+                    1) 添加类名
+                        classList.add('新增类名')
+                    2) 移除类名
+                        classList.remove('需要移除的类名')
+                    3) 有则增 无则删
+                        第一个参数 要动态变化的类名 classList.toggle('类名')
+                        第二个参数 布尔值(可选) true->增加该类名 false->移除该类名 classList.toggle('类名',bool)
+                    4) 替换类名
+                        classList.replace('当前旧类名','替换后的类名')
+                    5) 判断该元素里面是否存在某类名
+                        classList.contains()
+        */
+        wrap.Iris = 222;
+        console.dir(wrap)
+        console.log(wrap.sky)  // undefined
+
+        wrap.setAttribute('qiqi','are u ok?');
+        console.log(wrap.getAttribute('qiqi'))  // are u ok?
+        wrap.removeAttribute('qiqi');
+
+        document.onclick = function(){
+            // wrap.classList.add('active');
+            wrap.classList.toggle('active');
+            console.log(wrap.classList.contains('sky')); // false
+            console.log(wrap.classList.contains('wrap')); // false
+            console.log(wrap.classList.contains('active')); // true/false
+        }
+    </script>
+</body>
+</html>

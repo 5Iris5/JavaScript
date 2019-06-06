@@ -2,17 +2,69 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="keywords" content="201902250930">
+    <meta name="keywords" content="201902250930卡住/201906061735重写">
     <meta name="description" content="作业如果卡住了,一定不要一直停在这里,学习其实是一个记忆熟悉的过程!">
     <title>第七章作业之全选作业</title>
     <style>
         *{
             margin: 0;
             padding: 0;
+            list-style: none;
+        }
+        #box{
+            width: 360px;
+            margin: 100px auto;
+            font-size: 14px;
+        }
+        #box img,
+        #box span{  
+            vertical-align: middle;
+        }
+        .pannel{
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            padding: 10px 0 15px 0;
+        }
+        .pannel li{
+            padding: 15px;
+            border-bottom: 1px solid #ccc; 
+        }
+        .pannel li img{
+            margin-right: 15px; 
+        }
+        .tabs{
+            padding: 15px;
+            border-bottom: 1px solid #ccc;
+        }
+        .tabs li{
+            float: left;
+            margin-right: 20px;
+        }
+        .tabs::after{
+            display: block;
+            content: '';
+            clear: both;
+        }
+        .tabs li img{
+            margin-right: 5px;
         }
     </style>
 </head>
 <body>
-    
+    <div id="box">
+        <ul class="pannel">
+            <li><img src="../images/ck.png" alt=""><span>选择 天边的月</span></li>
+            <li><img src="../images/ck.png" alt=""><span>选择 海底的星</span></li>
+            <li><img src="../images/ck.png" alt=""><span>选择 北国的风</span></li>
+            <li><img src="../images/ck.png" alt=""><span>选择 南方的雪</span></li>
+            <li><img src="../images/ck.png" alt=""><span>选择 山顶的树</span></li>
+            <li><img src="../images/ck.png" alt=""><span>选择 崖底的花</span></li>
+        </ul>
+        <ul class="tabs">
+            <li><img src="../images/ck.png" alt=""><span>全选</span></li>
+            <li><img src="../images/ck.png" alt=""><span>全不选</span></li>
+            <li><img src="../images/ck.png" alt=""><span>反选</span></li>
+        </ul>
+    </div>
 </body>
 </html>
