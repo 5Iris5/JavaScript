@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="keywords" content="201907171700">
+    <meta name="description" content="对象拷贝">
+    <title>拷贝</title>
+</head>
+<body>
+    <script>
+        /*
+            浅拷贝:
+
+            深层拷贝:  
+        */
+        let obj = {
+            name: '七七',
+            a: [1, 2, 3, function qiqi(){}, [1, 2], 3]
+        }
+        // 不可行 -> 引用型数据若指向同一地址,修改其中一个对象,另一个也会进行变动
+        let obj2 = obj;  
+        obj2.a.pop();
+        console.log(obj2, obj);
+    </script>
+</body>
+</html>

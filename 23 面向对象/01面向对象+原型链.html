@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="keywords" content="201907171040">
+    <meta name="description" content="面向过程VS面向对象+原型链">
+    <title>面向对象+原型链</title>
+</head>
+<body>
+    <div id="wrap"></div>
+    <script>
+        /*
+            编程思路:
+                1. 面向过程 -> 目的: 完成一件事情 
+                    比如: 做一把菜刀
+                    解决方法: 刀柄 -> 刀刃 -> 工匠 -> 拿回来
+
+
+                2. 面向对象 -> 目的: 完成一系列类似事件
+                    比如: 做一把菜刀的app
+                    解决方法: 刀柄 -> 雕花/木纹等不同类型的 刀刃 -> 不锈钢/金刚石等
+                             工厂/工匠组装根据不同需求进行组装 -> 快递 -> 到家
+
+                3. 面向对象的三个特征:
+                    1) 封装性 -> 把客观存在的事物抽象为一个类/app/生产工厂,
+                       里面的方法,不会暴露,外部不能访问,只能该对象使用.
+                    2) 继承性 -> 可重复使用,可扩展
+                    3) 多态性 -> 根据参数的不同做出不同的反馈(不同需求 -> 个性化设置)
+
+                4. 通过 new 构造函数(类/对象) 生成的函数 -> 成为该构造函数的实例,实例也是一个对象
+                   实例会具备父类(构造函数及原型对象)里面的所有方法
+        */
+
+        /* 构造函数*/
+        function Person(opt){
+            var obj = {};
+            obj.name = opt.name;
+            obj.age = opt.age;
+            obj.sex = opt.sex;
+            // console.log(this);  // person1 -> Window; person2 -> Person {}
+            // return obj;  
+        }
+        // 通过构造函数 -> 生成一个对象
+        let person1 = Person({
+            name: '张三',
+            age: 23,
+            sex: '男'
+        })
+        let person2 = new Person({
+            name: '李四',
+            age: 22,
+            sex: '男'
+        })
+        // console.log(person1);  // undefined
+        // console.log(person2);  // Person {}
+
+        /*  总结
+            构造函数内部 没有return, 通过构成函数生成的对象默认返回undefined -> 形如:person1
+            new函数 默认return一个对象 里面的this会指向这个对象本身 -> 形如:person2
+        */
+        
+        // 构造函数 使用this -> 根据不同需求,进行个性化设置
+        // !!!存放个性化设置(一般放属性) -> 相同的地方放在这里,会导致每进来一次就重复一次
+         function People(opt){   // 类(对象) -> 学生统称
+            this.name = opt.name;
+            this.age = opt.age;
+            this.sex = opt.sex;
+            // console.log(this);  // people1 -> Window; people2 -> People {name: "翠花", age: 18, sex: "女"}
+        }
+        // !!!存放共性化设置(一般放方法)
+        People.prototype = {   // 类(对象)的原型  直接.操作 -> 会把原来原型链内部的东西覆盖
+            constructor: People,  // 构造器 指向 People -> 避免原有的内容被覆盖
+            // eat: function(val){}, ES5写法
+            // ES6写法 -> ES5基础上简化,但意思一样
+            eat(val){ alert(`${this.name}开心的吃了${val}`) },
+            play(val){ alert(`${this.name}偷偷摸摸的玩了${val}`) }
+        }
+        let people1 = People({
+            name: '杏花',
+            age: 17,
+            sex: '女'
+        })
+        let people2 = new People({  // 类(对象)的实例  -> 具体到学生翠花
+            name: '翠花',
+            age: 18,
+            sex: '女'
+        })
+        let people3 = new People({  // // 类(对象)的实例  -> 具体到学生荷花
+            name: '荷花',
+            age: 16,
+            sex: '女'
+        })
+        // people1.eat('西瓜'); -> Cannot read property 'eat' of undefined
+        // people2.eat('西瓜');  // -> 翠花开心的吃了西瓜
+        // people2.play('游戏'); // -> 翠花偷偷摸摸的玩了游戏
+        // console.log(people1);  // undefined
+        // console.log(people2);  // People {name: "翠花", age: 18, sex: "女"}
+        // // console.log(people3);  // People {name: "荷花", age: 16, sex: "女"}
+        // console.log(people2.__proto__);  // {eat: ƒ, play: ƒ}
+        // console.log(people2.__proto__ === People.prototype);  // true
+        /*
+            总结
+            1. new 函数
+                1) 里面的this会指向一个对象
+                2) 默认return这个对象
+
+            2. 构造函数中(造人) -> 相同的地方 vs 不同的地方 
+                1) 把相同的地方,比如:吃喝玩乐等 
+                    -> 放到外面存起来 Person.prototype
+                2) 把不同的地方,比如:姓名/性别/年纪等 
+                    -> 放到构造函数内部,根据不同需求,进行个性化设置
+
+            3. 通过 new 构造函数(类/对象) 生成的函数 -> 成为该构造函数的实例,实例也是一个对象
+               实例会具备父类(构造函数及原型对象)里面的所有方法 
+               实例中的__proto__指向的是父类(构造函数)的原型  -> 目的: 为了让实例能够使用到父类中的方法
+        */
+
+
+         /*
+            原型链  万物皆对象 原型本质也是对象
+            JS里面 对象都是被对应的类实例出来的
+            最大的类 -> Object对象
+        */
+        var arr = new Array(1,2);
+        console.log(arr)  // -> [1, 2]
+        Object.prototype.QiQi = '555';  // 不要随便操作顶层类
+        // -> 顺着原型链向上查找需要的属性
+        console.log(arr.QiQi);  // -> 555
+        console.log((123).QiQi);  // -> 555
+    </script>
+</body>
+</html>

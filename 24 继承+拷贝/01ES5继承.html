@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="keywords" content="201907171430">
+    <meta name="description" content="面向对象之继承">
+    <title>ES5之面向对象的继承</title>
+</head>
+<body>
+    <script>
+        // 回顾上章(面向对象+原型链)知识点: 构造函数 -> 原型链 -> 实例
+        // function Person(opt){ //  个性
+        //     this.name = opt.name;
+        //     this.age = opt.age;
+        //     this.sex = opt.sex
+        // }
+        // Person.prototype = {  //   共性
+        //     constructor: Person,
+        //     eat(val){console.log(`${this.name}在${val}`)}
+        // }
+        // var person1 = new Person({
+        //     name: '七七',
+        //     age: 22,
+        //     sex: '女'
+        // })
+        // console.log(person1);
+        // person1.eat('吃饭睡觉打豆豆'); 
+
+        /*
+            判断某个属性是否在原型链上:
+                1. in运算符 -> 查找所有的对象原型上的所有方法和属性 -> 浪费性能
+                2. hasOwnProperty -> 判断是否是自身属性/方法,不会去原型链上查找
+                3. instanceof -> 判断一个对象的原型是否存在于另一个对象的原型链上,
+                            也可以理解为两者是否处于同一条原型链上面,后者在前者上面
+        */  
+        // 方案一 -> PASS
+        // Person.prototype = Array.prototype; // -> Person/Array两者会被相互影响,扩展Person的原型的时候会同步修改Array的原型
+        // var p1 = new Person({
+        //     name: 'Iris',
+        //     age: 22,
+        //     sex: 'female'
+        // })
+        // console.log(p1);
+        // console.log('name' in p1); // true;
+        // console.log('length' in p1); // true;
+        // console.log('qiqi' in p1); // false;
+        // console.log(p1.hasOwnProperty('name'));  // -> true
+        // console.log(p1.hasOwnProperty('length')); // -> false
+        // console.log(p1 instanceof Person);  // -> true
+        // console.log(p1 instanceof Array);   // -> true
+
+        /*
+            原型的继承:
+                1.以父类为原型进行继承
+                2.在父类的模板上,对自己本身进行一些扩充
+        */  
+        // 方案二 
+        function Person(opt){ // 父类(构造函数) 
+            this.name = opt.name;
+            this.age = opt.age;
+            this.sex = opt.sex
+        }
+        Person.prototype = {  // 原型 
+            constructor: Person,
+            eat(val){console.log(`${this.name}在${val}`)}
+        }
+        
+        function Person2(opt){ // 子类 拿到父类Person里面的内容 -> 可以直接复制,但内容多的时候不适用
+            // this -> new 函数后 当前新生成的对象  
+            Person.call(this, opt); // 运行父类,并利用call() -> 改变this指向
+            this.sex = opt.sex
+        }
+        /*
+            重点!!!  -> 原型的继承
+                1. 让子类的原型 = 父类的实例    
+                    Person2.prototype  = new Person({})
+                2. 找一个干净的中间商 -> 屏蔽掉一些无用属性
+                    function Middle(){  // -> 构造中间商
+
+                    }
+                    Middle.prototype = Person.prototype;
+                    Person2.prototype  = new Middle({});
+                     Person2.prototype.play = function(){};
+                3. 不通过原型链 -> 单纯的搬运工 -> 拿到父类里面的所以属性 
+                    for(var key in Person.prototype){
+                        Person2.prototype[key] = Person.prototype[key] 
+                    }
+        */
+        function Middle(){  // -> 构造中间商
+
+        }
+        Middle.prototype = Person.prototype;
+        Person2.prototype  = new Middle({});
+        Person2.prototype.play = function(val){  // 原型的扩展
+            console.log(`${this.name}在${val}`)
+        };
+
+        var p1 = new Person({  // 父类Person实例
+            name: '七七',
+            age: 22,
+        })
+        var p2 = new Person2({  // 子类Person2实例
+            name: '七七酱',
+            age: 23,
+            sex: 'female'
+        })
+
+        p2.eat('吃饭');  
+        // console.log(p1, p1.__proto__,  Person.prototype);
+        console.log(p2, p2.__proto__, Person2.prototype); 
+        p1.play('玩');  //  p1.play is not a function
+        p2.play('玩');
+    </script>
+</body>
+</html>

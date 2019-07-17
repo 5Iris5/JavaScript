@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="keywords" content="201907171600">
+    <meta name="description" content="面向对象之继承">
+    <title>ES6之面向对象的继承</title>
+</head>
+<body>
+    <script>
+        /*
+            ES6 -> 类和原型的写法
+                1. 在ES5的原型里可以写属性(虽然不推荐)
+                   但在ES6的原型里 -> 不能写属性
+                2. ES5里可以通过一些操作 不使用new函数生成实例
+                   但在ES6里 -> 必须new操作
+        */
+
+        // ES5写法
+        // function Person(opt){
+        //     this.name = opt.name;
+        //     this.age = opt.age
+        // }
+        // Person.prototype = {
+        //     constructor: Person,
+        //     play: function(){console.log('打游戏');}
+        // }
+        // var p1 = new Person({
+        //     name: '翠花',
+        //     age: 18
+        // })
+
+        // // ES6写法  ->  class写面向对象
+        // class Person2{
+        //     constructor(name){  // 放置个性化设置 -> 类
+        //         this.name = name
+        //     };  // constructor外面全是公有方法!!!
+        //     // 放置公共设置  ->  原型
+        //     sayname(){console.log(`${this.name}`);}
+        // }
+        // let p2 = new Person2('七七')
+        // console.log(p2)
+        // console.log(p2.sayname())
+
+        // ES6继承
+        class Person{
+            constructor(name){  
+                this.name = name
+            };  
+            sayname(){console.log(`${this.name}`);}
+        }
+        class Person2 extends Person{
+            constructor(name, age){
+                super(name, age);  // 必写! 通过super -> 类与原型上的属性与方法都继承了
+                this.age = age  // 扩展的属性
+            }
+            playgame(){console.log(`玩游戏`);}  // 扩展的方法
+        }
+        let p1 = new Person('李二狗');
+        console.log(p1);
+        // p1.playgame();  // p1.playgame is not a function
+        let p2 = new Person2('翠花', 48);
+        console.log(p2);
+        p2.sayname();
+        p2.playgame();
+    </script>
+</body>
+</html>
