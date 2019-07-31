@@ -3,8 +3,8 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta name="keywords" content="201907311030">
-    <meta name="description" content="考察DOM节点操作">
+    <meta name="keywords" content="201907312030">
+    <meta name="description" content="考察DOM节点操作,每次听完作业解析都深深怀疑自己的智商,枯萎...">
     <title>添加节点案例</title>
     <style>
         body,
@@ -40,10 +40,10 @@
         .contianer-R {
             background-color: #999;
         }
-        .contianer-L .tabs {
+        .contianer-L .mune {
             padding-top: 10px;
         }
-        .contianer-L .city {
+        .contianer-L .hot {
             display: inline-block;
             padding: 0 15px 0 10px;
             color: rgb(235, 130, 11);
@@ -83,13 +83,13 @@
 <body>
     <div id="shadow">
         <div class="contianer-L">
-            <p class="tabs">
-                <span class="city">热门城市:</span>
-                <span>北京</span>
-                <span>伦敦</span>
-                <span>纽约</span>
-                <span>悉尼</span>
-                <span>东京</span>
+            <p class="mune">
+                <span class="hot">热门城市:</span>
+                <span class="city">北京</span>
+                <span class="city">伦敦</span>
+                <span class="city">纽约</span>
+                <span class="city">悉尼</span>
+                <span class="city">东京</span>
             </p>
             <ul class="pannel-L">
                 <li>
@@ -106,11 +106,8 @@
         </div>
     </div>
     <script>
-        var oSpan = document.getElementsByTagName("span");
-        console.log(oSpan);
-        oSpan[1].onclick = function () {
-            oSpan[1].className = 'active';
-        }
+        var oSelect = document.querySelectorAll(".city")
+        console.log(oSelect);
     </script>
 </body>
 
