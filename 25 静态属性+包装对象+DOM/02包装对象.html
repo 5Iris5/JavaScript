@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="keywords" content="201907311500">
+    <meta name="description" content="包装对象">
+    <title>包装对象</title>
+</head>
+<body>
+    <script>
+        /*
+            包装对象(临时对象 -> 一次性的!)
+                1. 基础值类型 => 没有对象
+                    自定义属性没办法挂载在基础值类型身上
+        */
+        let num = 123;
+        // 临时对象生成qiqi -> 以便'能挂载成功吗?不行!'可以挂在到num.qiqi身上 -> 挂载成功后,立即被销毁了!!!
+        num.qiqi = '能挂载成功吗?不行!';
+        console.log(num.qiqi);   // -> undefined  打印的num.qiqi与18行的num.qiqi并不是同一个临时对象了!!!
+    </script>
+</body>
+</html>

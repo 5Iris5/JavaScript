@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="keywords" content="201907311430">
+    <meta name="description" content="super的用法">
+    <title>静态属性super</title>
+</head>
+<body>
+    <script>
+        /*
+            静态属性/方法
+                1. ES5里面怎么写静态属性 -> 直接.挂载上去 
+                    注意: 原型里面的方法,实例可以使用
+                          静态方法  类这个函数.操作挂载上去的方法/属性 -> 类可以使用但是实例不可以使用(挂载在谁身上谁用,不具备继承性)
+                1. ES6
+                    注意: 只能挂载静态方法,不能挂载静态属性
+        */
+
+        // function Example(opt){  // 类 -> 个性化属性
+        //     this.name = opt.name
+        // }
+        // Example.prototype = {  // 原型 -> 共有属性
+        //     constructor: Example,
+        //     sayname(){console.log("你的名字" + this.name)}
+        // }
+        // // 类身上.挂载方法
+        // Example.qiqi = function(){
+        //     console.log("我是私有方法")
+        // }
+        // Example.qiqi1 = 123;
+        // var Example2 = new Example({name: "Iris"})  // 实例
+        // // 在类身上直接.挂载自定义属性  -> 实例里面不能继承到,也就是说访问不到!!!
+        // // Example2.qiqi();
+        // // console.log(Example2.qiqi1);
+
+
+        // ES6
+        class Example{
+            constructor(opt){  // 个性化设置
+                this.name = opt.name
+            }
+            // 公有方法
+            sayname(){console.log("你的名字" + this.name)}
+            // static 后面的方法 -> 属性静态方法
+            static sayhello(){console.log("只有类能够调用我")}
+        }
+        let Example2 = new Example({name: "Iris"})
+        // console.log(Example2.name);  // Iris
+        // Example2.sayname();  // 你的名字Iris
+        // Example2.sayhello();  // Uncaught TypeError: Example2.sayhello is not a function
+        // Example.sayhello();   // 只有类能够调用我
+
+        // ES6 继承
+        class Baby extends Example{
+            constructor(opt){
+                super(opt) // super在这必须调用一次 只能再这()立即执行  // -> 目的: 指向最近的类(父类),并让子类具备this
+                this.age = opt.age;  // -> 扩展的属性
+            }
+            // 扩展的公有方法
+            sayage(){console.log("你的年纪" + this.age)}
+            // 扩展的静态方法
+            static sayHi(){console.log("只有类能够调用我")}
+        }
+        let baby2 = new Baby({name: "翠花", age: 18})
+        console.log(baby2);
+        Baby.sayhello();        // -> 只有类能够调用我
+        Baby.sayHi();          // -> 只有类能够调用我
+        // baby2.sayhello();  // Uncaught TypeError: baby2.sayhello is not a function
+        // baby2.sayHi();       // Uncaught TypeError: baby2.sayhello is not a function
+    </script> 
+</body>
+</html>

@@ -50,8 +50,9 @@
         // console.log(p1 instanceof Array);   // -> true
 
         /*
-            原型的继承:
-                1.以父类为原型进行继承
+            类的继承 -> 纯粹的模拟,可以复制一份一模一样的出来,但是地址不一样了
+            原型的继承: 
+                1.以父类为原型进行继承  -> 即使用的是同一个对象,指向同一地址同一对象
                 2.在父类的模板上,对自己本身进行一些扩充
         */  
         // 方案二 
@@ -81,7 +82,7 @@
                     Middle.prototype = Person.prototype;
                     Person2.prototype  = new Middle({});
                      Person2.prototype.play = function(){};
-                3. 不通过原型链 -> 单纯的搬运工 -> 拿到父类里面的所以属性 
+                3. 不通过原型链 -> 单纯的搬运工 -> 拿到父类里面的所有属性 
                     for(var key in Person.prototype){
                         Person2.prototype[key] = Person.prototype[key] 
                     }

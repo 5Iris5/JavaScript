@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="keywords" content="201907311030">
+    <meta name="description" content="考察DOM节点操作">
+    <title>添加节点案例</title>
+    <style>
+        body,
+        p,
+        ul,
+        li {
+            padding: 0;
+            margin: 0;
+            list-style: none;
+        }
+        #shadow {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 780px;
+            height: 600px;
+            background-color: #eee;
+            border-radius: 10px;
+            margin: 50px auto;
+            /*box-shadow: h-shadow v-shadow blur(模糊程度) spread(阴影尺寸) color inset/outset(默认);*/
+            box-shadow: 0px 0px 10px 1px #888888;
+        }
+        .contianer-L,
+        .contianer-R {
+            width: 300px;
+            height: 500px;
+            border-radius: 10px;
+            box-shadow: 0px 0px 8px #999;
+        }
+        .contianer-L {
+            background-color: #fff;
+        }
+        .contianer-R {
+            background-color: #999;
+        }
+        .contianer-L .tabs {
+            padding-top: 10px;
+        }
+        .contianer-L .city {
+            display: inline-block;
+            padding: 0 15px 0 10px;
+            color: rgb(235, 130, 11);
+        }
+        .contianer-L span.active {
+            color: rgb(235, 130, 11);
+        }
+        .contianer-L .pannel-L {
+            margin: 35px 10px;
+        }
+        .contianer-L li,
+        .contianer-R li {
+            display: inline-block;
+            margin-bottom: 10px;
+            padding: 2px 0;
+            border-radius: 3px;
+            background-color: #ddd;
+            font-size: 14px;
+        }
+        .contianer-L li span.txt {
+            padding: 0 3px;
+            border-right: 1px dotted #ccc;
+        }
+        .contianer-L li span.close {
+            padding: 0 3px;
+        }
+        .contianer-R .pannel-R {
+            margin: 20px;
+        }
+        .contianer-R li {
+            padding: 2px 10px;
+            background-color: #fff;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="shadow">
+        <div class="contianer-L">
+            <p class="tabs">
+                <span class="city">热门城市:</span>
+                <span>北京</span>
+                <span>伦敦</span>
+                <span>纽约</span>
+                <span>悉尼</span>
+                <span>东京</span>
+            </p>
+            <ul class="pannel-L">
+                <li>
+                    <span class="txt">北京</span><span class="close">X</span>
+                </li>
+            </ul>
+        </div>
+        <div class="contianer-R">
+            <ul class="pannel-R">
+                <!-- <li>
+                    <span class="txt">北京</span>
+                </li> -->
+            </ul>
+        </div>
+    </div>
+    <script>
+        var oSpan = document.getElementsByTagName("span");
+        console.log(oSpan);
+        oSpan[1].onclick = function () {
+            oSpan[1].className = 'active';
+        }
+    </script>
+</body>
+
+</html>

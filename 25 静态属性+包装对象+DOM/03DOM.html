@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="keywords" content="201907311515">
+    <meta name="description" content="文档对象模型DOM">
+    <title>文档对象模型DOM</title>
+</head>
+<body>
+    <!--注释节点-->
+    <div id="wrap">
+        <p id="child">文本节点(换行也属于文本节点)</p>
+        <span>1233211234567</span>
+        <input type="text">
+    </div>
+    <script>
+        /*
+            1. DOM 文档对象模型 
+                是JS操作网页的接口  把网页转为一个JS对象 用于JS进行网页内容/结构/和样式的操作
+            2. DOM树 -> 以document为根部层层散开的节点树
+                DOM最小的组成单位 节点
+                节点类型:
+                    1)document 顶层节点
+                    2)Elemment 标签节点  -> 1
+                    3)Attribute 属性节点 -> 2
+                    4)Text 文本节点  -> 3
+                    5)Commet 注释节点
+                    documentFragment 文档片段节点(不属于文档树)
+                获取节点的一些方法:
+                    1)ele.childNodes -> Google下可以获取该ele元素下所有节点 IE下只能获取该元素下的标签节点
+                    2)ele.children -> 获取该ele元素下所有标签节点!!!  -> 动态获取!!!
+                    3)ele.parentNode ->  返回ele的父节点 没有兼容问题
+                    4)ele.offsetParent -> 返回ele元素的定位父节点(逐层往上找,如果找不到,返回body)
+                    5)ele.nodeName -> 返回节点的名字 如果是标签节点 -> 返回该节点的大写名字
+                    6)ele.nodeType -> 返回节点类型对应的序号
+                    7)ele.tagName -> 返回标签节点的大写标签名 -> 只能返回标签节点
+                    8)获取属性节点
+                        ele.getAttributeNode() 获取属性节点的方法
+                            typeof aWrap.getAttributeNode("id")   -> 获取的是属性节点对象
+                            typeof aWrap.getAttribute("id")       -> 获取的是属性值 => 字符串
+                    9)创建并设置一个属性节点
+                        document.createAttribute()  -> ()内只能有一个参数  属性名  ->  此步骤可省略
+                        ele.setAttribute()  -> ()内必须要有两个参数 属性名 属性值  
+                        ele.setAttributeNode(qiqi)  -> ()内只能放变节点对象,不能加引号!
+                了解即可的部分:
+                    1)firstChild 返回第一个子节点  Google -> 返回所有节点中的第一个子节点  IE -> 返回所有标签节点中的第一个标签节点
+                      firstElementChild  返回第一个子元素节点 只兼容主流浏览器
+                    2)lastChild 返回最后一个子节点  Google -> 返回所有节点中的最后一个子节点  IE -> 返回所有标签节点中的最后一个标签节点
+                      lastElementChild  返回最后一个子元素节点 只兼容主流浏览器
+                    3)nextSibling Google -> 返回下一个兄弟节点 IE -> 返回下一个兄弟元素节点
+                      nextElementSibling 返回下一个兄弟元素节点 只兼容主流浏览器
+                    4)previousSibling Google -> 返回上一个兄弟节点 IE -> 返回上一个兄弟元素节点
+                      previousElementSibling 返回上一个兄弟元素节点 只兼容主流浏览器
+                创建标签对象:
+                    1.创建标签对象 -> document创建 document.createElement("p")
+                    2.把创建的标签对象添加到目标对象中  -> appendChild() !!! 区分 与ele.innerHTML += 的区别
+
+        */ 
+        var aWrap = document.getElementById("wrap");
+        // console.log(aWrap.childNodes); 
+        // console.log(aWrap.children[1]);  // <span>1233211234567</span>
+        // var childColl = aWrap.children;
+        // aWrap.innerHTML += `<p>能够动态获取吗?可以的!</p>`;
+        // console.log(childColl);
+        // console.log(aWrap.parentNode);
+        // console.log(child.offsetParent);
+        // console.log(aWrap.childNodes[0].nodeName);  // #text
+        // console.log(child.tagName);  // P
+        // console.log(aWrap.childNodes[1].nodeType);  // 3
+
+        // console.log(typeof aWrap.getAttributeNode("id"));   // id="wrap"  -> 返回的是对象
+        // console.log(typeof aWrap.getAttribute("id"));  // wrap  -> 返回的是字符串
+        // var qiqi = document.createAttribute("qiqi");
+        // console.log(qiqi);  // qiqi=""
+        // aWrap.setAttribute("qiqi", 123)
+        // aWrap.setAttributeNode(qiqi)
+
+
+        // get/set .  不能混用   -> 合法属性用.操作 不合法属性用get/set操作
+        // var oInput = document.getElementsByTagName('input')[0];
+        // oInput.setAttribute("value", "请输入")
+        // oInput.value = '123'
+        // oInput.setAttribute("value", "再次输入")  // 混用后该方法没有用了!!!
+        // console.log(oInput.value)  // 123
+
+        // console.log(aWrap.firstChild)  // #text
+        // console.log(aWrap.firstElementChild) // <p id="child">文本节点(换行也属于文本节点)</p>
+
+        // console.log(aWrap.lastChild)  //  #text
+        // console.log(aWrap.lastElementChild)  // <input type="text">
+
+        // console.log(child.nextSibling)  // #text
+        // console.log(child.nextElementSibling)  // <span>1233211234567</span>
+
+        // console.log(child.previousSibling)  // #text
+        // console.log(child.previousElementSibling)  // null
+
+        /*var p = document.createElement("p");
+        p.innerHTML = '该方法下元素身上绑定的事件依旧生效了';
+        p.className = 'txt';
+        p.onclick = function(){
+            alert("触发我")
+        }
+        var aSpan = document.getElementsByTagName("span")[0];
+        aSpan.onclick = function(){
+            alert("我是span标签")
+        }
+        // aWrap.innerHTML += `<p>该方法下元素身上绑定的事件不生效了</p>`;
+        aWrap.appendChild(p);*/
+
+        /*
+            appendChild() VS ele.innerHTML += 
+                1. 对象内已经有节点对象绑定了事件 如果需要操作这些对象,用createElement + appendChild()
+                2. 如果不需要操作绑定对象的这些事件 那么用innerHTML即可
+
+            JS 重构 vs 回流
+                1. 重构
+                    改变元素外观所触发的行为 如: 颜色/背景等
+                2. 回流
+                    改变元素的特性 如: 位置/大小/display/定位等
+            问题: 在已有的布局内部新增元素节点,但是不想引起回流可以怎么做呢?答案见下方 -> 善用 documentFragmen文档片段节点
+        */
+
+        var domFrag = document.createDocumentFragment(); // -> 创建一个文档片段节点
+        var header = document.createElement("header");
+        var section = document.createElement("section");
+        var aside = document.createElement("aside");
+        var nav = document.createElement("nav");
+
+        header.innerHTML = "header";
+        section.innerHTML = "section";
+        aside.innerHTML = "aside";
+        nav.innerHTML = "nav";
+
+        // 直接添加在aWrap身上 -> 每添加一次,当前页面重新布局一次 -> 四次回流
+        // aWrap.appendChild(header);  
+        // aWrap.appendChild(section);
+        // aWrap.appendChild(aside);
+        // aWrap.appendChild(nav);
+
+        // 改善后 一次回流 -> 不直接添加到aWrap上,而是添加到documentFragmen文档片段节点上
+        domFrag.appendChild(header); 
+        section.appendChild(nav);
+        section.appendChild(aside);  // 层级关系 
+        domFrag.appendChild(section);
+        domFrag.insertBefore(nav, section)  // 改变节点的层级嵌套位置  将前者放到后者的上面
+        wrap.appendChild(domFrag);
+
+        // 移除节点
+        aWrap.removeChild(section);
+        // 更换节点
+        var aSpan = document.getElementsByTagName("span")[0];
+        aWrap.replaceChild(header, aSpan);  // -> 注意后一个是要被替换掉的!!!
+        aWrap.appendChild(header);  // -> 不会再生成一个header节点,但是位置被更改了
+        /*
+            克隆节点:  深克隆 vs 浅克隆
+                cloneNode() 
+                    1. 深克隆 -> ()内参数为true   -> 里里外外全部克隆到了,即既复制了当前节点,又复制了当前节点下面所有的节点
+                    2. 浅克隆 -> ()内参数为false  -> 只克隆了最外层,即只复制了当前节点
+        */
+        var wrap2 = aWrap.cloneNode(false);
+        console.log(wrap2)
+        var wrap3 = aWrap.cloneNode(true);
+        console.log(wrap3)
+        
+    </script>
+</body>
+</html>
