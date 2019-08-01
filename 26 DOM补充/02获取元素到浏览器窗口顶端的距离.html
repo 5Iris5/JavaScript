@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="keywords" content="201908011450">
+    <meta name="description" content="子offsetTop+父级border+父offsetTop+...">
+    <title>计算定位元素到浏览器窗口顶端的距离</title>
+    <style>
+        body{
+            margin: 0;
+            padding: 0;
+        } 
+        .wrap{
+            position: relative;
+            width: 500px;
+            height: 550px;
+            padding: 50px;   /*子元素有一个left 距离被同化了*/
+            margin: 50px;
+            border: 10px solid #000;
+            background-color: #75e4b9;
+        }
+        .container{
+            position: absolute;
+            top: 100px;
+            left: 100px;
+            width: 200px;
+            height: 300px;
+            padding: 50px;
+            border: 10px solid #fff;
+            background-color: #e215e2;
+        }
+    </style>
+</head>
+<body>
+    <div class="wrap">
+       <div class="container">
+
+       </div>
+    </div>
+    <script>
+        /*
+            !!! 最终要计算到body的距离才能截止
+            !!! 循环 -> 将这一次结束后的元素 强制等于 定位父元素 然后该元素再次进入循坏体 直到计算到父级为body为止
+        */
+        let oWrap = document.getElementsByClassName("wrap")[0];
+        let oCont = document.getElementsByClassName("container")[0];
+        // console.log(oWrap.offsetTop, oCont.offsetTop);
+        function getTop(ele){
+            let numTop = 0;
+            let numLeft = 0;
+            while(ele != document.body){
+                numTop += ele.offsetTop + parseFloat(getComputedStyle(ele.offsetParent).borderTopWidth);
+                numLeft += ele.offsetLeft + parseFloat(getComputedStyle(ele.offsetParent).borderLeftWidth);
+                ele = ele.offsetParent;
+            }
+            return [numTop, numLeft];
+        }
+        console.log(getTop(oCont));
+    </script>
+</body>
+</html>

@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="keywords" content="201908011520">
+    <meta name="description" content="">
+    <title>一些封装好的DOM事件</title>
+    <style>
+        body{
+            margin: 0;
+            padding: 0;
+            height: 8000px;
+        } 
+        #wrap{
+            position: absolute;
+            top: 500px;
+            left: 600px;
+            width: 200px;
+            height: 200px;
+            padding: 50px;   
+            border: 10px solid rgba(163, 208, 235, .5);
+            background-color: #41a6e0;
+        }
+    </style>
+</head>
+<body>
+    <div id="wrap">
+       
+    </div>
+    <script>
+        /*
+            wrap.getBoundingClientRect()函数
+                bottom: 420   wrap最底部(包括border)到可视窗口最顶部的距离
+                height: 320   wrap占位高度 content+padding+border
+                left: 100     wrap最左侧(包括border)到可视窗口最左边的距离  
+                right: 420    wrap最右侧(包括border)到可视窗口最左边的距离  
+                top: 100      wrap最顶端(包括border)到可视窗口最顶部的距离  
+                width: 320    wrap占位宽度 content+padding+border  
+                x: 100        wrap相对X轴的偏移值  
+                y: 100        wrap相对Y轴的偏移值    
+
+            前提条件: 1)新打开界面 2)确保该元素上下有足够空间
+            wrap.scrollIntoView(true); true -> 打开界面,元素的顶端会始终与页面顶端对齐
+            wrap.scrollIntoView(false); false -> 打开界面,元素的底端会始终与页面底端对齐
+            => 对话框消息不会只显示一半的问题
+
+            鼠标事件 -> 获取鼠标到文档可视区域的top 和 left值
+                1. clientX
+                2. clientY
+
+            事件对象 event(e) -> 记录本次对象的信息
+
+        */
+        console.log(wrap.getBoundingClientRect());
+        wrap.scrollIntoView(true);
+        // wrap.scrollIntoView(false);
+    </script>
+</body>
+</html>

@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="keywords" content="201908011400">
+    <meta name="description" content="">
+    <title>文档宽高</title>
+    <style>
+        body,p{
+            margin: 0;
+            padding: 0;
+        }   
+        body{
+            height: 1800px;
+        }
+        #wrap{
+            /* overflow: scroll; */
+            position: relative;
+            top: 50px;
+            left: 50px;
+            width: 200px;
+            height: 180px;
+            margin: 10px;
+            padding: 10px;
+            border: 5px solid #ccffcc;
+            background-color: #ffccff;
+        }
+    </style>
+</head>
+<body>
+    <div id="wrap">
+        <!-- <p>滴滴哒</p>
+        <p>滴滴哒</p>
+        <p>滴滴哒</p>
+        <p>滴滴哒</p>
+        <p>滴滴哒</p>
+        <p>滴滴哒</p>
+        <p>滴滴哒</p>
+        <p>滴滴哒</p>
+        <p>滴滴哒</p>
+        <p>滴滴哒</p>
+        <p>滴滴哒</p>
+        <p>滴滴哒</p>
+        <p>滴滴哒</p>
+        <p>滴滴哒</p>
+        <p>滴滴哒</p>
+        <p>滴滴哒</p> -->
+    </div>
+    <script>
+        /*
+            文档宽高
+                1. CCSOM 视图模式 -> CSS映射
+                2. DOM 文档的一个映射
+            => 呈现树 CSS+DOM结合
+
+            获取窗口的宽高 
+                1. innerWidth
+                2. innerHeight
+            => 会计算滚动条的宽高 滚动条属于窗口内部
+
+            获取文档可视区的宽高
+                1. clientWidth
+                2. clientHeight
+            => 不计算滚动条的宽高
+               会计算元素的宽高 padding+content 但不会计算border线 margin
+
+            获取文档的实际宽高
+                1. offsetWidth
+                2. offsetHeight
+            => 不计算滚动条的宽高
+               计算元素margin的向上的外边距
+               获取计算元素的占位大小 计算padding+content+border 但不会计算margin
+
+            获取元素的滚动宽高
+                1. scrollWidth
+                2. scrollHeight
+            => 计算元素本身的content+padding 以及 元素溢出部分的宽高(但是向下的padding计算不到了)
+               但不计算border/margin
+               如果给父元素一个overflow: hidden/scroll, 可以计算到向下的padding值
+
+            !!!获取元素到定位父级的距离(非定位值)
+                1. offsetTop
+                2. offsetLeft
+            => 计算元素到定位父级元素的距离,会计算margin值
+               不会计算定位父级元素的border线
+        */
+        console.log(window.innerWidth, window.innerHeight);  
+        console.log(document.documentElement.clientWidth, document.documentElement.clientHeight); 
+        console.log(wrap.clientWidth, wrap.clientHeight);  // 220 200
+        console.log(document.documentElement.offsetWidth, document.documentElement.offsetHeight); 
+        console.log(wrap.offsetWidth, wrap.offsetHeight);  // 230 210
+        console.log(wrap.scrollWidth, wrap.scrollHeight);  // 220 346->356
+        console.log(wrap.offsetTop, wrap.offsetLeft);  // 60 60
+    </script>
+</body>
+</html>
