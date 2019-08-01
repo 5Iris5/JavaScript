@@ -7,10 +7,7 @@
     <meta name="description" content="考察DOM节点操作,每次听完作业解析都深深怀疑自己的智商,枯萎...">
     <title>添加节点案例</title>
     <style>
-        body,
-        p,
-        ul,
-        li {
+        body,p,ol,ul,li {
             padding: 0;
             margin: 0;
             list-style: none;
@@ -43,37 +40,39 @@
         .contianer-L .mune {
             padding-top: 10px;
         }
-        .contianer-L .hot {
+        .mune li{
             display: inline-block;
+        }
+        .mune .hot {
             padding: 0 15px 0 10px;
             color: rgb(235, 130, 11);
         }
-        .contianer-L span.active {
+        /* .mune li.active {
+            color: rgb(235, 130, 11);
+        } */
+        .mune li:hover {
             color: rgb(235, 130, 11);
         }
-        .contianer-L .pannel-L {
+        .pannel-L {
             margin: 35px 10px;
         }
-        .contianer-L li,
-        .contianer-R li {
+        .pannel-L li,
+        .pannel-R li {
             display: inline-block;
-            margin-bottom: 10px;
-            padding: 2px 0;
+            margin: 0 5px 10px 0;
+            padding: 2px 3px;
             border-radius: 3px;
             background-color: #ddd;
             font-size: 14px;
         }
-        .contianer-L li span.txt {
-            padding: 0 3px;
-            border-right: 1px dotted #ccc;
+        .pannel-L li span.close {
+            padding-left: 3px;
+            border-left: 1px dotted #ccc;
         }
-        .contianer-L li span.close {
-            padding: 0 3px;
+        .pannel-R {
+            margin: 20px 10px 20px 20px;
         }
-        .contianer-R .pannel-R {
-            margin: 20px;
-        }
-        .contianer-R li {
+        .pannel-R li {
             padding: 2px 10px;
             background-color: #fff;
         }
@@ -83,18 +82,19 @@
 <body>
     <div id="shadow">
         <div class="contianer-L">
-            <p class="mune">
-                <span class="hot">热门城市:</span>
-                <span class="city">北京</span>
-                <span class="city">伦敦</span>
-                <span class="city">纽约</span>
-                <span class="city">悉尼</span>
-                <span class="city">东京</span>
-            </p>
+            <ol class="mune">
+                <li class="hot">热门城市:</li>
+                <li class="city">北京</li>
+                <li class="city">伦敦</li>
+                <li class="city">纽约</li>
+                <li class="city">悉尼</li>
+                <li class="city">东京</li>
+            </ol>
             <ul class="pannel-L">
-                <li>
-                    <span class="txt">北京</span><span class="close">X</span>
-                </li>
+                <!-- <li>
+                    北京
+                    <span class="close">X</span>
+                </li> -->
             </ul>
         </div>
         <div class="contianer-R">
@@ -106,8 +106,44 @@
         </div>
     </div>
     <script>
-        var oSelect = document.querySelectorAll(".city")
-        console.log(oSelect);
+        /*
+            step1: 把需要操作的元素节点全部取出来
+            step2: 给对应的元素节点注册绑定事件
+            step3: 块级作用域 + 节点克隆!!! 创建元素节点 + 移除元素节点 的知识点灵活运用
+            遇到的问题:
+                1. 如果没有删除新增的节点,那没再次点击该城市无法重复生成同一个节点 
+                    return 
+                    bool != bool VS bool = !bool
+        */
+        let oSelect = document.querySelectorAll(".city");
+        let aLeft = document.querySelector('.pannel-L');
+        let aRight = document.querySelector('.pannel-R');
+        let len = oSelect.length;
+        // console.log(oSelect, aLeft, aRight, len);
+        for(let i = 0; i < len; i++){
+            let bool = true; // 可以点击的状态!
+            oSelect[i].onclick = function(){
+                if(!bool){
+                    return
+                }
+                let oCity = oSelect[i].cloneNode(true);
+                let closeBtn = document.createElement("span");
+                aLeft.appendChild(oCity);
+                closeBtn.className = "close";
+                closeBtn.innerHTML = "X";
+                // X 的点击删除节点操作
+                closeBtn.onclick = function(){
+                    aLeft.removeChild(oCity);
+                    aRight.removeChild(cityShow);
+                    bool = !bool;
+                }
+                oCity.appendChild(closeBtn);
+                let cityShow = oSelect[i].cloneNode(true);
+                aRight.appendChild(cityShow);
+                bool = !bool;
+                // console.log(oCity, cityShow);
+            }
+        }
     </script>
 </body>
 
