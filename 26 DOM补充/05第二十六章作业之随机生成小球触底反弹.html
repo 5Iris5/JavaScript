@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="keywords" content="20190801">
+    <meta name="keywords" content="201908021000">
     <meta name="description" content="随机函数+文档宽高">
     <title>点击屏幕随机生成小球--触底反弹</title>
     <style>
@@ -10,21 +10,90 @@
             margin: 0;
             padding: 0;
         } 
-        #wrap{
+        div{
             position: absolute;
-            top: 0;
-            left: 0;
-            width: 100px;
-            height: 100px;
+            /* top: 0;
+            left: 0; */
             border-radius: 50%;  
-            background-color: #41a6e0;
         }
     </style>
 </head>
 <body>
-    <div id="wrap"></div>
+    <!-- <div id="wrap"></div> -->
     <script>
-        
+        /*
+            需求:
+                点击屏幕 -> 生成数量随机,位置随机,颜色随机,速度随机,的小球
+                        -> 小球接触到屏幕边缘会回弹
+            问题:
+                1. 无法触碰时生成随机个数的小球
+                2. 生成的小球有一部分会重叠在一起
+        */
+
+        // 随机颜色值
+        function getRandomColor(ele){
+            let r = Math.round(Math.random()*255);
+            let g = Math.round(Math.random()*255);
+            let b = Math.round(Math.random()*255);
+            ele.style.backgroundColor = `rgb(${r}, ${g}, ${b})`;
+            return ele.style.backgroundColor;
+        }
+
+        // 点击屏幕
+        document.onclick = function(){ 
+            // 随机宽高
+            let oWidth = Math.floor(Math.random()*100 + 5);  // [5-105)
+            let oHeight = oWidth;
+
+            // 点击一次生成一个颜色随机宽高随机的元素
+            let oEle = document.createElement("div");  
+            oEle.style.width = oWidth + "px";
+            oEle.style.height = oEle.style.width;
+            getRandomColor(oEle);
+            document.body.appendChild(oEle);
+            
+            // 随机速度
+            let speedX = Math.ceil(Math.random()*5); 
+            let speedY = Math.ceil(Math.random()*8); 
+
+            // !!!重点 -> 元素的初始位置clientLeft/clientTop
+            let leftX = oEle.clientLeft;
+            let topY = oEle.clientTop;
+            
+            // 随机运动
+            run();
+            function run(){
+                // 根据可视区域大小实时更新最大临界值
+                let maxX = document.documentElement.clientWidth - oEle.clientWidth;
+                let maxY = document.documentElement.clientHeight - oEle.clientHeight;
+
+                leftX += speedX;
+                topY += speedY;
+
+                // left/top区间
+                leftX = Math.min(maxX, leftX);
+                leftX = Math.max(0, leftX)
+                topY = Math.min(maxY, topY);
+                topY = Math.max(0, topY);
+
+                if(leftX == 0 || leftX == maxX){
+                    speedX = -speedX
+                    getRandomColor(oEle);
+                }
+                if(topY === 0 || topY === maxY){
+                    speedY = -speedY;
+                    getRandomColor(oEle);
+                }
+
+                // 不断改变left/top值
+                oEle.style.left = leftX + "px";
+                oEle.style.top = topY + "px";
+
+                // 运动框架
+                requestAnimationFrame(run);
+                // console.log(speedX,speedY)
+            }
+        }
     </script>
 </body>
 </html>
