@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="keywords" content="201908021600">
+    <meta name="description" content="">
+    <title>拖曳缩放&&事件冒泡</title>
+    <style>
+        body{
+            margin: 0;
+            padding: 0;
+        } 
+        #wrap{
+            position: relative;
+            width: 100px;
+            height: 100px;
+            background-color: #41a6e0;
+        }
+        #btn{
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            width: 15px;
+            height: 15px;
+            background-color: #ccffcc;
+        }
+    </style>
+</head>
+<body>
+    <div id="wrap">
+        <div id="btn"></div>
+    </div>
+    <script>
+       /*
+            鼠标点击事件
+                clientX
+                clientY
+            document.onclick  = function(e){
+                console.log(e.clientX, e.clientY)
+            }
+
+            事件冒泡:
+                当子级 触发一个类型事件 它会逐层向父级冒泡 并触发同类型事件  -> 只会向父级冒泡不会向子级冒泡
+            阻止事件冒泡
+                e.stopImmediatePropagation() -> 不会向父级冒泡
+                兼容IE e.cancelBubble = true
+            所有事件 都有泡泡 文档脱离文档流一样有冒泡事件
+            阻止的是事件对象(泡泡),而不是阻止这个事件代码执行
+            祖先身上 -> 只有同类型事件才会触发,不同类型的事件不会触发
+
+       */
+
+        // 拖曳事件
+        wrap.onmousedown = function(e){
+            // 兼容IE
+            e = e || window.event;
+
+            let eleLeft = e.clientX;  
+            let eleTop = e.clientY;  
+
+            // 初始情况下,wrap元素的位置
+            let wrapLeft = wrap.getBoundingClientRect().left;  
+            let wrapTop = wrap.getBoundingClientRect().top;
+            // console.log(eleLeft, eleTop, wrapLeft, wrapTop);
+
+            document.onmousemove = function(e){
+                e = e || window.event;
+                let disLeft = e.clientX - eleLeft;  // 水平方向 -> 移动距离
+                let disTop = e.clientY - eleTop;   // 垂直方向 -> 移动距离
+                // console.log(disLeft, disTop);
+
+                wrap.style.left = wrapLeft + disLeft + "px";
+                wrap.style.top = wrapTop + disTop + "px";
+            }
+
+            document.onmouseup = function(e){
+                document.onmousemove = null;
+            }
+        }
+
+        // 缩放事件  问题 -> btn按住有误
+        btn.onmousedown = function(e){
+            e = e || window.event;
+            e.stopImmediatePropagation ? e.stopImmediatePropagation() : e.cancelBubble = true;
+
+            let eleLeft = e.clientX;  
+            let eleTop = e.clientY; 
+            let wrapWidth = wrap.getBoundingClientRect().width;  
+            let wrapHeight = wrap.getBoundingClientRect().height;
+            document.onmousemove = function(e){
+                e = e || window.event;
+                let changeWidth = e.clientX - wrapWidth;  // 水平方向 -> 缩放大小
+                let changeHeight = e.clientY - wrapHeight;   // 垂直方向 -> 缩放大小
+                console.log(changeWidth, changeHeight);
+
+                wrap.style.width = wrapWidth + changeWidth + "px";
+                wrap.style.height = wrapHeight + changeHeight + "px";
+            }
+        }
+        
+
+    </script>
+</body>
+</html>
