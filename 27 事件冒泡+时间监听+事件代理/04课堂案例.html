@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="keywords" content="201908051600">
+    <meta name="description" content="">
+    <title>课堂案例</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+        } 
+        button{
+            padding: 3px 10px;
+            margin-right: 5px;
+        }
+    </style>
+</head>
+<body>
+    <button>触发 +4</button>
+    <button>触发 +2</button>
+    <button>触发 +1</button>
+    <script>
+        // 怎么点击按钮可以使 value = 17 ?
+        let btn = document.getElementsByTagName("button");
+        let value = 0;
+
+        btn[0].addEventListener("click", ()=>{
+            value += 4;
+            console.log(value); 
+            btn[1].addEventListener("click", ()=>{
+                value += 2;
+                console.log(value); 
+                btn[2].addEventListener("click", ()=>{
+                    value += 1;
+                    console.log(value);    // 17  -> 01012
+                })
+            })
+        })
+
+        /*
+            跟事件冒泡/事假捕获无关 -> 没涉及父子关系,涉及的是同级关系
+            注意:
+                1. 点击事件是嵌套关系 所以未点击外层的函数,里面函数的无法触发
+                2. addEventListener点击事件 -> 点击一次就会注册一次,点击两次就会注册两次...
+                3. 如果外层的函数被注册了N次 那么再点击嵌套下一层的函数,该函数就会被连续触发N次 
+        */
+    </script>
+</body>
+</html>

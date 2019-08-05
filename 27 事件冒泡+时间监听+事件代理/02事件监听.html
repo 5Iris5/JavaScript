@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="keywords" content="201908051030">
+    <meta name="description" content="">
+    <title>事件监听</title>
+    <style>
+        body{
+            margin: 0;
+            padding: 0;
+        } 
+        #wrap{
+            position: relative;
+            width: 100px;
+            height: 100px;
+            background-color: #41a6e0;
+        }
+        #btn{
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            width: 15px;
+            height: 15px;
+            background-color: #ffccff;
+        }
+    </style>
+</head>
+<body>
+    <div id="wrap">
+        <div id="btn"></div>
+    </div>
+    <script>
+        /*
+            事件监听 -> 挂载的是DOM二级事件
+
+                1. DOM事件 初始版本
+                    第一种: 行内事件
+                    第二种: 对象.on+type  ->  不能在同一对象身上绑定两次及以上同一类型的事件 -> 后者会覆盖前者
+
+
+                2. DOM2 添加事件监听(addEventListener) 移除事件监听(removeEventListener)
+                    第一个参数: 事件类型,不需要on
+                    第二个参数: 回调函数
+                    第三个参数: 冒泡 还是 捕获
+                        1) 事件冒泡(fasle)  子级 到 父级
+                        2) 事件捕获(true)  父级 到 子级
+                        注意: 如果父级捕获 那么 父级先执行 其他的还是按照冒泡的顺序执行
+
+                3. IE兼容
+                    1)IE不支持addEventListener()
+                    2)IE支持attachEvent()
+                        第一个参数: 事件类型,需要on
+                        第二个参数: 回调函数
+                        第三个参数: 无
+                    3)IE移除事件监听: detachEvent()
+                    4)IE里面 后绑定的事件先执行(google反之)
+        */
+
+        btn.addEventListener("click", ()=>{
+            console.log("btn")
+        })
+        wrap.addEventListener("click", fn2, true)
+        document.addEventListener("click", ()=>{
+            console.log("document")
+        })
+        function fn2(e){
+            e.stopImmediatePropagation();  // 捕获后 -> 阻止其余对象进行冒泡
+            console.log("wrap")
+        }
+        // wrap.removeEventListener("click", fn2, true)
+    </script>
+</body>
+</html>

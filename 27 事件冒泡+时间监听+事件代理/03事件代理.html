@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="keywords" content="201908051110">
+    <meta name="description" content="">
+    <title>事件代理</title>
+    <style>
+        body,ul,li{
+            margin: 0;
+            padding: 0;
+            list-style: none;
+        } 
+        #wrap{
+            position: relative;
+            width: 100px;
+            height: 100px;
+            background-color: #41a6e0;
+        }
+        #btn{
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            width: 15px;
+            height: 15px;
+            background-color: #ffccff;
+        }
+        li{
+            width: 100px;
+            height: 20px;
+            background-color: #cfccfc;
+            margin-bottom: 2px;
+        }
+    </style>
+</head>
+<body>
+    <div id="wrap">
+        <!-- <div id="btn"></div> -->
+        <ul>
+            <li>1</li>
+            <li>2</li>
+            <li>3</li>
+            <li>4</li>
+            <li>5</li>
+            <li>6</li>
+            <li>7</li>
+            <li>8</li>
+            <li>9</li>
+            <li>10</li>
+            <li>11</li>
+            <li>12</li>
+            <li>13</li>
+            <li>14</li>
+            <li>15</li>
+        </ul>   
+    </div>
+    <script>
+        /*
+            事件代理是利用事件冒泡的原理来实现的  ->  DOM2级别
+            事件代理的使用场景
+                1. 由于事件是绑定在已经存在的对象身上 当元素是异步生成时(如:JS动态生成元素) 
+                    btn.onclick = function{   // 当btn不存在时
+            
+                    } 
+                -> 用事件代理 -> 找页面中已经存在的节点挂载事件
+                    document.addEventListener("click", (e)=>{
+                        // 事件源e.target
+                        // console.log(e.target);  
+                        if(e.target.id == "btn"){
+                            console.log("我是btn元素");
+                        }
+                    })
+                    
+                2. 如果当前页面有很多类似的元素需要挂载同一个类型的事件 
+                    let oLi = document.getElementsByTagName("li");
+                    for(let i = 0; i < 15; i++){
+                        oLi[i].onclick = function(){
+                            
+                        }
+                    }
+                -> 用事件代理
+                    document.addEventListener("click", (e)=>{
+                        // console.log(e.target.tagName)
+                        if(e.target.tagName.toLowerCase() == "li"){
+                            console.log('点中了!')
+                        }   
+                    })
+        */
+        
+        document.addEventListener("click", (e)=>{
+            // console.log(e.target.tagName)
+            if(e.target.tagName.toLowerCase() == "li"){
+                console.log('点中了!')
+            }   
+        })
+    </script>
+</body>
+</html>

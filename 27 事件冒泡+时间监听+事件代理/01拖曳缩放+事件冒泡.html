@@ -6,12 +6,15 @@
     <meta name="description" content="">
     <title>拖曳缩放&&事件冒泡</title>
     <style>
-        body{
+        body,p{
             margin: 0;
             padding: 0;
         } 
         #wrap{
             position: relative;
+            /* position: absolute;
+            left: 0;
+            top: 0; */
             width: 100px;
             height: 100px;
             background-color: #41a6e0;
@@ -55,10 +58,10 @@
             // 兼容IE
             e = e || window.event;
 
+            // 初始情况下,wrap元素的初始位置
             let eleLeft = e.clientX;  
             let eleTop = e.clientY;  
 
-            // 初始情况下,wrap元素的位置
             let wrapLeft = wrap.getBoundingClientRect().left;  
             let wrapTop = wrap.getBoundingClientRect().top;
             // console.log(eleLeft, eleTop, wrapLeft, wrapTop);
@@ -89,8 +92,8 @@
             let wrapHeight = wrap.getBoundingClientRect().height;
             document.onmousemove = function(e){
                 e = e || window.event;
-                let changeWidth = e.clientX - wrapWidth;  // 水平方向 -> 缩放大小
-                let changeHeight = e.clientY - wrapHeight;   // 垂直方向 -> 缩放大小
+                let changeWidth = e.clientX - eleLeft;  // 水平方向 -> 缩放大小
+                let changeHeight = e.clientY - eleTop;   // 垂直方向 -> 缩放大小
                 console.log(changeWidth, changeHeight);
 
                 wrap.style.width = wrapWidth + changeWidth + "px";
