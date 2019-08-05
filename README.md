@@ -43,8 +43,8 @@
     1.[单个小球回弹运动](https://5iris5.github.io/JavaScript/26%20DOM%E8%A1%A5%E5%85%85/04%E5%B0%8F%E7%90%83%E8%BF%90%E5%8A%A8.html)</br>
     2.[随机生成小球回弹运动](https://5iris5.github.io/JavaScript/26%20DOM%E8%A1%A5%E5%85%85/05%E7%AC%AC%E4%BA%8C%E5%8D%81%E5%85%AD%E7%AB%A0%E4%BD%9C%E4%B8%9A%E4%B9%8B%E9%9A%8F%E6%9C%BA%E7%94%9F%E6%88%90%E5%B0%8F%E7%90%83%E8%A7%A6%E5%BA%95%E5%8F%8D%E5%BC%B9.html)</br>
 二十七章：</br>
-    1. [事件监听之同级嵌套](https://5iris5.github.io/)
-    2. [拖曳元素边缘改变盒子大小](https://5iris5.github.io/)</br>
+    1. [事件监听之同级嵌套](https://5iris5.github.io/JavaScript/27%20事件冒泡%2B时间监听%2B事件代理/04课堂案例.html)</br>
+    2. [拖曳元素边缘改变盒子大小](https://5iris5.github.io/JavaScript/27%20事件冒泡%2B时间监听%2B事件代理/05第二十七章作业之拖曳元素边缘改变盒子大小.html)</br>
 二十八章：</br>
     1. [自定义滚动条](https://5iris5.github.io/)</br>
 阶段实战：</br>
