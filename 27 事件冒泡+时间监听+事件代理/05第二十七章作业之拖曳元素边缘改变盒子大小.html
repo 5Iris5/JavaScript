@@ -37,11 +37,73 @@
             padding: 10px 0;
             border-bottom: 1px solid #ccc; 
         }
+        span:nth-child(1),span:nth-child(2),span:nth-child(3),span:nth-child(4){
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            background-color: #cfc;
+        }
+        span:nth-child(1){      
+            top: 0;
+            left: 0;
+            cursor: nw-resize;
+        }
+        span:nth-child(2){
+            top: 0;
+            right: 0;
+            cursor: ne-resize;
+        }
+        span:nth-child(3){
+            bottom: 0;
+            left: 0;
+            cursor: sw-resize;
+        }
+        span:nth-child(4){
+            bottom: 0;
+            right: 0;
+            cursor: se-resize;
+        }
+        span:nth-child(5),span:nth-child(6),span:nth-child(7),span:nth-child(8){
+            position: absolute;
+            background-color: #fcc;
+        }
+        span:nth-child(5){
+            top: 0;
+            left: 10px;
+            width: calc(100% - 22px);
+            height: 10px;
+            cursor: n-resize;
+        }
+        span:nth-child(6){
+            top: 10px;
+            right: 0;
+            width: 10px;
+            height: calc(100% - 22px);
+            cursor: e-resize;
+        }
+        span:nth-child(7){
+            bottom: 0;
+            left: 10px;
+            width: calc(100% - 22px);
+            height: 10px;
+            cursor: s-resize;
+        }
+        span:nth-child(8){
+            bottom: 10px;
+            left: 0;
+            width: 10px;
+            height: calc(100% - 22px);
+            cursor: w-resize;
+        }
+        /* span{
+            opacity: 0;
+        } */
     </style>
 </head>
 <body>
     <div id="wrap">
-        <dl>
+        <!-- 内容区域 -->
+        <dl class="content">
             <dt>罗曼罗兰</dt>
             <dd>There is only one heroism in the world: to see the world as it is and to love it.</dd>
             <dd>There is only one heroism in the world: to see the world as it is and to love it.</dd>
@@ -59,14 +121,99 @@
             <dd>There is only one heroism in the world: to see the world as it is and to love it.</dd>
             <dd>There is only one heroism in the world: to see the world as it is and to love it.</dd>
         </dl>
+        <!-- 拖拽按钮区域 -->
+        <div class="btn">
+            <!-- 四个对角的按钮 -->
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <!-- 四边 上右下左 -->
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
     </div>
     <script>
        /*
         需求:
             1. 盒子可以移动
             2. 拖曳元素四周可以改变盒子大小
+        问题:
+            1. 如何限制盒子的移动范围
+            2. 如何选中盒子四周的红色边框线  ->  考察布局: 设置不同元素,利用CSS样式将元素摆放在盒子四周
+            3. 缩放效果 -> 右/下的span生效,左/上span不生效
        */
-       
+        
+        // 跟随鼠标移动
+        wrap.onmousedown = function(e){
+            e = e || window.event;
+            // 鼠标初始位置
+            let eleX = e.clientX;
+            let eleY = e.clientY;
+            // console.log(eleX, eleY)
+
+            // 盒子初始位置
+            let wrapLeft = wrap.getBoundingClientRect().left; 
+            let wrapTop = wrap.getBoundingClientRect().top;
+            
+            // 鼠标控制盒子移动
+            document.onmousemove = function(e){
+                e = e || window.event;
+                // 后一次与前一次移动的距离差
+                let disX = e.clientX - eleX;
+                let disY = e.clientY - eleY;
+                // console.log(disX, disY)
+
+                // 重新设置盒子的位置
+                wrap.style.left = disX + wrapLeft + "px";
+                wrap.style.top = disY + wrapTop + "px";
+            }
+
+            // 鼠标移除
+            document.onmouseup = function(){
+                document.onmousemove = null;
+            }
+        }
+
+        // 拖曳盒子四周改变盒子大小
+        let oSpan = document.getElementsByTagName("span");
+        document.addEventListener("mousedown", (e) => {
+            e = e || window.event;
+            console.log(e.target.tagName.toLowerCase())
+            if(e.target.tagName.toLowerCase() == "span"){
+                e.target.addEventListener("mousedown", (e) => {
+                    e = e || window.event;
+                    e.stopImmediatePropagation ? e.stopImmediatePropagation() : e.cancelBubble = true;
+                    // 鼠标初始位置
+                    let eleX = e.clientX;
+                    let eleY = e.clientY;
+                    // 盒子初始宽高
+                    let wrapWidth = wrap.getBoundingClientRect().width;
+                    let wrapHeight = wrap.getBoundingClientRect().height;
+
+                    // 鼠标点击盒子边缘控制盒子大小
+                    document.addEventListener("mouseover", fn);
+                    function fn(e){
+                        e = e || window.event;
+                        // 后一次鼠标位置与前一次鼠标位置的距离差
+                        let disX = e.clientX - eleX;
+                        let disY = e.clientY - eleY;
+
+                        // 重新设置盒子的宽高
+                        wrap.style.width = wrapWidth + disX + "px";
+                        wrap.style.height = wrapHeight + disY + "px";
+                    }
+
+                    // 鼠标移除
+                    document.addEventListener("mouseup", () => {
+                        document.removeEventListener("mouseover", fn);
+                    })
+                })
+            }
+        })
+        
     </script>
 </body>
 </html>
