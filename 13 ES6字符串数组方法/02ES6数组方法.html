@@ -7,6 +7,7 @@
     <title>ES6数组方法扩展</title>
 </head>
 <body>
+    <a id="oLink" href="https://www.cnblogs.com/jf-67/p/8440758.html">ES6之Array.from()方法</a>
     <script>
         /*
             返回布尔值:
@@ -51,9 +52,14 @@
                 }
                 console.log(arr2)  // [1, 2, 3, 4, 5, 6, 7, 9, 8, 0]
 
-        */
+            !!! Array.from()方法
 
-        let  arr = [1,2,3,1]
+        */
+        oLink.onclick = function(){
+            event.preventDefault();
+        }
+
+        /*let  arr = [1,2,3,1]
         let arr1 = [...arr]
         console.log(arr1)
         console.log(arr.indexOf(1))  // 0
@@ -78,7 +84,39 @@
         console.log(arr2)  // [1, 2, 3, 4, 5, 6, 7, 9, 8, 0]
 
         console.log(Array.isArray(arr))  // true
-        console.log(isNaN(1))  // false
+        console.log(isNaN(1))  // false*/
+
+        /*
+            题目: 不使用for或者while,创建一个长度为120的数组,并且每一个元素的值等于数组长度减去它的下标
+        */
+        /*  如果数组只有长度但是内容为空,不能使用forEach 或者 map -> 不会进入函数内部
+            let arr2 = new Array(120);
+            // console.log(arr2[0]);
+            let _arr2 = arr2.forEach(function(val, index){
+                console.log(val, index)
+                // return 120 - index
+            });
+        */
+
+        // 法一:
+        let arr = Array.from({length: 120}, function(val, index){
+            // console.log(val,index)
+            return 120 - index;
+        })
+        // console.log(arr);
+
+        // 法二: 递归
+        let arr2 = [];
+        let len = 121;
+        function nums(){
+            if(len > 0){
+                len--
+                arr2.push(len);
+                nums();
+            }
+        }
+        nums();
+        console.log(arr2)
     </script>
 </body>
 </html>

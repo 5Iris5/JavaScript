@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="keywords" content="201908061440">
+    <meta name="description" content="">
+    <title>默认行为</title>
+    <style>
+        body{
+            margin: 0;
+            padding: 0;
+        }
+        
+    </style>
+</head>
+<body>
+    <a href="" id="link">跳转</a>
+    <script>
+        /*
+            默认行为:
+                比如: a标签的跳转   form表单的提交   鼠标右键弹出菜单栏    鼠标滚轮触发滚动条 等等
+            如何阻止默认行为?
+                event.preventDefault()
+                DOM0级  return false   => 不推荐使用
+                为什么不推荐使用?
+                    1. 阻止默认行为应当越早越好
+                    2. return false 做了三件事
+                        第一件事: 立即返回 不再执行后面的代码
+                        第二件事: event.preventDefault()
+                        第三件事: event.stopImmediatePropagation()
+            兼容IE
+                event.returnValue = false
+        */
+
+        let aLink = document.getElementById("link");
+        aLink.onclick = function(){  
+            event.preventDefault();  // 阻止点击一次就刷新一次页面的行为
+            console.log(1)
+        }
+
+        document.oncontextmenu = function(e){
+            e = e || window.event;
+            if(e.preventDefault){  // 阻止鼠标右键弹出菜单栏
+                e.preventDefault()
+            }else{
+                e.returnValue = false
+            }
+            
+        }
+    </script>
+</body>
+</html>
