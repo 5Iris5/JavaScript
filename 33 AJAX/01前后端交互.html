@@ -19,14 +19,21 @@
     </div>
     <script>
         /*
-           前后端数据交互的几种方式：
-            1. form表单提交数据
-                缺点： 每次提交都会刷新页面 数据重复提交 
-            2. ajax
-                优点：页面无刷新 就可进行数据交互 
-
+            前后端数据交互的几种方式：
+                1. form表单提交数据
+                    缺点： 每次提交都会刷新页面 数据重复提交 
+                2. ajax -> 创建 交互式网友应用的 一门网页开发技术
+                    优点：页面无刷新 就可进行数据交互 
+                    缺点：数据庞大
+            数据传输格式：
+                JSON格式
+                    前端将对象序列化 JSON.stringify({name: "Iris"}) 传递给后台
+                    将从后台获取的数据反序列化 JSON.parse("{"name" : "Iris"}") 渲染到页面
         */
 
+        let xhr = new XMLHttpRequest();
+        console.log(xhr);
+        
         
     </script>
 </body>
