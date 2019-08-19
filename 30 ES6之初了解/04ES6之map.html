@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="keywords" content="201908191645">
+    <meta name="description" content="">
+    <title>ES6之map</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+        }
+
+        #wrap {
+            position: relative;
+            top: 50px;
+            left: 50px;
+            width: 200px;
+            height: 180px;
+            margin: 10px;
+            padding: 10px;
+            background-color: #ffccff;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="wrap">
+
+    </div>
+    <script>
+        /*
+            set vs map 
+                1. Set 结构遍历时，返回的是一个值，
+                2. Map 结构遍历时，返回的是一个数组，该数组的两个成员分别为当前 Map 成员的键名和键值
+
+            Map 和对象很类型  是键值对的形式
+                ES5里面 普通对象的属性名 就是 字符串
+                ES6里面 允许 键名(属性名) 是 对象
+            Map 里面接收的参数 必须是 可迭代对象!!!
+
+            方法/属性
+                1. Map.size  返回成员个数
+                2. set(key, val)  设置属性
+                3. get(val)  拿属性
+                4. delate(val) 删除属性
+                5. has(val)  是否有该属性
+                6. clear() 全部清除
+
+            Map 都部署了以下三个方法，调用后都返回遍历器对象。
+                entries() 返回一个遍历器对象，用来遍历[键名, 键值]组成的数组。
+                    对于数组，键名就是索引值；对于 Set，键名与键值相同。Map 结构的 Iterator 接口，默认就是调用entries方法。
+                keys() 返回一个遍历器对象，用来遍历所有的键名。
+                values() 返回一个遍历器对象，用来遍历所有的键值。
+                forEach()
+        */
+
+        let obj = {
+            name: "Iris"
+        }
+
+        let m = new Map([[[1, 2], 2], [3, 4]])
+        // console.log(m)  // Map(2) {Array(2) => 2, 3 => 4}
+        // console.log(m.size)  // 2
+        // m.set("JS", "真的很难吗?")
+        // console.log(m)
+        // console.log(m.get("JS"))  // 真的很难吗?
+        // console.log(m.get([1, 2]))  // undefined   [1, 2] -> 是一个地址 可以先用变量保存值 然后用变量名拿到
+        // console.log(m.delete("JS"))  // true
+        // console.log(m)
+        // console.log(m.has("JS"))  // false
+        // m.clear()
+        // console.log(m)  // Map(0) {}
+
+        m.forEach((key, index, obj) => {
+            console.log(key, index, obj)  
+            // 2  [1, 2]  Map(2) {Array(2) => 2, 3 => 4}
+            // 4  3       Map(2) {Array(2) => 2, 3 => 4}
+        })
+    </script>
+</body>
+
+</html>

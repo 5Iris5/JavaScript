@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="keywords" content="201908141430">
+    <meta name="description" content="">
+    <title>ajax异步编程</title>
+    <style>
+        body{
+            margin: 0;
+            padding: 0;
+        }
+        
+    </style>
+</head>
+<body>
+    <div id="wrap">我是div标签</div>
+    <script>
+        async function data(){
+            await new Promise((res,rej)=>{
+                let xhr = new XMLHttpRequest()
+                xhr.open("GET", "http://localhost:8080")
+                xhr.send(null)
+                // 监听状态
+                xhr.onreadystatechange = function(){
+                    if(xhr.readyState === 4){
+                        if(xhr.status>= 200 && xhr.status <= 300 || xhr.status === 304){
+                            res(JSON.parse(xhr.response))
+                        }
+                    }
+                }
+            })
+        }
+        await
+    </script>
+</body>
+</html>

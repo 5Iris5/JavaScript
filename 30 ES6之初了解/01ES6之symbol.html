@@ -32,10 +32,68 @@
                 number  string boolean undefined null
             ES6 基础值类型
                 symbol  => 充当一个独一无二的属性名
+                Symbol()  参数 => 标识符
+                    参数的处理 -> 字符串   内部会调用 toString 方法
+                优点:
+                    1. 避免 扩展新增的属性名 与 原本的属性名 冲突覆盖
 
+            symbol用法
+                1. symbol 是为对象的属性名而生的   特殊的字符串
+                2. symbol 是普通值类型 不能挂载属性
+                3. 不能使用 . 操作  可使用[]    // . -> 识别为属性  [] -> 识别为变量
+                4. 不能参与进行运算  可以显示转为 字符串 和 布尔值
+
+            Object.defineProperty(obj3, s1, {
+                value: 1234567,
+                configurable: false // 默认值 -> false
+            })
+            第一个参数obj3: 要添加的对象本人
+            第一个参数s1: 属性名
+            第三个参数: 属性值对象
         */
 
-        
+        let s1 = Symbol("123");
+        let s2 = Symbol(2);
+        console.log(Boolean(!s1), s2, s1==s2);   // s1==s2 => fasle
+
+        let obj = {}
+        // obj.s1 = 456;
+        obj[s1] = 456;
+        console.log(obj);     
+
+        // 字面量形式写法
+        let obj2 = {
+            [s2]: "Iris"
+        }   
+        console.log(obj2);
+
+        // 利用对象的静态方法
+        let obj3 = {}
+        Object.defineProperty(obj3, s1, {
+            value: 1234567,
+            configurable: false, // 默认值 -> false(不能被删除)
+            enumerable: false, // 默认值 -> 是否可以被枚举 false(不可以)
+            writable: false, // 默认值 -> 不能被修改(只读型)
+        })
+        obj3[s1] = "可以被修改吗?";
+        console.log(obj3)
+
+        let s3 = Symbol.for("Iris");
+        let s4 = Symbol.for("Iris")
+        console.log(s3 == s4)  // true
+        console.log(Symbol.keyFor(s3))  // Iris
+        console.log(Symbol.keyFor(s1))  // undefined -> 没有被Symbol.for()记录的查询不到
+
+        /*
+            Symbol.for("Iris") 会对标识符生成的 Symbol值 进行记录
+                如果再次创建相同标识符的Symbol值 
+                    在已经存在的情况下 -> 会把值赋值出去 不存在的情况下 -> 会新创建一个symbol值
+
+            Symbol.keyFor(s3)  => 返回Symbol的标识符
+
+            除了定义自己使用的 Symbol 值以外，ES6 还提供了 11 个内置的 Symbol 值，指向语言内部使用的方法。
+            详情见: 阮一峰ES6入门 => http://es6.ruanyifeng.com/#docs/symbol#Symbol-for%EF%BC%8CSymbol-keyFor
+        */
     </script>
 </body>
 </html>

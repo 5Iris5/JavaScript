@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="keywords" content="201908191520">
+    <meta name="description" content="">
+    <title>ES6之基础值类型set</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+        }
+
+        #wrap {
+            position: relative;
+            top: 50px;
+            left: 50px;
+            width: 200px;
+            height: 180px;
+            margin: 10px;
+            padding: 10px;
+            background-color: #ffccff;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="wrap">
+
+    </div>
+    <script>
+        /*
+            Set 
+                ES6新的数据结构 类似于数组 但是内部成员的值都是唯一的，没有重复的值 
+                参数里面 可以放 有迭代接口的对象  iterator接口 -> 例如: 字符串, 数组, 获取集合/子节点等 有  {}没有 
+
+                没有length属性 只有size属性,并且size不可以被修改
+
+                可以用 for of 进行遍历
+
+            set属性/方法
+                1. add(value) -> 添加  (如果存在,不添加)
+                2. deleta(value)  ->  删除  
+                    console.log(s.delete(2))  // true
+                    console.log(s.delete(1))  // false
+                3. has(value)  ->  判断是否存在该数据
+                4. clear()  -> 清除所有成员
+
+            遍历操作
+                Set 结构的实例有四个遍历方法，可以用于遍历成员。
+                    1. Set.prototype.keys()：返回键名的遍历器
+                    2. Set.prototype.values()：返回键值的遍历器
+                    3. Set.prototype.entries()：返回键值对的遍历器
+                    4. Set.prototype.forEach()：使用回调函数遍历每个成员
+                需要特别指出的是，Set的遍历顺序就是插入顺序。
+                这个特性有时非常有用，比如使用 Set 保存一个回调函数列表，调用时就能保证按照添加顺序调用。
+        */
+
+        let arr = [1, 2, 3, 2, 2, 3]
+        let set = new Set(arr)
+        console.log([...set]);  // Set(3) {1, 2, 3}
+        console.log([...set]); // 数组快速去重 -> [1, 2, 3]
+
+        const s = new Set();
+
+        [2, 3, 5, 4, 5, 2, 2].forEach(x => s.add(x));
+
+        // 等同于
+        // [2, 3, 5, 4, 5, 2, 2].forEach((x) => {
+        //     return s.add(x)
+        // })
+
+        // for (let i of s) {
+        //     console.log(i);  // 2 3 5 4
+        // }
+        // console.log(s)   // Set(4) {2, 3, 5, 4}
+
+        // console.log(s.delete(2))  // true
+        // console.log(s)  // Set(3) {3, 5, 4}
+        // console.log(s.has(1))  // fasle
+
+        // s.clear()
+        // console.log(s);  // Set(0) {}
+
+        // for(let value of s.values()){
+        //     console.log(value);  // 2 3 5 4
+        // }
+
+        arr.forEach((val, index, obj) => {
+            console.log(val, index, obj)   // 数组里面所有元素都会遍历出来
+        }) 
+
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="keywords" content="201908191710">
+    <meta name="description" content="">
+    <title>ES6之weakmap/weakset</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="wrap"></div>
+    <script>
+        /*
+            weakSet VS weakMap
+
+            weakSet:
+                1. weakSet里面成员只能是对象  set里面可以是普通值
+                2. weakSet里面 对象 都是 弱引用
+
+            回收机制:
+                1. 常规的垃圾清除方式 标记清除 -> 进入环境 离开环境 变量清除
+                2. 引入计次  失去计次 -> 手动指向null
+
+            weakMap:    键值对的形式
+                1. 属性名 必须都是对象
+                2. 对象 都是 弱引用
+            
+        */
+
+        let arr = [[1, 2]]
+        let ws = new WeakSet(arr)
+        console.log(ws)  // WeakSet {Array(2)}
+
+        let arr2 = [1, 2]
+        let a2 = [[arr, "123"], [{title: "i"}, "木头人"]]
+        let wm = new WeakMap(a2)
+        console.log(wm)  // WeakMap {{…} => "木头人", Array(1) => "123"}
+    </script>
+</body>
+
+</html>

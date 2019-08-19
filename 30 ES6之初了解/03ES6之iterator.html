@@ -1,16 +1,18 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="keywords" content="201908112300">
     <meta name="description" content="">
     <title>ES6之iterator</title>
     <style>
-        body{
+        body {
             margin: 0;
             padding: 0;
         }
-        #wrap{
+
+        #wrap {
             position: relative;
             top: 50px;
             left: 50px;
@@ -22,17 +24,59 @@
         }
     </style>
 </head>
+
 <body>
     <div id="wrap">
-        
+
     </div>
     <script>
         /*
-            
+            iterator对象 迭代器/接口/机制
+                1. 为数据结构 提供 访问接口  // 比如通过接口去访问数组
+                2. 让数据有序排列
+                3.  ES6 创造了一种新的遍历命令for...of循环，Iterator 接口主要供for...of消费
 
+            iterator工作流程  ->  类似 闭包原理: 函数嵌套函数 内部函数使用外部函数的变量或参数
+                1. 创建一个指针对象   指向  数据结构中的  起始位置
+                2. 调用 指针对象的next()方法 可以将指针指向数据结构的第一个成员
+                3. 再次调用 指针对象的next方法 指针指向数据结构的第二个成员
+                4. 不断调用 指针对象的next方法 直到它指向数据结构的结束位置
         */
 
-        
+        var it = makeIterator(['a', 'b']);
+
+        console.log(it.next()) // { value: "a", done: false }
+        console.log(it.next()) // { value: "b", done: false }
+        console.log(it.next()) // { value: undefined, done: true }
+
+        function makeIterator(array) {
+            var nextIndex = 0;   // 模拟指针
+            return {
+                next: function () {
+                    return nextIndex < array.length ?
+                        { value: array[nextIndex++], done: false } :
+                        { value: undefined, done: true };
+                }
+            };
+        }
+
+        let arr = [1,2,3]
+        console.log(arr)  // 找数组原型下的 Symbol.iterator 属性
+
+        // 类似数组的对象调用数组的Symbol.iterator方法  
+        let iterable = {  // 注意: 在普通对象部署数组的Symbol.iterator方法，并无效果
+            0: 'a',
+            1: 'b',
+            2: 'c',
+            length: 3,
+            [Symbol.iterator]: Array.prototype[Symbol.iterator]
+        };
+        for (let item of iterable) {
+            console.log(item); // 'a', 'b', 'c'
+        }
+
+
     </script>
 </body>
+
 </html>
