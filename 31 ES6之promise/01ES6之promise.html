@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="keywords" content="201908201030">
+    <meta name="description" content="">
+    <title>ES6之promise</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="wrap"></div>
+    <script>
+        /*
+            Promise  解决 回调问题 异步编程问题  回调地狱
+                常见的异步操作:
+                    1. 回调函数
+                    2. 定时器
+                    3. ...
+
+            Promise的用法:
+                写法: 从上往下 链式操作
+                promise函数接收两个参数:
+                    resolve 成功的状态
+                    reject 失败的状态
+                可以监控函数运行的状态
+                then接收两个回调函数
+                    suc => {}
+                    err => {}  (可以省略)
+                链式操作then后面要带一个catch函数,用于捕捉上面函数是否有出错?
+                    如果有错误 但是then内部省略了 err函数 -> 那么会进入catch函数内部
+            
+            Promise函数特征:
+                1. 对象的状态不受外界影响
+                2. 一旦函数运行, 函数内部状态就不会再次改变   =>   所以一般return后面的promise实例会用一个函数包裹起来
+                 
+            
+        */
+
+        // 依次打印:  吃饭 1 打豆豆 睡觉
+        /*console.log("吃饭")
+        let cb = setTimeout(()=>{
+            console.log("睡觉")
+        }, 1000)   
+        console.log(cb)   // 返回该定时器的编号
+        console.log("打豆豆")*/
+
+        // 异步操作 ->  没办法监控其执行状态/时间
+        /*setTimeout(()=>{
+            console.log("吃饭")
+        }, Math.random()*1000)
+        setTimeout(()=>{
+            console.log("睡觉")
+        }, Math.random()*1000)
+        setTimeout(()=>{
+            console.log("打豆豆")
+        }, Math.random()*1000)*/
+
+        // 如果第二个定时器里面的内容要在第一个被触发后才能触发 第三个依旧   怎么更改写法?
+        /*setTimeout(() => {
+            console.log("吃饭")
+            setTimeout(() => {
+                console.log("睡觉")
+                setTimeout(() => {
+                    console.log("打豆豆")
+                }, Math.random() * 1000)
+            }, Math.random() * 1000)
+        }, Math.random() * 1000)*/
+
+        /*new Promise((resolve, reject) => {
+            setTimeout(() => {
+                console.log("吃饭")
+                // resolve("吃饭完成了")
+                reject("吃饭未完成")
+            }, Math.random() * 1000)
+        }).then(suc => {
+            console.log(suc)
+        },err => {
+            console.log(err)
+        })*/
+
+        /*new Promise((resolve, reject) => {
+            setTimeout(() => {
+                console.log("吃饭")
+                resolve("吃饭完成")
+            }, Math.random() * 1000)
+        }).then(suc => {
+            return new Promise((res, rej) => {
+                setTimeout(() => {
+                    console.log(suc)
+                    console.log("睡觉")
+                    res("睡觉完成")
+                }, Math.random() * 1000)
+            })
+        }).then(suc => {
+            return new Promise((res, rej) => {
+                setTimeout(() => {
+                    console.log(suc)
+                    console.log("打豆豆")
+                    rej("打豆豆失败")
+                }, Math.random() * 1000)
+            })
+        }).catch(err => {
+            console.log(err)
+        })*/
+
+        function fn1() {
+            // 如果不return 一个 promise实例出去 那么会return出去一个undefined!!!
+            return new Promise((resolve, reject) => {    
+                setTimeout(() => {
+                    console.log("吃饭")
+                    resolve("吃饭完成")
+                }, Math.random() * 1000)
+            })
+        }
+
+        function fn2(suc) {
+            return new Promise((res, rej) => {
+                setTimeout(() => {
+                    console.log(suc)
+                    console.log("睡觉")
+                    res("睡觉完成")
+                }, Math.random() * 1000)
+            })
+        }
+
+        function fn3(suc) {
+            return new Promise((res, rej) => {
+                setTimeout(() => {
+                    console.log(suc)
+                    console.log("打豆豆")
+                    rej("打豆豆失败")
+                }, Math.random() * 1000)
+            })
+        }
+
+        fn1().then(suc => {
+            fn2(suc).then(suc => {
+                fn3(suc).catch(err => {
+                    console.log(err)
+                })
+            })
+        })
+
+        /* 监控某一段代码的错误  try..catch */
+        try {
+            let a = 5;
+            a.abc();
+            a++;
+            console.log(a)
+        } catch (error) {
+            console.log(error)   // a.abc is not a function
+        }
+
+    </script>
+</body>
+
+</html>

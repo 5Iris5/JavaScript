@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="keywords" content="201908201150">
+    <meta name="description" content="">
+    <title>ES6之generator函数</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="wrap"></div>
+    <script>
+        /*
+            Generator  ES6 提供的一种 异步编程的解决方法
+            用法 类似 iterator对象
+        */
+
+        function *makeGenerator(){
+            let a = 2 + (yield 1);
+            console.log(a)   // NaN  
+            yield new Promise((res, rej) => {})
+            yield 3
+            return 4
+        }
+        let item = makeGenerator();
+        console.log(item.next())  // {value: 1, done: false}
+        console.log(item.next(5))  // {value: Promise, done: false}   yield 1 => 5  传值是传给上一次yield抛出的表达式
+        console.log(item.next())  // {value: 3, done: false}
+        console.log(item.next())  // {value: 4, done: true}
+        console.log(item.next())  // {value: undefined, done: true}
+    </script>
+</body>
+
+</html>
