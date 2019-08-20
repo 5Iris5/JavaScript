@@ -15,34 +15,36 @@ let fs = require("fs")
 async function readFile(){
     let step1 = await new Promise((res, rej) => {
         fs.readFile("./01.txt", function(err, data){
-            // console.log(data.toString())
-            let step2Data = data.toString();
-            // console.log(step2Data)
-            res(step2Data)   // 将读取的内容传递出去 被await接收后赋值给到step1!!!
+            var data = data.toString().trimEnd();  // 清除掉字符串末尾的换行符;
+            // var data = JSON.parse(data);
+            res(data)   // 将读取的内容传递出去 被await接收后赋值给到step1!!!
         })
     })
-    console.log(step1)
-    console.log(typeof step1)
 
     let step2 = await new Promise((res, rej) => {
-        console.log(step1)
-        console.log(typeof step1)
         fs.readFile(step1, function(err, data){
-            console.log(step1)
-            // let step3Data = data.toString();
-            res(data)  
-            console.log(data)  // undefined ->  why???
+            // console.log(step1, typeof step1)
+            // var data = JSON.parse(data)
+            // console.log(typeof data)
+            var data = data.toString().trimEnd();  
+            res(data)    // undefined ->  why???  01.txt等文件夹内部有一个换行符，解析的时候没法正确匹配上！
         })
     })
-    // console.log(step2)
 
-    // let step3 = await new Promise((res, rej) => {
-    //     fs.readFile(step2, function(err, data){
-    //         let step4Data = data.toString();
-    //         res(step4Data)
-    //     })
-    // })
-    // console.log(step3)
+    let step3 = await new Promise((res, rej) => {
+        fs.readFile(step2, function(err, data){
+            var data = data.toString().trimEnd();     
+            res(data)
+        })
+    })
+
+    let step4 = await new Promise((res, rej) => {
+        fs.readFile(step3, function(err, data){
+            var data = data.toString().trimEnd();
+            res(data)
+            console.log(data)
+        })
+    })
 }
 
 readFile();

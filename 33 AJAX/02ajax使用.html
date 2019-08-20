@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="keywords" content="201908210000">
+    <meta name="description" content="">
+    <title>jquery中ajax的使用</title>
+    <style>
+        body{
+            margin: 0;
+            padding: 0;
+        }
+        
+    </style>
+</head>
+<body>
+    <div id="wrap">
+        
+    </div>
+    <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+    <script>
+        $.ajax({
+            url: "http://localhost:8080/",
+            type: "POST",
+            data: {  // 发送的数据
+                name: "Iris",
+                age: 1
+            },
+            async: true,
+            success(res){
+                // 成功走进来
+                console.log(res)
+                wrap.innerHTML += res
+            },
+            error(rej){
+                // 失败走进来
+            },
+            complete(){
+                // 完成就走进来
+            }
+        })
+    </script>
+</body>
+</html>

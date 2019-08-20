@@ -15,7 +15,10 @@
 </head>
 <body>
     <div id="wrap">
-        
+        <form action="#" method="GET">
+            <input type="text">
+            <input type="submit" value="提交">
+        </form>
     </div>
     <script>
         /*
@@ -29,10 +32,61 @@
                 JSON格式
                     前端将对象序列化 JSON.stringify({name: "Iris"}) 传递给后台
                     将从后台获取的数据反序列化 JSON.parse("{"name" : "Iris"}") 渲染到页面
+            AJAX流程：
+                买东西
+                    1. 买东西的念头
+                        let xhr = XMLHttpRequest()
+                    2. 怎么买 去哪里买
+                        xhr.open(method, url, boolean)
+                            1) method => 请求方式
+                                get  拿数据   
+                                post 提交数据
+                            2) url => 请求后台地址
+                                跨域问题  -->  保护数据安全
+                            3) boolean => 同步？异步？  默认是异步true 
+                    3. 下单
+                        xhr.send()
+                    4. 检查物流
+                        物流跟踪系统 实时跟新状态改变
+                            xhr.onreadystatechange = function(){}
+                            1）自身原因  
+                                xhr.readyState
+                                    1. 服务已建立
+                                    2. 服务已接收
+                                    3. 请求处理中
+                                    4. 请求已完成
+                            2）物流原因 => 服务器 （状态码）
+                                xhr.status
+                                    1开头  消息
+                                    2开头  成功
+                                    3开头  重定向
+                                    4开头  请求错误
+                                    5开头  服务器错误
         */
 
+        // 创建ajax实例
         let xhr = new XMLHttpRequest();
-        console.log(xhr);
+        // console.log(xhr);
+
+        // 设置与后台的交互方式 !!!监控的是 -> 后台的接口
+        // xhr.open("GET", "http://localhost:8080/")   
+
+        // POST 需要设置请求头
+        xhr.open("POST", "http://localhost:8080/") 
+        xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded") 
+
+        // 发送数据
+        xhr.send("name=Iris&age=1")
+
+        // 检测请求状态
+        xhr.onreadystatechange = function(){
+            if(xhr.readyState == 4){
+                if(xhr.status >= 200 && xhr.status <= 299 || xhr.status == 304){
+                    console.log(xhr)
+                    console.log(xhr.response)
+                }
+            }
+        }
         
         
     </script>
