@@ -10,18 +10,27 @@
     <div id="wrap"></div>
     <script>
         /*
-            数组排序方法 -> sort
-            伪随机排序
-            arr.sort((a, b) => {
-                return Math.random() - 0.5
-            })
-            console.log(arr)
+            1. 数组排序方法 -> sort
+                伪随机排序 正负随机
+                arr.sort((a, b) => {
+                    return Math.random() - 0.5
+                })
+                console.log(arr)
 
-            冒泡排序 -> 从数组最后依次从后往前比较,如果后面的数值比前面的小,则互换位置;反之,停止互换
+            2. 冒泡排序 -> 从数组最后依次从后往前比较,如果后面的数值比前面的小,则互换位置;反之,停止互换
+
+            3. 快速排序
         */
 
-        // 需求: 升序 -> 由小到大
+        // 需求: 升序 -> 由小到大排序   
+        // 法一: sort()方法  ->  对数组的元素进行排序
         let arr = [56, 12, 45, 36, 27];
+        let arrChange = arr.sort((a, b) => {
+            return a - b  // 小 -> 大
+            // return b - a     // 大 -> 小
+        })
+        // console.log(arr);
+        console.log(arrChange);
         
     </script>
 </body>
