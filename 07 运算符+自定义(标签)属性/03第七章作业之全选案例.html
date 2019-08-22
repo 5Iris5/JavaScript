@@ -61,10 +61,86 @@
             <li><img src="../images/ck.png" alt=""><span>选择 崖底的花</span></li>
         </ul>
         <ul class="tabs">
-            <li><img src="../images/ck.png" alt=""><span>全选</span></li>
-            <li><img src="../images/ck.png" alt=""><span>全不选</span></li>
-            <li><img src="../images/ck.png" alt=""><span>反选</span></li>
+            <li class="all"><img src="../images/ck.png" alt=""><span>全选</span></li>
+            <li class="empty"><img src="../images/ck.png" alt=""><span>全不选</span></li>
+            <li class="reverse"><img src="../images/ck.png" alt=""><span>反选</span></li>
         </ul>
     </div>
+    <script>
+        let aLi = document.querySelectorAll(".pannel li");
+        let oAll = document.querySelector(".all");
+        let oEmpty = document.querySelector(".empty");
+        let oReverse = document.querySelector(".reverse");
+        let oImg = document.getElementsByTagName("img");
+        let num = 0; // 记录当前被点击的个数
+        let len = aLi.length;
+
+        for(let i = 0; i < len; i++){
+            aLi[i].onOff = true; // 每一个LI都要单独判断点击状态 true -> 未勾选  ！！！千万不要放到for循环外面去了
+            aLi[i].onclick = function(){
+                if(aLi[i].onOff){
+                    oImg[i].src = "../images/cked.jpg"
+                    num++
+                }else{
+                    oImg[i].src = "../images/ck.png"
+                    num--
+                }
+                aLi[i].onOff = !aLi[i].onOff
+                console.log(num, i, aLi[i].onOff)
+                judgeBtn()
+            }
+        }
+
+        oAll.onclick = function(){
+            oImg[6].src = "../images/cked.jpg"
+            oImg[7].src = "../images/ck.png"
+            oImg[8].src = "../images/ck.png"
+            num = 6;
+            for(let i = 0; i < len; i++){
+                oImg[i].src = "../images/cked.jpg"
+                aLi[i].onOff = false;
+            }
+        }
+
+        oEmpty.onclick = function(){
+            oImg[7].src = "../images/cked.jpg"
+            oImg[6].src = "../images/ck.png"
+            oImg[8].src = "../images/ck.png"
+            num = 0;
+            for(let i = 0; i < len; i++){
+                oImg[i].src = "../images/ck.png"
+                aLi[i].onOff = true;
+            }
+        }
+
+        oReverse.onclick = function(){
+            oImg[8].src = "../images/cked.jpg"
+            for(let i = 0; i < len; i++){
+                if(aLi[i].onOff){   
+                    oImg[i].src = "../images/cked.jpg"  
+                    num++
+                }else{
+                    oImg[i].src = "../images/ck.png"   
+                    num--
+                }
+                aLi[i].onOff = !aLi[i].onOff
+                console.log(num, i, aLi[i].onOff)
+            }
+            judgeBtn();
+        }
+
+        function judgeBtn(){
+            if(num == 6){
+                oImg[6].src = "../images/cked.jpg"
+                oImg[7].src = "../images/ck.png"
+            }else if(num == 0){
+                oImg[7].src = "../images/cked.jpg"
+                oImg[6].src = "../images/ck.png"
+            }else{
+                oImg[6].src = "../images/ck.png"
+                oImg[7].src = "../images/ck.png"
+            }
+        }
+    </script>
 </body>
 </html>
