@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="keywords" content="2019/08/23/23:00">
+    <meta name="description" content="不清楚的地方一定要反复练习直到清楚为止">
+    <title></title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+            list-style: none;
+        }
+        #box{
+            width: 360px;
+            margin: 100px auto;
+            font-size: 14px;
+        }
+        .pannel{
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            padding: 10px 0 15px 0;
+        }
+        .pannel li{
+            padding: 15px;
+            border-bottom: 1px solid #ccc; 
+            margin: 0 15px;
+        }
+        .pannel li span{    /* 行内元素左右margin有效 上下margin无效 */
+            /* display: block; */
+            margin-left: 15px;
+        }
+        .tabs{
+            padding: 15px;
+            border-bottom: 1px solid #ccc;
+        }
+        .tabs li{
+            float: left;
+            padding: 0 25px;
+        }
+        .tabs::after{
+            display: block;
+            content: '';
+            clear: both;
+        }
+        li{
+            background: url("../images/ck.png") no-repeat left;
+        }
+        li.on{
+            background: url("../images/cked.jpg") no-repeat left;
+        }
+    </style>
+</head>
+<body>
+    <div id="box">
+        <ul class="pannel">
+            <li><span>选择 天边的月</span></li>
+            <li><span>选择 海底的星</span></li>
+            <li><span>选择 北国的风</span></li>
+            <li><span>选择 南方的雪</span></li>
+            <li><span>选择 山顶的树</span></li>
+            <li><span>选择 崖底的花</span></li>
+        </ul>
+        <ul class="tabs">
+            <li class="all"><span>全选</span></li>
+            <li class="empty"><span>全不选</span></li>
+            <li class="reverse"><span>反选</span></li>
+        </ul>
+    </div>
+    <script>
+        let aLi = document.querySelectorAll(".pannel li");
+        let oAll = document.querySelector(".all");
+        let oEmpty =  document.querySelector(".empty");
+        let oReverse = document.querySelector(".reverse");
+        let aBtn = document.querySelectorAll(".tabs li")
+        let len = aLi.length;
+        let num = 0;
+
+        for(let i = 0; i < len; i++){
+            aLi[i].onOff = true;
+            aLi[i].onclick = function(){
+                this.classList.toggle("on")
+                if(this.onOff){
+                    num++
+                }else{
+                    num--
+                }
+                this.onOff = !this.onOff
+                console.log(num)
+                changeBtn()
+            }
+        }
+
+        oAll.onclick = function(){
+            num = 6;
+            changeBtn();
+            for(let i = 0; i < len; i++){
+                aLi[i].classList.add("on")
+                aLi[i].onOff = false;
+            }
+        }
+
+        oEmpty.onclick = function(){
+            num = 0;
+            changeBtn();
+            for(let i = 0; i < len; i++){
+                aLi[i].classList.remove("on")
+                aLi[i].onOff = true;
+            }
+        }
+
+        // 逻辑容易乱！ 反选
+        oReverse.onclick = function(){
+            aBtn[2].classList.add("on")
+            for(let i = 0; i < len; i++){
+                aLi[i].classList.toggle("on");
+                // 关键步骤：个数取反 如果true的状态在没点击反选按钮之前是2个，那么点击之后会变成4个(没反选之前false的个数是4个)
+                aLi[i].onOff = !aLi[i].onOff 
+                if(aLi[i].onOff){
+                    num--
+                }else{
+                    num++
+                }
+                console.log("反选：" + num)
+            }
+            changeBtn()
+        }
+
+        function changeBtn(){
+            if(num == 6){
+                aBtn[0].classList.add("on")
+                aBtn[1].classList.remove("on")
+            }else if(num == 0){
+                aBtn[1].classList.add("on")
+                aBtn[0].classList.remove("on")
+            }else{
+                aBtn[0].classList.remove("on")
+                aBtn[1].classList.remove("on")
+            }
+        }
+    </script>
+</body>
+</html>
