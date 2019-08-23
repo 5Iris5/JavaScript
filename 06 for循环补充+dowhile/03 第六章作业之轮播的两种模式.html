@@ -178,16 +178,15 @@
         }
 
         oNext.onclick = function(){   
+            oldLi.classList.remove("show");  // 每次取消上一次的li -> 取消num=0的类名
             num++;  // -> 1
             if(num > 4){
-                if(onOff){ 正常模式
+                if(onOff){ //正常模式
                     num = 4;
-                    alert("over");
                 }else{
                     num = 0;
                 }
             }
-            oldLi.classList.remove("show");  // 每次取消上一次的li -> 取消num=0的类名
             aLi[num].classList.add("show");  // -> 1 当前li元素加上show类名
             oldLi = aLi[num];  // -> 1 把oLi跟新为当前的li
             oTop.innerHTML = `${num+1}/5`;
@@ -209,10 +208,6 @@
             oTop.innerHTML = `${num+1}/5`;
             oBot.innerHTML = arr[num];
         }
-        // 未解决问题-> 正常情况下 点击到最后一张图片后还可以继续点击 并且图片区域留白无法展示最后一张图片
-        // 解决 -> 点击事件一开始不要清除类名，一开始就清楚会导致最后一个元素无法成功添加类名
-
-        // 未解决 -> 正常模式下点击到第一张图片或最后一张图片 -> 出现末尾图片留白，无法添加上类名
     </script>
 </body>
 </html>

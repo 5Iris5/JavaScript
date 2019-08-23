@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="keywords" content="2019/08/24/01:23完结">
+    <meta name="description" content="用时大概30分钟">
+    <title>轮播的两种方式</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+            list-style: none;
+            outline: none;
+        }
+        .ban-box{
+            position: relative;
+            width: 500px;
+            margin: 100px auto 0;
+        }
+        .banner{
+            position: relative;
+            height: 300px;
+        }
+        li{
+            display: none;
+            position: absolute; 
+            width: 100%;      
+        }
+        li.show{
+            display: block;
+        }
+        .pic{
+            display: block;
+            width: 100%;
+            height: 300px;
+            border-radius: 10px; 
+        }
+        .top,.bottom{
+            position: absolute;
+            width: 500px;
+            background-color: rgba(0,0,0,.3);
+            color: #fff;
+            text-align: center;
+            line-height: 30px;
+        }
+        .top{
+            top: 0;
+            border-radius: 10px 10px 0 0;
+        }
+        .bottom{
+            bottom: 0;
+            border-radius: 0 0 10px 10px;
+        }
+        .pre,.next{
+            position: absolute;
+            top: 50%;
+            margin-top: -20px;
+            width: 25px;
+            height: 40px;
+            text-align: center;
+            line-height: 40px;
+            color: #fff;
+            font-weight: bold;
+            font-size: 20px;
+            background-color: rgba(0,0,0,0.3);
+        }
+        .next{
+            right: 0;
+        }
+        .btn-box{
+            width: 200px;
+            margin: 50px auto 0;
+        }
+        button{
+            width: 80px;
+            height: 35px;
+            text-align: center;
+            line-height: 35px;
+            border: 1px solid #bbb;
+            border-radius: 7px;
+            background-color: #fff;
+        }
+        button.active{
+            color: pink;
+            border: 1px solid pink;
+        }
+    </style>
+</head>
+<body>
+    <div class="ban-box">
+        <ul class="banner">
+            <li class="show">   
+                <img src="../images/1.jpg" alt="" class="pic">
+            </li>
+            <li>   
+                <img src="../images/2.jpg" alt="" class="pic">
+            </li>
+            <li>   
+                <img src="../images/3.jpg" alt="" class="pic">
+            </li>
+            <li>   
+                <img src="../images/4.jpg" alt="" class="pic">
+            </li>
+            <li>   
+                <img src="../images/5.jpg" alt="" class="pic">
+            </li>
+        </ul> 
+        <p class="top">1/5</p> 
+        <p class="bottom">娜扎真好看！</p>   
+        <div class="pre"><</div>
+        <div class="next">></div>
+    </div>
+    <div class="btn-box">
+        <button class="active">正常模式</button> <!--默认是行内块元素-->
+        <button>循环模式</button> 
+    </div>
+    <script>
+        let aBtn = document.getElementsByTagName("button");
+        let oNext = document.querySelector(".next");
+        let oPre = document.querySelector(".pre");
+        let aLi = document.getElementsByTagName("li");
+        let len = aLi.length;
+        let bool = true;  // 默认情况 -> 正常模式
+        let num = 0;
+        let oldLi = aLi[num];  
+        let txtArr = ["娜扎真好看！", "娜扎真好看啊！", "娜扎太好看了！", "娜扎神仙颜值好吧！", "花式娜扎吹"]
+        let oBottom = document.querySelector(".bottom");
+        let oTop = document.querySelector(".top")
+
+        aBtn[0].onclick = function(){
+            bool = true;
+            this.classList.add("active");
+            aBtn[1].classList.remove("active")
+        }
+
+        aBtn[1].onclick = function(){
+            bool = false;
+            this.classList.add("active");
+            aBtn[0].classList.remove("active")
+        }
+
+        oNext.onclick = function(){
+            aLi[num].classList.remove("show")
+            num++
+            if(bool){
+                if(num > 4){
+                    alert("小可爱，这已经是最后一张辣哦~")
+                    num = 4
+                }
+            }else{
+                if(num > 4){
+                    num = 0
+                }
+            }
+            run()
+        }
+
+        oPre.onclick = function(){
+            aLi[num].classList.remove("show")
+            num--
+            if(bool){
+                if(num < 0){
+                    alert("小可爱，这已经是第一张辣哦~")
+                    num = 0
+                }
+            }else{
+                if(num < 0){
+                    num = 4
+                }
+            }
+            run()
+        }
+
+        function run(){
+            oTop.innerHTML = `${num+1}/${len}`
+            oBottom.innerHTML = txtArr[num]
+            aLi[num].classList.add("show");
+        }
+    </script>
+</body>
+</html>
