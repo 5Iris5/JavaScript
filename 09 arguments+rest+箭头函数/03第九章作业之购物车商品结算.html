@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>购物车之商品结算2019/08/25/23:30</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+        }
+        table{
+            width: 600px;
+            border: none;
+            border-collapse: collapse;
+            margin: 50px auto;
+            text-align: center;
+        }
+        thead tr{
+            background-color: #eee;
+            border-bottom: 1px solid #ccc;
+        }
+        tbody tr{
+            border-bottom: 1px solid #ccc;
+        }
+        tbody td{
+            height: 120px;
+        }
+        img{
+            width: 150px;
+            height: 100px;
+            vertical-align: middle;
+        }
+        button{
+            padding: 0 5px;
+        }
+        input{
+            width: 30px;
+            outline: none;
+        }
+        tfoot td{
+            height: 30px;
+            padding-right: 20px; 
+            text-align: right;
+        }
+    </style>
+</head>
+<body>
+    <table>
+        <!-- 表格头 -->
+        <thead>
+            <!-- 表格行 -->
+            <tr>
+                <!-- 表格数据 -->
+                <th>商品</th>
+                <th>单价</th>
+                <th>数量</th>
+                <th>小计</th>
+            </tr>
+        </thead>
+        <!-- 表格主体 -->
+        <tbody>
+            <tr>
+                <td style="width: 30%">
+                    <img src="../images/food1.jpg" alt="">
+                </td>
+                <td style="width: 20%" class="price">188</td>
+                <td style="width: 30%">
+                    <button class="sub">-</button>
+                    <input type="text" value="0">
+                    <button class="add">+</button>
+                </td>
+                <td style="width: 20%" class="count">0</td>
+            </tr>
+            <tr>
+                <td style="width: 30%">
+                    <img src="../images/food2.jpg" alt="">
+                </td>
+                <td style="width: 20%" class="price">15</td>
+                <td style="width: 30%">
+                    <button class="sub">-</button>
+                    <input type="text" value="0">
+                    <button class="add">+</button>
+                </td>
+                <td style="width: 20%" class="count">0</td>
+            </tr>
+            <tr>
+                <td style="width: 30%">
+                    <img src="../images/food3.jpg" alt="">
+                </td>
+                <td style="width: 20%" class="price">266</td>
+                <td style="width: 30%">
+                    <button class="sub">-</button>
+                    <input type="text" value="0">
+                    <button class="add">+</button>
+                </td>
+                <td style="width: 20%" class="count">0</td>
+            </tr>
+            <tr>
+                <td style="width: 30%">
+                    <img src="../images/food4.jpg" alt="">
+                </td>
+                <td style="width: 20%" class="price">300</td>
+                <td style="width: 30%">
+                    <button class="sub">-</button>
+                    <input type="text" value="0">
+                    <button class="add">+</button>
+                </td>
+                <td style="width: 20%" class="count">0</td>
+            </tr>
+        </tbody>
+        <!-- 表格底部 -->
+        <tfoot>
+            <tr>
+                <td colspan="4">
+                    <span>商品个数</span>
+                    <span class="prodNum">0</span>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="4">
+                    <span>总计</span>
+                    <span class="priceAll">0</span>
+                </td>
+            </tr>
+        </tfoot>
+    </table>
+    <script>
+        let oSub = document.querySelectorAll(".sub");
+        let oAdd = document.querySelectorAll(".add");
+        let oInput = document.getElementsByTagName("input");
+        let oPrice = document.querySelectorAll(".price");
+        let oCount = document.querySelectorAll(".count");
+        let aNum = document.querySelector(".prodNum");
+        let aAll = document.querySelector(".priceAll");
+        let len = oCount.length;
+
+        // 商品数量
+        for(let i = 0; i < len; i++){
+            oAdd[i].onclick = function(){
+                // ++ -- / *-> 隐式转化为数值型
+                oInput[i].value++;
+                oCount[i].innerHTML = oPrice[i].innerHTML * oInput[i].value;
+                counts();
+            }
+            oSub[i].onclick = function(){
+                if(oInput[i].value == "0"){
+                    return
+                }
+                oInput[i].value--;
+                oCount[i].innerHTML = oPrice[i].innerHTML * oInput[i].value;
+                counts();
+            }
+            oInput[i].oninput = function(){
+                // BUG 没有限制输入框输入的内容为 0 或 正整数
+                oCount[i].innerHTML = oPrice[i].innerHTML * oInput[i].value;
+                counts();
+            }
+        }
+
+        function counts(){
+            let _counts = 0;
+            let _priceAll = 0;
+            for(let i = 0; i < len; i++){
+                _counts += oInput[i].value/1;
+                _priceAll += oCount[i].innerHTML/1;
+            }
+            aNum.innerHTML = _counts;
+            aAll.innerHTML = _priceAll;
+        }
+    </script>
+</body>
+</html>
