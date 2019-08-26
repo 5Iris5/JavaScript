@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>倒计时2019/08/26/22：20</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+        }
+        #time_table{
+            width: 234px;
+            height: 300px;
+            background-color: #f1eded;
+            border-top: 1px solid #e53935;
+            margin: 50px auto;
+            padding-top: 30px;
+            text-align: center;
+            font: 14px/1.5 Helvetica Neue,Helvetica,Arial,Microsoft Yahei,Hiragino Sans GB,Heiti SC,WenQuanYi Micro Hei,sans-serif;
+        }
+        .round{
+            color: #e53935;
+            font-size: 24px;
+        }
+        img{
+            vertical-align: middle;
+            width: 80;
+            height: 80px;
+            border-radius: 50%;
+            padding: 25px 0;
+        }
+        .desc{
+            font-size: 16px;
+            padding-bottom: 20px;
+        }
+        .countdown{
+            width: 168px;
+            margin: 0 auto;
+        }
+        .countdown::after{
+            content: "";
+            display: block;
+            clear: both;
+        }
+        .countdown span{
+            float: left;
+            width: 46px;
+            height: 46px;
+            line-height: 46px;
+            background-color: #605751;
+            color: #fff;
+            font-size: 24px;
+        }
+        .countdown i{
+            float: left;
+            width: 15px;
+            height: 46px;
+            line-height: 46px;
+            font-size: 28px;
+            color: #605751;
+            font-style: normal;
+        }
+    </style>
+</head>
+<body>
+    <div id="time_table">
+        <div class="round">22:00场</div>
+        <img src="../images/icon.jpg" alt="">
+        <div class="desc">距离结束还有</div>
+        <div class="countdown">
+            <span>00</span>
+            <i>:</i>
+            <span>00</span>
+            <i>:</i>
+            <span>00</span>
+        </div>
+    </div>
+    <script>
+        let aHours = document.getElementsByTagName('span')[0];
+        let aMinutes = document.getElementsByTagName('span')[1];
+        let aSecond = document.getElementsByTagName('span')[2];
+        function count(){
+            let zeroTime = new Date(2019,8,27,22,00);  // 2019年8月27日22点
+            let curTime = new Date();
+
+            // 目标时间与当前时间相差的毫秒值
+            let sub = zeroTime - curTime;
+            // console.log(sub);
+
+            // 天(有bug) - 时 - 分 - 秒 - 毫秒
+            let _day = judge(Math.floor(sub/1000/60/60/24));
+            let _hours = judge(Math.floor(sub/1000/60/60)%24);
+            let _minute = judge(Math.floor(sub/1000/60)%60);
+            let _second = judge(Math.floor(sub/1000)%60);
+            // console.log(_day, _hours, _minute, _second)
+
+            aHours.innerHTML = `${_hours}`;
+            aMinutes.innerHTML = `${_minute}`;
+            aSecond.innerHTML = `${_second}`;  
+        }
+
+        // 各位数的时候，前面加一个0
+        function judge(val){
+            if(val < 10){
+               val = "0" + val; 
+            }
+            return val
+        }
+
+        setInterval(count, 1000)
+    </script>
+</body>
+</html>
