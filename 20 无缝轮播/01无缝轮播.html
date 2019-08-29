@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>无缝轮播2019/0830/00:17</title>
+</head>
+<body>
+    <ul>
+        <li class="No1">1</li>
+        <li class="No2">2</li>
+        <li class="No3">3</li>
+    </ul>
+    <script>
+        let oUl = document.getElementsByTagName('ul')[0];
+        let aLi = document.getElementsByTagName('li');
+
+        /*
+            在最前面/最后面插入节点  ->  原节点会被新节点替换掉
+                F.insetBefore("新节点", "原节点")   
+                F.appendChild("新节点")
+            克隆节点  ->  会返回一个新的克隆的节点
+                ele.cloneNode(true) -> 深克隆
+                ele.cloneNode(false) -> 浅克隆
+        */
+
+        oUl.insertBefore(aLi[aLi.length-1].cloneNode(true), aLi[0]);
+    </script>
+</body>
+</html>
