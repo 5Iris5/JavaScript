@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>无缝轮播2019/0831/14:00</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+            list-style: none;
+        }
+        .banner{
+            position: relative;
+            width: 500px;
+            height: 360px;
+            margin: 150px auto;
+            overflow: hidden;
+        }
+        .imgbox{
+            width: 700%;  
+            height: 300px;
+            transform: translateX(-500px);
+            transition: transform .5s;
+        }
+        .imgbox.hide{
+            transition: transform 0s;
+        }
+        .imgbox li{
+            float: left;
+            width: 500px;
+            height: 100%;
+        }
+        .imgbox li img{
+            width: 100%;
+            height: 100%;
+            vertical-align: middle;
+        }
+        .arrow .prev,.next{
+            position: absolute;
+            top: 50%;
+            transform: translateY(-100%);
+            font-size: 26px;
+            padding: 10px;
+            color: #1da6ba;
+            background-color: rgba(255, 255, 255, 0.3);
+        }
+        .arrow .prev{
+            left: 0;
+        }
+        .arrow .next{
+            right: 0;
+        }
+        .tabs{
+            width: 100%;
+            height: 60px;
+        }
+        .tabs li{
+            float: left;
+            width: 20%;
+            line-height: 60px;
+            text-align: center;
+        }
+        .tabs li.on{
+            cursor: pointer;
+            color: #1da6ba;
+            background: url(../images/line.png) no-repeat bottom;
+        }
+        
+    </style>
+</head>
+<body>
+    <div class="banner">
+        <ul class="imgbox">
+            <li><img src="../images/1.jpg" alt=""></li>
+            <li><img src="../images/2.jpg" alt=""></li>
+            <li><img src="../images/3.jpg" alt=""></li>
+            <li><img src="../images/4.jpg" alt=""></li>
+            <li><img src="../images/5.jpg" alt=""></li>
+        </ul>
+        <div class="arrow">
+            <p class="prev"><</p>
+            <p class="next">></p>
+        </div>
+        <ul class="tabs">
+            <li class="on">选项卡一</li>
+            <li>选项卡二</li>
+            <li>选项卡三</li>
+            <li>选项卡四</li>
+            <li>选项卡五</li>
+        </ul>
+    </div>
+    <script>
+        let oImgbox = document.querySelector(".imgbox");
+        let aImg = document.querySelectorAll(".imgbox li");
+        let len = aImg.length;   // 5 -> 克隆的节点不会算入
+        let aBtn = document.querySelectorAll(".arrow p");
+        let lastIndex = 0; // 记录上一次展示的图片索引值
+        let index = 0;   //  记录本次展示图片的索引值
+        let aTab = document.querySelectorAll(".tabs li");
+        /*
+            index 取值范围 0 ~ 4
+            克隆的两张索引值为：
+            -1
+            +5
+        */
+
+        // 克隆节点 
+        function cloneDomNode(eleF, eleS){
+            eleF.insertBefore(eleS[eleS.length-1].cloneNode(true), eleS[0]);
+            eleF.appendChild(eleS[0].cloneNode(true));
+        }
+        cloneDomNode(oImgbox, aImg)
+
+        // 图片运动  -> idx/index/lastIndex容易乱！
+        function changeImg(idx){
+            oImgbox.classList.remove("hide")
+            oImgbox.style.transform = `translateX(${-(idx+1)*500}px)`
+            if(idx >= 5){
+                setTimeout(()=>{
+                    oImgbox.classList.add("hide")
+                    oImgbox.style.transform = `translateX(-500px)`
+                }, 500)
+                idx = 0;
+            }else if(idx <= -1){
+                setTimeout(()=>{
+                    oImgbox.classList.add("hide")
+                    oImgbox.style.transform = `translateX(${-(len*500)}px)`
+                }, 500)
+                idx = len - 1;
+                // console.log(index)
+            }
+            aTab[lastIndex].classList.remove("on");
+            aTab[idx].classList.add("on");
+            lastIndex = idx;
+        }
+        // changeImg(index)
+
+        // 点击左右（前后）按钮
+        aBtn.forEach(function(ele, idx){
+            ele.onclick = function(){
+                // console.log(idx)  // prev0 or next1 -> false or true
+                changeImg(idx?lastIndex+1:lastIndex-1)
+                // console.log(index)
+            }
+        })
+
+        // 底部选项卡区域
+        aTab.forEach(function(ele, idx){
+            ele.onclick = function(){
+                // console.log(idx)
+                changeImg(idx)
+            }
+        })
+        
+    </script>
+</body>
+</html>
