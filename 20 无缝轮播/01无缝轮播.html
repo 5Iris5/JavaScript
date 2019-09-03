@@ -5,27 +5,178 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>无缝轮播2019/0830/00:17</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            list-style: none;
+        }
+        .Box{
+            position: relative;
+            width: 500px;
+            height: 350px;
+            margin: 150px auto;
+            overflow: hidden;
+        }
+        .banner{
+            width: 500%;
+            height: 300px;
+            transition: transform .5s;
+            transform: translateX(-500px);
+        }
+        .banner.hiden {  /* 清楚缓动时间 -> 目的: 瞬移效果 */
+            transition: transform 0s;
+        }
+        .banner li {
+            float: left;
+            width: 500px;
+            height: 100%;
+        }
+        .banner li img {
+            width: 100%;
+            height: 100%;
+            vertical-align: middle;
+        }
+        .prev,.next{
+            position: absolute;
+            top: 50%;
+            padding: 10px;
+            font-size: 28px;
+            color: #fff;
+            font-weight: bold;
+            background-color:rgba(255,255,255,.3);
+            transform: translateY(-100%);
+        }
+        .prev{
+            left: 0;
+        }
+        .next{
+            right: 0;
+        }
+        .tabs{
+            width: 500px;
+            height: 50px;
+            /* box-sizing: border-box; */
+            /* border-bottom: 1px #e0e2e2 solid; */
+        }
+        .tabs li{
+            float: left;
+            width: 100px;
+            line-height: 50px;
+            color: #676767;
+            text-align: center;
+        }
+        .tabs li.on{
+            color: #1da6ba;
+            background: url(../images/line.png) no-repeat bottom;
+        }
+    </style>
 </head>
 <body>
-    <ul>
-        <li class="No1">1</li>
-        <li class="No2">2</li>
-        <li class="No3">3</li>
-    </ul>
-    <script>
-        let oUl = document.getElementsByTagName('ul')[0];
-        let aLi = document.getElementsByTagName('li');
+    <div class="Box">
+        <ul class="banner">
+            <li><img src="../images/1.jpg" alt=""></li>
+            <li><img src="../images/2.jpg" alt=""></li>
+            <li><img src="../images/3.jpg" alt=""></li>
+            <li><img src="../images/4.jpg" alt=""></li>
+            <li><img src="../images/5.jpg" alt=""></li>
+        </ul>
+        <p class="prev"><</p> 
+        <p class="next">></p>
+        <ul class="tabs">
+            <li class="on">选项卡一</li>
+            <li>选项卡二</li>
+            <li>选项卡三</li>
+            <li>选项卡四</li>
+            <li>选项卡五</li>
+        </ul>
+    </div>
 
+    <script>
         /*
             在最前面/最后面插入节点  ->  原节点会被新节点替换掉
-                F.insetBefore("新节点", "原节点")   
+                F.insetBefore("新节点", "原节点")
                 F.appendChild("新节点")
             克隆节点  ->  会返回一个新的克隆的节点
                 ele.cloneNode(true) -> 深克隆
                 ele.cloneNode(false) -> 浅克隆
+            oUl.insertBefore(aLi[aLi.length-1].cloneNode(true), aLi[0]);
+
+            如何获取元素的宽度?
+                1. ele.style.width -> 只可以获取元素的内联样式
+                2. ele.clientWidth -> 可以获取元素的外联样式 但是会把width+padding都计算上
+                2. ele.offsetWidth -> 可以获取元素的外联样式 但是会把width+padding+border都计算上
+
+            如何在克隆节点后,重新计算标签节点总个数?
+                1. eleF.children.length -> 会动态获取节点
+                2. document.querySelectorAll(".banner li").length ->  重新获取一次元素节点
+
+            如何在克隆节点后,重新设置总容器宽度
+                重新设置一次容器宽度 eleF.style.width = aImg[0].clientWidth * newLen + "px";
         */
 
-        oUl.insertBefore(aLi[aLi.length-1].cloneNode(true), aLi[0]);
+        /*
+            功能模块: 克隆节点 点击事件
+            逻辑模块: 图片运动
+        */
+
+        let oBanner = document.querySelector(".banner");
+        let aImg = document.querySelectorAll(".banner li");
+        let oldLen = aImg.length;
+        let oNext = document.querySelector(".next");
+        let oPrev = document.querySelector(".prev");
+        let oTabs = document.querySelectorAll(".tabs li");
+        console.log(aImg)
+
+        function setDomeNode(eleF, eleS){
+            eleF.insertBefore(eleS[oldLen-1].cloneNode(true), eleS[0]);
+            eleF.appendChild(eleS[0].cloneNode(true));
+
+            let newLen = eleF.children.length;  // 7
+            console.log("newLen: " + newLen);
+            eleF.style.width = aImg[0].clientWidth * newLen + "px";
+            console.log("eleF.style.width: " + eleF.style.width);
+        }
+        setDomeNode(oBanner, aImg);
+
+        let index = 0
+        // 怎么才能有缓动效果?  要给ul盒子缓动,而并不是li啊!小可爱!
+        oNext.onclick = function(){
+            // oTabs[index].classList.remove("on"); // 0 1 2 3 4
+            index++                              // 1 2 3 4 5
+            if(index >= 6){
+                index = 1;
+                oBanner.classList.add("hiden"); 
+            }
+            oBanner.classList.remove("hiden");
+            // oTabs[index].classList.add("on");  
+            // console.log(index)
+            let moveX = -(aImg[0].clientWidth * index) + "px";
+            oBanner.style.transform = `translateX(${moveX})`;
+            
+        }
+        oPrev.onclick = function(){
+            oTabs[index].classList.remove("on");
+            if(index <= 0){
+                index = 5;
+            }
+            index--
+            oTabs[index].classList.add("on");  
+            let moveX = -(aImg[0].clientWidth * index) + "px";
+            oBanner.style.transform = `translateX(${moveX})`;
+        }
+
+
+        // 上一次点击的tabs上的类名怎么记录呢?
+        for(let i = 0; i < oldLen; i++){
+            oTabs[i].onclick = function(){
+                console.log(i)
+                oTabs[i].classList.add("on");
+                let moveX = -(aImg[0].clientWidth * i) + "px";
+                oBanner.style.transform = `translateX(${moveX})`;
+            }
+        }
     </script>
 </body>
+
 </html>

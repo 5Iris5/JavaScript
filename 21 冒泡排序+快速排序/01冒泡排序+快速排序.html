@@ -17,20 +17,43 @@
                 })
                 console.log(arr)
 
-            2. 冒泡排序 -> 从数组最后依次从后往前比较,如果后面的数值比前面的小,则互换位置;反之,停止互换
+            2. 冒泡排序
+                1) 比较相邻的元素。如果第一个比第二个大，就交换它们两个。
+                2) 对每一对相邻的元素作同样的工作，从开始第一对到结尾的最后一对。这步做完后，最后的元素会是最大数。
+                3) 针对所有的元素重复以上步骤，除了最后一个。
+                4) 持续每次对越来越少的元素重复上面的步骤，直到没有任何一对数字需要比较。
 
             3. 快速排序
         */
 
         // 需求: 升序 -> 由小到大排序   
         // 法一: sort()方法  ->  对数组的元素进行排序
-        let arr = [56, 12, 45, 36, 27];
+        /*let arr = [56, 12, 45, 36, 27];
         let arrChange = arr.sort((a, b) => {
             return a - b  // 小 -> 大
             // return b - a     // 大 -> 小
         })
-        // console.log(arr);
-        console.log(arrChange);
+        console.log(arr);
+        console.log(arrChange);*/
+
+        // 法二: 冒泡排序
+        function bublleSort(arr){
+            var len = arr.length;
+            for(var i = 0; i < len; i++){
+                for(var j = 0; j < len - i; j++){
+                    if(arr[j] < arr[j-1]){  //相邻元素两两对比
+                        // var temp = arr[j];
+                        // arr[j] = arr[j-1];
+                        // arr[j-1] = temp;
+                        [arr[j], arr[j-1]] = [arr[j-1], arr[j]]  // 元素交换
+                    }
+                }
+            }
+            return arr;
+        }
+
+        var arr = [56, 12, 45, 36, 27, 8, 15];
+        console.log(bublleSort(arr));  // [8, 12, 15, 27, 36, 45, 56]
         
     </script>
 </body>
