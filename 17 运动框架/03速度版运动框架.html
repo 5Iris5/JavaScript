@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>速度版运动框架2019/09/04/11:40</title>
+    <title>速度版运动框架2019/09/04/22:15</title>
     <style>
         body{
             margin: 0;
@@ -26,7 +26,48 @@
             .  -> 率先识别为属性
         */
         var oWrap = document.getElementById("wrap");
-        
+
+        animation(oWrap, "height", "360", "5");
+
+        /*
+            首先考虑兼任问题  
+                1. 顺序 -》 先IE后非IE -》 兼容IE || 不兼容IE  -》 顺序反了会报错！！！
+                2. 必须用函数封装起来，如果直接暴露在全局环境下，会报错！！！
+        */
+        function getStyle(ele){
+            return ele.currentStyle || getComputedStyle(ele)
+        }
+        function requestAnimationFrame(fn){
+                return setTimeout(fn, 1000/60) || window.requestAnimationFrame
+        }
+        function cancelAnimationFrame(fn){
+            return clearTimeout || window.cancelAnimationFrame
+        }
+
+        var speed = 0
+        function animation(ele, attr, target, speed){
+            target = parseFloat(target);
+            speed = parseFloat(speed);
+            var bTarget = parseFloat(getStyle(ele)[attr])
+            // 判断正负  目标值target 大于 初始值 -> 递增 speed为正  目标值target 小于 初始值 -> 递减 speed为负
+            if(target < bTarget){  // 如果目标值小于初始值 对 speed进行取反！
+                speed = -speed
+            }  
+            move() // 触发速度运动函数  -> 进行增减
+            function move(){
+                bTarget += speed
+                // 根据函数是递减还是递增来判断 bTarget 与 target 之间的大小关系 
+                // target(360) bTarget(100)
+                // 如果目标值>初始值为真(true) 那么当初始值>=目标值的时候停止  如果为假(false) 那么当初始值<=目标值的时候停止
+                if(target > bTarget ? bTarget >= target : bTarget <= target){  
+                    bTarget = target
+                }else{  // 没有到达目标值 函数本身需要继续运行，直到大于等于目标值为止
+                    requestAnimationFrame(move)
+                }
+                // 重置 ele元素的 attr属性值
+                ele.style[attr] = bTarget + "px" 
+            }
+        }
     </script>
 </body>
 </html>
