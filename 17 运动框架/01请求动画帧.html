@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>请求动画帧2019/09/04/10:00</title>
+    <style>
+        body{
+            margin: 0;
+            padding: 0;
+        }
+        .wrap{
+            width: 100px;
+            height: 100px;
+            background-color: #cfc;
+            margin: 50px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="wrap"></div>
+    <div class="wrap"></div>
+    <script>
+ 
+        /*
+            兼容IE ele.currentStyle["attr"]  不兼容IE window.getComputedStyle(ele,null)[attr]
+                   setTimeOut(fn, 1000/60)                      requestAnimationFrame()
+        */
+
+        // function browser(ele){
+        //     window.getComputedStyle(ele) = window.getComputedStyle(ele) = window.getComputedStyle(ele) || window.getComputedStyle(ele) = ele.currentStyle;
+        //     window.requestAnimationFrame = window.requestAnimationFrame() || function(fn){
+                    // return setTimeout(fn, 1000/60)
+            // }
+        // }
+
+        // animation(oWrap, height, "800px", 5)
+        // function animation(ele, attr, target, speed){
+        //     window.getComputedStyle(ele)[attr] = parseFloat(target);
+        //     requestAnimationFrame(animation);
+        // }
+
+        /*let oWrap = document.getElementsByClassName("wrap");
+        let change = 0;
+        function move(){
+            change += 10;
+            oWrap[0].style.width = change + "px"
+            if(change > 500){
+                clearInterval(timer)
+            }
+        }
+        // 定时器可以模拟运动框架的效果,但是时间上会有一定的误差
+        let timer = setInterval(move, 1000/60);  
+        // 举例说明
+        setTimeout(()=>{
+            let time1 = new Date()
+            setTimeout(()=>{
+                let time2 = new Date()
+                console.log(time2 - time1)   
+            }, 1000)
+        },0)*/
+
+
+        // JS做动画效果 -> 请求动画帧弥补了定时器时间计算不准确的缺陷 -> 确保在当前函数执行完毕之后再调用
+        // 修改上述函数 -> 同样的动画效果
+
+       
+        /*
+            兼容代码 
+                1. 放在代码第一行  // -> 因为兼容是 -> 执行阶段 而不是 编译阶段
+                2. 保证和 API 写法一样
+                3. =号 后面的window 不能去掉 -> 去掉会保错
+                4. =号 前面的window 可去可不去
+        */
+        // requestAnimationFrame(run) 不兼容IE9 及 以下 
+        window.requestAnimationFrame = window.requestAnimationFrame || function(fn){
+            return setTimeout(fn, 1000/60)
+        }
+        window.cancelAnimationFrame = window.cancelAnimationFrame || clearTimeout
+
+        // IE 不兼容 let
+        var oWrap = document.getElementsByClassName("wrap");
+        var speed = 0;
+        var ani = null;
+        function run(){
+            speed += 5;
+            oWrap[1].style.height = speed + "px";
+            // requestAnimationFrame() ->  异步操作 避免了 栈溢出的问题
+            ani = requestAnimationFrame(run);  // 等同于 run()  ->  函数里面一直同步运行函数本身会导致栈溢出 Maximum call stack size exceeded
+            // if(speed > 360){
+            //     cancelAnimationFrame(ani)   // 要写在 创建 动画帧 之前
+            // }
+        }
+        // run()
+
+        document.onmouseover = function(){
+            run()
+        }
+        document.onmouseout = function(){
+            cancelAnimationFrame(ani)
+        }
+
+        /*
+            声明变量的几种情况:
+                1. 多作用域内可使用 并且 值固定    -> 全局声明并赋值
+                2. 多作用域内可使用 但是 值不固定  -> 全局声明  函数内部动态赋值
+                3. 单作用域内可使用               -> 局部声明 并 赋值
+        */
+
+    </script>
+</body>
+</html>

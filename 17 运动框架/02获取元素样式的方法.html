@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>获取元素样式的方法2019/09/04/11:00</title>
+    <style>
+        body{
+            margin: 0;
+            padding: 0;
+        }
+        #wrap{
+            width: 100px;
+            height: 100px;
+            background-color: #cfc;
+            margin: 50px;
+        }
+    </style>
+</head>
+<body>
+    <!-- 行内样式的CSS -> 叫做属性
+    style内部的CSS -> 叫做样式 -->
+    <div id="wrap"></div>
+    <script>
+        var oWrap = document.getElementById("wrap");
+        // console.log(getComputedStyle(oWrap))   // -> 获取oWrap元素身上所有样式(包括没设置的)
+        // console.log(getComputedStyle(oWrap).width)   // -> 100px
+        // console.log(getComputedStyle(oWrap).backgroundColor)   // -> rgb(204, 255, 204)
+
+        /*
+            IE8及以下 不兼容 ->  getComputedStyle(ele)   兼容 -> ele.currentStyle
+            IE 不兼容 let
+        */
+        // console.log(oWrap.currentStyle)
+        // console.log(oWrap.currentStyle.width)  // -> 100px
+
+        function getStyle(ele){
+            return getComputedStyle(ele) || ele.currentStyle
+            // return ele.currentStyle || getComputedStyle(ele) 
+        }
+        console.log(getStyle(oWrap).width)  // 100px
+    </script>
+</body>
+</html>
