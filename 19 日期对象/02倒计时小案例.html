@@ -81,19 +81,31 @@
         let aHours = document.getElementsByTagName('span')[0];
         let aMinutes = document.getElementsByTagName('span')[1];
         let aSecond = document.getElementsByTagName('span')[2];
+
+        // 日期恒定为当日
+        var date = new Date();
+        let targetDay = date.getDate();
+        console.log('targetDay:' + targetDay)
+
         function count(){
-            let zeroTime = new Date(2019,8,27,22,00);  // 2019年8月27日22点
+            let zeroTime = new Date(2019,11,targetDay,18,00);  // 2019年10月25日18点
             let curTime = new Date();
 
             // 目标时间与当前时间相差的毫秒值
             let sub = zeroTime - curTime;
             // console.log(sub);
 
-            // 天(有bug) - 时 - 分 - 秒 - 毫秒
+            /*
+                天(有bug) - 时 - 分 - 秒 - 毫秒
+                天出错了 why? 
+                    打印一下zeroTime -> 月份变成了12! 
+                    目标时间如果是10月 那么要输入9月而不是11月 
+                    因为月份是从0开始计算的!
+            */
             let _day = judge(Math.floor(sub/1000/60/60/24));
-            let _hours = judge(Math.floor(sub/1000/60/60)%24);
-            let _minute = judge(Math.floor(sub/1000/60)%60);
-            let _second = judge(Math.floor(sub/1000)%60);
+            let _hours = judge(Math.floor((sub/1000/60/60)%24));
+            let _minute = judge(Math.floor((sub/1000/60)%60));
+            let _second = judge(Math.floor((sub/1000))%60);
             // console.log(_day, _hours, _minute, _second)
 
             aHours.innerHTML = `${_hours}`;

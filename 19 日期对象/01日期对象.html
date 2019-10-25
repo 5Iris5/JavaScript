@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>日期对象2019/10/25</title>
+</head>
+<body>
+    <script>
+        /*
+            内置时间对象
+        */ 
+        var date = new Date()
+        // console.log(typeof date, date)  //  object  Fri Oct 25 2019 09:58:41 GMT+0800 (中国标准时间)
+        // console.log(typeof date.toLocaleString(), date.toLocaleString())  // -> string 2019/10/25 上午10:38:45
+        // console.log(typeof date.toDateString, date.toDateString()) // -> function Fri Oct 25 2019
+        // console.log(typeof date.toLocaleDateString(), date.toLocaleDateString())  // -> string 2019/10/25
+        // console.log(typeof date.toTimeString(), date.toTimeString())  // -> string 10:44:30 GMT+0800 (中国标准时间)
+        
+        
+        var year = date.getFullYear();     // 返回当前的年份
+        var month = date.getMonth();       // 返回当前的月份 -> 月份是从0开始计算的!
+        var weekend = date.getDay();       // 返回当前的星期(星期几)
+        var day = date.getDate();          // 返回当前的日期
+        var hour = date.getHours();        // 返回当前的小时
+        var minute = date.getMinutes();    // 返回当前的分钟
+        var second = date.getSeconds();    // 返回当前的秒数
+        var ms = date.getMilliseconds();   // 返回当前的毫秒数
+        // console.log(typeof month, month)   // -> number 9
+
+
+        // 当前时间 距离 1970年1月1日 00:00:00:00(计算机诞生日) 过去了多少毫秒
+        var time = date.getTime();
+        // console.log(time)   // -> 1571970547754
+
+        // 计算时间差
+        document.onclick = function(){
+            var date2 = new Date()
+            // console.log(date2 - date)   // 返回毫秒数
+        }
+
+        // 传参 获取特定时间
+        document.onclick = function(){
+            var date3 = new Date(2019, 11, 25, 18, 00, 00)  
+            console.log(date3)   // -> Wed Dec 25 2019 18:00:00 GMT+0800 (中国标准时间)
+        }
+    </script>
+</body>
+</html>
