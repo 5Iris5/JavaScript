@@ -17,7 +17,7 @@
   },
   "homepage": "https://github.com/5Iris5/JavaScript#readme",
   "dependencies": {
-    "@koa/cors": "^2.2.3",
+    "@koa/cors": "^5.0.0",
     "koa": "^2.8.1"
   }
 }
